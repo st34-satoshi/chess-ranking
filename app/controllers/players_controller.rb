@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
     def index
-        @players = Player.page(params[:page]).per(3)
+        @players = Player.all.order(rating_standard: "DESC").page(params[:page]).per(25)
     end
 end

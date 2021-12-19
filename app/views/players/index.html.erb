@@ -7,10 +7,10 @@
     <hr>
     </div>
 
-    <div>
+    <%# <div>
     <i class="fas fa-search"></i>
     TODO: search box
-    </div>
+    </div> %>
 
     <div class="table-responsive mt-5">
     <%= paginate(@players) %>
@@ -23,7 +23,9 @@
           </tr>
         </thead>
         <tbody>
-          <% nb = 1 %>
+         <% page = params[:page].to_i %>
+         <% page = 1 if page == 0 %>
+         <% nb = 1 + (page-1) * 25 %>
           <% @players.each do |player| %>
           <tr>
             <th scope="row"><%= nb %></th>
