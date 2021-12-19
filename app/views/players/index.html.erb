@@ -7,8 +7,6 @@
     <hr>
     </div>
 
-    <%= @player.name_en %>
-
     <div>
     <i class="fas fa-search"></i>
     TODO: search box
@@ -18,20 +16,19 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
+            <th>Rating</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
+            <td>
+              <%= @player.name_en %>
+            </td>
+            <td>
+              <%= @player.rating_standard %>
+            </td>
           </tr>
         </tbody>
     </table>
