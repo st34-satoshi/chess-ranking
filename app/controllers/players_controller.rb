@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
     def index
-        @player = Player.first
+        @players = Player.all
     end
 end

@@ -21,15 +21,19 @@
           </tr>
         </thead>
         <tbody>
+          <% nb = 1 %>
+          <% @players.each do |player| %>
           <tr>
-            <th scope="row">1</th>
+            <th scope="row"><%= nb %></th>
+            <% nb += 1 %>
             <td>
-              <%= @player.name_en %>
+              <%= player.name_en %>
             </td>
             <td>
-              <%= @player.rating_standard %>
+              <%= player.rating_standard %>
             </td>
           </tr>
+          <% end %>
         </tbody>
     </table>
     </div>
