@@ -1,4 +1,7 @@
-# Hello Rails on Docker
+# Chess Ranking Web Site
+
+## Demo
+[Chess Ranking](https://chess-ranking.stu345.com/players)
 
 ## Run
 - `docker-compose build`
@@ -17,7 +20,7 @@
 - `docker-compose -f docker-compose.production.yml up -d`
 
 ## Development
-- generate Home controller `docker-compose run web rails g controller Home`
+- generate Home controller `docker-compose run web rails g controller Users`
 
 
 
