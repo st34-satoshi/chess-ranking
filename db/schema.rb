@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_120328) do
   create_table "players", force: :cascade do |t|
     t.string "name_en"
     t.string "name_jp"
-    t.string "rating_standard"
+    t.integer "rating_standard"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
