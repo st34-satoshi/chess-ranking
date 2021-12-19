@@ -1,7 +1,7 @@
 
 <div　class="container" style="min-height: 100%; height: 100%;">
-    <div class='row mx-auto h-100  pl-5 pr-5'>
-    <div class="d-flex flex-column">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
     <div>
     <h1>Chess Ranking</h1>
     <hr>
@@ -12,7 +12,9 @@
     TODO: search box
     </div>
 
-    <table class="table table-striped mt-5">
+    <div class="table-responsive mt-5">
+    <%= paginate(@players) %>
+    <table class="table table-striped">
         <thead>
           <tr>
             <th>#</th>
@@ -37,6 +39,7 @@
         </tbody>
     </table>
     <%= paginate(@players) %>
+    </div>
     </div>
     </div>
 </div>
