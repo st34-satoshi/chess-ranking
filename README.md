@@ -1,15 +1,14 @@
 # Chess Ranking Web Site
 
-## Demo
+## See
 [Chess Ranking](https://chess-ranking.stu345.com/players)
+
+## Prepare
+- csv file for ranking. get from ncs web page
 
 ## Run
 - `docker-compose build`
 - `docker-compose up`
-
-### after you change something
--  `docker-compose run web bundle install`
-- `docker-compose up --build`
 
 ### production
 - copy config/master.key (this file is ignored from git)
@@ -22,7 +21,6 @@
 ## Development
 - generate Home controller `docker-compose run web rails g controller Users`
 
-
-
-## Reference
-- [Quickstart: Compose and Rails | Docker Documentation](https://docs.docker.com/samples/rails/)
+### after you change something
+- `docker-compose run web bundle install`
+- `docker-compose up --build`
