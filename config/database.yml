@@ -8,14 +8,14 @@ default: &default
 
 development:
   <<: *default
-  database: myapp_development
+  database: chess_ranking_development
 
 
 test:
   <<: *default
-  database: myapp_test
+  database: chess_ranking_test
 
 
 production:
   <<: *default
-  database: myapp_production
+  database: chess_ranking_production
