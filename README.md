@@ -9,6 +9,7 @@
 ## Run
 - `docker-compose build`
 - `docker-compose up`
+- `open http://localhost:3064/players`
 
 ### production
 - copy config/master.key (this file is ignored from git)
