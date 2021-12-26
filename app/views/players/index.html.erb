@@ -7,13 +7,15 @@
     <hr>
     </div>
 
-    <%# <div>
-    <i class="fas fa-search"></i>
-    TODO: search box
-    </div> %>
-
     <div class="table-responsive mt-5">
     <%= paginate(@players) %>
+    <div class="fs-5 align-items-center d-flex page-link">
+      <div><i class="fas fa-filter"></i></div>
+      <div class="ms-3">filter</div>
+      <div class="ms-auto">
+      <i class="fas fa-angle-down fa-lg"></i>
+      </div>
+    </div>
     <table class="table table-striped">
         <thead>
           <tr>
