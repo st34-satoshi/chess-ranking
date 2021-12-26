@@ -7,6 +7,12 @@
     <hr>
     </div>
 
+    <%= form_with url: "/players", method: :get, local: true do |form| %>
+      <%= form.label :name, "name:" %>
+      <%= form.text_field :name %>
+      <%= form.submit "Search" %>
+    <% end %>
+
     <div class="table-responsive mt-5">
     <%= paginate(@players) %>
     <div class="fs-5 align-items-center d-flex page-link">
