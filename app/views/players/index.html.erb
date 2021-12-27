@@ -7,48 +7,62 @@
     <hr>
     </div>
 
-    <%= form_with url: "/players", method: :get, local: true do |form| %>
-      <%= form.label :name, "name:" %>
-      <%= form.text_field :name %>
-      <%= form.submit "Search" %>
-    <% end %>
-
     <div class="table-responsive mt-5">
-    <%= paginate(@players) %>
-    <div class="fs-5 align-items-center d-flex page-link">
-      <div><i class="fas fa-filter"></i></div>
-      <div class="ms-3">filter</div>
-      <div class="ms-auto">
-      <i class="fas fa-angle-down fa-lg"></i>
+      <%= paginate(@players) %>
+
+      <%# filter %>
+      <div class="fs-5 align-items-center d-flex page-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <div><i class="fas fa-filter"></i></div>
+        <div class="ms-3">filter</div>
+        <div class="ms-auto">
+        <i class="fas fa-angle-down fa-lg"></i>
+        </div>
       </div>
-    </div>
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-         <% page = params[:page].to_i %>
-         <% page = 1 if page == 0 %>
-         <% nb = 1 + (page-1) * 25 %>
-          <% @players.each do |player| %>
-          <tr>
-            <th scope="row"><%= nb %></th>
-            <% nb += 1 %>
-            <td>
-              <%= player.name_en %>
-            </td>
-            <td>
-              <%= player.rating_standard %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-    </table>
-    <%= paginate(@players) %>
+
+      <%# collapse component %>
+      <%= form_with url: "/players", method: :get, local: true, html: {class: "collapse", id: "collapseExample"} do |form| %>
+        <div class="card card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <%= form.label :name, "name:" %>
+            <%= form.text_field :name %>
+          </li>
+          <li class="list-group-item">
+            <%= form.submit "Search" %>
+          </li>
+        </ul>
+        </div>
+      <% end %>
+      <%# collapse component %>
+      <%# filter %>
+
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+           <% page = params[:page].to_i %>
+           <% page = 1 if page == 0 %>
+           <% nb = 1 + (page-1) * 25 %>
+            <% @players.each do |player| %>
+            <tr>
+              <th scope="row"><%= nb %></th>
+              <% nb += 1 %>
+              <td>
+                <%= player.name_en %>
+              </td>
+              <td>
+                <%= player.rating_standard %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+      </table>
+      <%= paginate(@players) %>
     </div>
     </div>
     </div>
