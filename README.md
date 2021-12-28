@@ -8,6 +8,7 @@
 
 ## Run
 - `docker-compose build`
+- `docker-compose run web rails db:seed`
 - `docker-compose up`
 - `open http://localhost:3064/players`
 

@@ -4,5 +4,5 @@
 CSV.foreach('lib/assets/ranking-2021-12.csv') do |row|
     next if row[0].length < 8
     next if row[0][0] != 'N'
-    Player.create(name_en: row[1], name_jp: row[2], rating_standard: row[4].to_i)
+    Player.create(name_en: row[1], name_jp: row[2], rating_standard: row[4].to_i, active: row[10])
 end

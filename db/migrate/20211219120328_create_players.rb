@@ -4,6 +4,7 @@ class CreatePlayers < ActiveRecord::Migration[5.2]
       t.string :name_en
       t.string :name_jp
       t.integer :rating_standard
+      t.string :active
 
       t.timestamps
     end
