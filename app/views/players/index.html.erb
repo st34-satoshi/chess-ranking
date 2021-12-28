@@ -33,6 +33,10 @@
             <%= form.number_field :rating_upper, step: 1, min: 0, value: @rating_upper, class: "number_field_width" %>
           </li>
           <li class="list-group-item">
+            <%= form.label :name, "active:" %>
+            <%= form.select :active, ["all", "active", "inactive"], selected: @active %>
+          </li>
+          <li class="list-group-item">
             <%= form.submit "Search", name: nil, class: "btn btn-outline-primary" %>
           </li>
         </ul>

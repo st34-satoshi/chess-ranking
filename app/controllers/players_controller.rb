@@ -10,6 +10,11 @@ class PlayersController < ApplicationController
     else
       @rating_upper = 3000
     end
+    if params[:active]
+      @active = params[:active]
+    else
+      active = "all"
+    end
   end
 
 end
