@@ -18,6 +18,7 @@
         - `rm credentials.yml.enc`
         - `docker-compose run -e EDITOR=vim web rails credentials:edit`
 - `docker-compose -f docker-compose.production.yml build`
+- `docker-compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production`
 - `docker-compose -f docker-compose.production.yml up -d`
 
 ## Development
