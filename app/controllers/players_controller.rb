@@ -1,5 +1,9 @@
 class PlayersController < ApplicationController
 
+  def root
+    redirect_to players_path
+  end
+
   def index
     @players = Player.filtered_players(params).ordered.page(params[:page]).per(25)
     # TODO: create a Filter model
