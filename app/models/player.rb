@@ -18,7 +18,7 @@ class Player < ApplicationRecord
       if params[:active] == "active"
         players = players.active("Act")
       elsif params[:active] != "all"
-        players = players.active("")
+        players = players.active(nil)
       end
     end
     players
