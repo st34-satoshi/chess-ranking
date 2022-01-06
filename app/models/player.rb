@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Player < ApplicationRecord
-  scope :name_en_has, ->(name) { where('name_en like ?', "%#{name}%") }
-  scope :name_jp_has, ->(name) { where('name_jp like ?', "%#{name}%") }
+  scope :name_en_has, ->(name) { where('lower(name_en) like ?', "%#{name&.downcase}%") }
+  scope :name_jp_has, ->(name) { where('lower(name_jp) like ?', "%#{name&.downcase}%") }
   scope :active, ->(act) { where(active: act) }
   scope :standard_rating_between, ->(from, to) { where(rating_standard: from..to) }
   scope :ordered, -> { order(rating_standard: 'DESC') }
