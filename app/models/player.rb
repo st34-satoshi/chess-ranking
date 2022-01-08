@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Player < ApplicationRecord
+  has_many :records, dependent: :destroy
+
   scope :name_en_has, ->(name) { where('lower(name_en) like ?', "%#{name&.downcase}%") }
   scope :name_jp_has, ->(name) { where('lower(name_jp) like ?', "%#{name&.downcase}%") }
   scope :active, ->(act) { where(active: act) }

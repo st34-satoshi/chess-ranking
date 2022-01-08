@@ -1,15 +1,16 @@
 class CreateRecords < ActiveRecord::Migration[5.2]
   def change
     create_table :records do |t|
-      t.integer :ncs_id
-      t.integer :coefficient_k
-      t.integer :standard_rating
-      t.integer :standard_games
+      t.references :player, foreign_key: true
+      t.integer :coefficient_k, null: false
+      t.integer :standard_rating, null: false
+      t.integer :standard_games, null: false
       t.integer :standard_ranking
-      t.integer :rapid_rating
-      t.integer :rapid_games
-      t.boolean :member
-      t.boolean :active
+      t.integer :rapid_rating, null: false
+      t.integer :rapid_games, null: false
+      t.boolean :member, null: false
+      t.boolean :active, null: false
+      t.date :month, null: false
 
       t.timestamps
     end

@@ -16,26 +16,28 @@ ActiveRecord::Schema.define(version: 2022_01_08_090134) do
   enable_extension "plpgsql"
 
   create_table "players", force: :cascade do |t|
+    t.string "ncs_id"
     t.string "name_en"
     t.string "name_jp"
-    t.integer "rating_standard"
-    t.string "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "records", force: :cascade do |t|
-    t.integer "ncs_id"
-    t.integer "coefficient_k"
-    t.integer "standard_rating"
-    t.integer "standard_games"
+    t.bigint "player_id"
+    t.integer "coefficient_k", null: false
+    t.integer "standard_rating", null: false
+    t.integer "standard_games", null: false
     t.integer "standard_ranking"
-    t.integer "rapid_rating"
-    t.integer "rapid_games"
-    t.boolean "member"
-    t.boolean "active"
+    t.integer "rapid_rating", null: false
+    t.integer "rapid_games", null: false
+    t.boolean "member", null: false
+    t.boolean "active", null: false
+    t.date "month", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_records_on_player_id"
   end
 
+  add_foreign_key "records", "players"
 end
