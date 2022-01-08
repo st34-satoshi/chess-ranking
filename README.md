@@ -33,3 +33,4 @@
 - `docker-compose run web rubocop -A`
 - `docker-compose run web yarn run lint:js`
 - `docker-compose run web yarn run lint:stylesheet`
+- `docker-compose run web rails test`
