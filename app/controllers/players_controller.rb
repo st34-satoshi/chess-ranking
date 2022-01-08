@@ -15,6 +15,6 @@ class PlayersController < ApplicationController
   private
 
   def search_params
-    PlayerSearchParameter.new(params[:player_search_parameter])
+    PlayerSearchParameter.new(params.fetch(:player_search_parameter, {}))
   end
 end
