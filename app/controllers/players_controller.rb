@@ -7,7 +7,8 @@ class PlayersController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize Metrics/MethodLength
   def index
-    @players = Player.filtered_players(params).ordered.page(params[:page]).per(25)
+    @search_parameter = search_params
+    @players = Player.filtered_players(@search_parameter).ordered.page(params[:page]).per(25)
     # TODO: create a Filter model
     @name = params[:name]
     @rating_lower = params[:rating_lower].to_i
@@ -19,4 +20,10 @@ class PlayersController < ApplicationController
     @active = params[:active] || 'all'
   end
   # rubocop:enable Metrics/AbcSize
+
+  private
+
+  def search_params
+    PlayerSearchParameter.new(params) # TODO: params[search]
+  end
 end

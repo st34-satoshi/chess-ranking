@@ -10,4 +10,12 @@ class PlayerSearchParameter
     def initialize(params)
         super(params.permit(:name, :rating_upper, :rating_lower, :active))  # TODO: {} ==> params
     end
+
+    def is_active
+        active == "active"
+    end
+
+    def is_inactive
+        active == "inactive"
+    end
 end
