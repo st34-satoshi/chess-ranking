@@ -8,7 +8,7 @@
     </div>
 
     <div class="table-responsive mt-3">
-      <%= paginate(@players) %>
+      <%= paginate(@records) %>
 
       <%# filter %>
       <div class="fs-5 align-items-center d-flex page-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -58,21 +58,21 @@
            <% page = params[:page].to_i %>
            <% page = 1 if page == 0 %>
            <% nb = 1 + (page-1) * 25 %>
-            <% @players.each do |player| %>
+            <% @records.each do |record| %>
             <tr>
               <th scope="row"><%= nb %></th>
               <% nb += 1 %>
               <td>
-                <%= player.name_en %>
+                <%= record.player.name_en %>
               </td>
               <td>
-                <%= player.rating_standard %>
+                <%= record.standard_rating %>
               </td>
             </tr>
             <% end %>
           </tbody>
       </table>
-      <%= paginate(@players) %>
+      <%= paginate(@records) %>
     </div>
     </div>
     </div>

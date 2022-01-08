@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
   def index
     @search_parameter = search_params
-    @players = Player.filtered_players(@search_parameter).ordered.page(params[:page]).per(25)
+    @records = Record.filtered_records(@search_parameter).ordered.page(params[:page]).per(25)
   end
 
   private
