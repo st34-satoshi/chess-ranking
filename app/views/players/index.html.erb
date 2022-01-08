@@ -20,21 +20,21 @@
       </div>
 
       <%# collapse component %>
-      <%= form_with url: "/players", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse", id: "collapseExample"} do |form| %>
+      <%= form_with model: @search_parameter, url: "/players", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse", id: "collapseExample"} do |form| %>
         <div class="card card-body">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <%= form.label :name, "name:" %>
-            <%= form.text_field :name, value: @search_parameter.name %>
+            <%= form.label :name %>
+            <%= form.text_field :name %>
           </li>
           <li class="list-group-item">
             <%= form.label :rating, "rating:" %>
-            <%= form.number_field :rating_lower, step: 1, min: 0, value: @search_parameter.rating_lower, class: "number-field-width" %> ~
-            <%= form.number_field :rating_upper, step: 1, min: 0, value: @search_parameter.rating_upper, class: "number-field-width" %>
+            <%= form.number_field :rating_lower, step: 1, min: 0, class: "number-field-width" %> ~
+            <%= form.number_field :rating_upper, step: 1, min: 0, class: "number-field-width" %>
           </li>
           <li class="list-group-item">
             <%= form.label :name, "active:" %>
-            <%= form.select :active, ["all", "active", "inactive"], selected: @search_parameter.active %>
+            <%= form.select :active, ["all", "active", "inactive"] %>
           </li>
           <li class="list-group-item">
             <%= form.submit "Search", name: nil, class: "btn btn-outline-primary" %>

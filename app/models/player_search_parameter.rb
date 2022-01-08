@@ -8,7 +8,7 @@ class PlayerSearchParameter
     attribute :active, :string, default: "all"
 
     def initialize(params)
-        super(params.permit(:name, :rating_upper, :rating_lower, :active))  # TODO: {} ==> params
+        super(params.permit(:name, :rating_upper, :rating_lower, :active))
     end
 
     def is_active
