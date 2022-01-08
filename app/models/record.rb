@@ -2,6 +2,8 @@ class Record < ApplicationRecord
   belongs_to :player
 
   scope :active, ->(act) { where(active: act) }
+  scope :year_is, ->(year) { where('extract(year from month) = ?', year) }
+  scope :month_is, ->(month) { where('extract(month from month) = ?', month) }
   scope :standard_rating_between, ->(from, to) { where(standard_rating: from..to) }
   scope :ordered, -> { order(standard_rating: 'DESC') }
 
@@ -10,7 +12,7 @@ class Record < ApplicationRecord
   end
 
   def self.filtered_records(search_param)
-    records = Record.joins(:player).merge(Player.players_name_has(search_param.name)).standard_rating_between(search_param.rating_lower, search_param.rating_upper)
+    records = Record.joins(:player).merge(Player.players_name_has(search_param.name)).standard_rating_between(search_param.rating_lower, search_param.rating_upper).year_is(search_param.month.year).month_is(search_param.month.month)
 
     if search_param.active?
       records = records.active(true)
