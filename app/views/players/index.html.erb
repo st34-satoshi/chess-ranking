@@ -37,6 +37,7 @@
             <%= form.select :active, ["all", "active", "inactive"] %>
           </li>
           <li class="list-group-item">
+            <%= link_to "Reset", players_path, class: "btn btn-outline-warning" %>
             <%= form.submit "Search", name: nil, class: "btn btn-outline-primary" %>
           </li>
         </ul>
