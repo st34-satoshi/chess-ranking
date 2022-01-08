@@ -11,15 +11,14 @@ class Player < ApplicationRecord
     Player.all.name_en_has(name).or(Player.all.name_jp_has(name))
   end
 
-  # rubocop:disable Metrics/MethodLength
   def self.filtered_players(search_param)
-    players = players_name_has(search_param.name).standard_rating_between(search_param.rating_lower, search_param.rating_upper)
-    if search_param.is_active
+    players = players_name_has(search_param.name).standard_rating_between(search_param.rating_lower,
+                                                                          search_param.rating_upper)
+    if search_param.active?
       players = players.active('Act')
-    elsif search_param.is_inactive
+    elsif search_param.inactive?
       players = players.active(nil)
     end
     players
   end
-  # rubocop:enable Metrics/MethodLength
 end

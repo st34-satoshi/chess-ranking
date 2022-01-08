@@ -5,12 +5,10 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
-  # rubocop:disable Metrics/AbcSize Metrics/MethodLength
   def index
     @search_parameter = search_params
     @players = Player.filtered_players(@search_parameter).ordered.page(params[:page]).per(25)
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 
