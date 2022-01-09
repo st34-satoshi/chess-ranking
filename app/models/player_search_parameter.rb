@@ -15,6 +15,17 @@ class PlayerSearchParameter
     super(params.permit(:name, :rating_upper, :rating_lower, :active, :month))
   end
 
+  def month=(value)
+    # value example: 2021-12
+    y = value.split('-')[0].to_i
+    m = value.split('-')[1].to_i
+    write_attribute(:month, Date.new(y, m, 5))  # any day is ok
+  end
+
+  def selected_month
+    "#{month.year}-#{month.month}"
+  end
+
   def active?
     active == 'active'
   end

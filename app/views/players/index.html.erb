@@ -12,10 +12,10 @@
       <%# form is too long. I want to make the form shorter, but month should be in the form %>
       <%= form_with model: @search_parameter, url: "/players", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse2", id: "collapseExample2"} do |form| %>
 
-      <div class="mb-3">
-        <%= form.label :month %>
-        <%= form.date_select :month, {discard_day: true, use_month_numbers: true, start_year:2020, end_year: Time.current.year }, class: "form-control date-select-field-width btn btn-outline-dark" %>
-        <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1" %>
+      <div class="mb-3 align-middle">
+        <%= form.label :month, class: "align-middle" %>
+        <%= form.select :month, ["2021-12", "2022-1"], {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
+        <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
       </div>
 
       <%= paginate(@records) %>
