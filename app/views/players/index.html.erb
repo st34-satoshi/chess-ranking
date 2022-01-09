@@ -14,7 +14,7 @@
 
       <div class="mb-3 align-middle">
         <%= form.label :month, class: "align-middle" %>
-        <%= form.select :month, ["2021-12", "2022-1"], {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
+        <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
         <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
       </div>
 

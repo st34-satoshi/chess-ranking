@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 2022_01_08_090134) do
 
   create_table "records", force: :cascade do |t|
     t.bigint "player_id"
-    t.integer "coefficient_k", null: false
-    t.integer "standard_rating", null: false
-    t.integer "standard_games", null: false
+    t.integer "coefficient_k", default: 40, null: false
+    t.integer "standard_rating", default: 0, null: false
+    t.integer "standard_games", default: 0, null: false
     t.integer "standard_ranking"
-    t.integer "rapid_rating", null: false
-    t.integer "rapid_games", null: false
-    t.boolean "member", null: false
-    t.boolean "active", null: false
+    t.integer "rapid_rating", default: 0, null: false
+    t.integer "rapid_games", default: 0, null: false
+    t.boolean "member", default: true, null: false
+    t.boolean "active", default: false, null: false
     t.date "month", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

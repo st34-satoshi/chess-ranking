@@ -22,11 +22,21 @@ class Record < ApplicationRecord
     records
   end
 
+  def self.month_array
+    # this sort may not be good. It does not work: [2021-10, 2021-9]
+    Record.group(:month).count.keys.sort.map {|d| "#{d.year}-#{d.month}"}  # ["2021-12", "2022-1"]
+  end
+
   def member=(value)
-    write_attribute(:member, false)
+    write_attribute(:member, value == "Mem")
   end
 
   def active=(value)
-    write_attribute(:active, false)
+    write_attribute(:active, value == "Act")
+  end
+
+  def rapid_rating=(value)
+    value = 0 unless value
+    write_attribute(:rapid_rating, value)
   end
 end
