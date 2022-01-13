@@ -60,6 +60,7 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>Rank</th>
               <th>Name</th>
               <th>Rating</th>
             </tr>
@@ -72,6 +73,9 @@
             <tr>
               <th scope="row"><%= nb %></th>
               <% nb += 1 %>
+              <td>
+                <%= record.standard_rank %>
+              </td>
               <td>
                 <%= record.player.name_en %>
               </td>

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_090134) do
     t.integer "standard_rating", default: 0, null: false
     t.integer "standard_games", default: 0, null: false
     t.integer "standard_ranking"
+    t.integer "standard_rank"
     t.integer "rapid_rating", default: 0, null: false
     t.integer "rapid_games", default: 0, null: false
     t.boolean "member", default: true, null: false
