@@ -3,3 +3,9 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/MethodLength:
+ Max: 30

@@ -9,5 +9,4 @@ class Player < ApplicationRecord
   def self.players_name_has(name)
     Player.all.name_en_has(name).or(Player.all.name_jp_has(name))
   end
-
 end
