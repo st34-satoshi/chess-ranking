@@ -3,7 +3,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-def add_rank(_record)
+def add_rank(records)
   rank = 1
   higher_rank = 99_999
   records.each_with_index do |record, i|
