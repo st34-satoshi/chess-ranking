@@ -48,8 +48,10 @@ def create_record_2020(file_name)
     k = row[2]
     rating = row[3]
     games = row[4]
+    games = 0 unless games
     id = row[5]
     next unless id
+    next unless rating
     next if id.length < 8
     next if id[0] != 'N'
 
@@ -124,8 +126,12 @@ def create_record_2021(file_name)
 end
 
 def create_record(file_name)
-  if file_name.include? "2019"
+  if file_name.include?("2019-03") || file_name.include?("2019-04")
     create_record_2019(file_name)
+  elsif file_name.include?("2019-05")
+    create_record_2020_b(file_name)
+  elsif file_name.include?("2019")
+    create_record_2020(file_name)
   elsif file_name.include?("2020-01") || file_name.include?("2020-02") || file_name.include?("2020-03")
     create_record_2020(file_name)
   elsif file_name.include? "2020"
