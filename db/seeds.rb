@@ -26,8 +26,6 @@ def create_record_2019(file_name, date)
 
     Record.create(player_id: player.id, standard_rating: row['Rating'], standard_games: row['Games'], month: date)
   end
-  records = Record.all.year_is(year).month_is(month).ordered
-  add_rank(records)
 end
 
 def create_record_2020(file_name, date)
@@ -50,8 +48,6 @@ def create_record_2020(file_name, date)
 
     Record.create(player_id: player.id, coefficient_k: k, standard_rating: rating, standard_games: games, month: date)
   end
-  records = Record.all.year_is(year).month_is(month).ordered
-  add_rank(records)
 end
 
 def create_record_2020_b(file_name, date)
@@ -72,8 +68,6 @@ def create_record_2020_b(file_name, date)
 
     Record.create(player_id: player.id, coefficient_k: k, standard_rating: rating, standard_games: games, month: date)
   end
-  records = Record.all.year_is(year).month_is(month).ordered
-  add_rank(records)
 end
 
 def create_record_2021(file_name, date)
@@ -100,8 +94,6 @@ def create_record_2021(file_name, date)
                   standard_ranking: row[6], rapid_rating: rapid_rating, rapid_games: rapid_games, member: row[9],
                   active: row[10], month: date)
   end
-  records = Record.all.year_is(year).month_is(month).ordered
-  add_rank(records)
 end
 
 def create_date(file_name)
@@ -121,17 +113,20 @@ def string_include?(words, str)
 end
 
 def create_record(file_name)
+  puts file_name
   date = create_date(file_name)
   if file_name.include?('2019-03') || file_name.include?('2019-04')
     create_record_2019(file_name, date)
-  elsif string_include?(file_name,
-                        %w[2020-01 2020-02 2020-03]) || (file_name.include?('2019') && !file_name.include?('2019-05'))
+  elsif string_include?(%w[2020-01 2020-02 2020-03],
+                        file_name) || (file_name.include?('2019') && !file_name.include?('2019-05'))
     create_record_2020(file_name, date)
   elsif file_name.include?('2019-05') || file_name.include?('2020')
     create_record_2020_b(file_name, date)
   else
     create_record_2021(file_name, date)
   end
+  records = Record.all.year_is(date.year).month_is(date.month).ordered
+  add_rank(records)
 end
 
 Dir.open('./lib/assets/') do |dir|
