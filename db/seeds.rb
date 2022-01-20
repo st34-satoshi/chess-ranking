@@ -15,15 +15,10 @@ def add_rank(records)
   end
 end
 
-def create_record_2019(file_name)
+def create_record_2019(file_name, date)
   # file_name: rating-YYYY-MM-DD
-  d = file_name.split('-')
-  year = d[1].to_i
-  month = d[2].to_i
-  day = 1
-  date = Date.new(year, month, day)
   CSV.foreach("lib/assets/#{file_name}", headers: true) do |row|
-    next unless row['ID']  # add this data later
+    next unless row['ID'] # add this data later
     next if row['ID'][0] != 'N'
 
     player = Player.find_by(ncs_id: row['ID'])
@@ -35,20 +30,15 @@ def create_record_2019(file_name)
   add_rank(records)
 end
 
-def create_record_2020(file_name)
+def create_record_2020(file_name, date)
   # file_name: rating-YYYY-MM-DD
-  d = file_name.split('-')
-  year = d[1].to_i
-  month = d[2].to_i
-  day = d[3].to_i
-  date = Date.new(year, month, day)
   CSV.foreach("lib/assets/#{file_name}") do |row|
     name = row[0]
     kanji = row[1]
     k = row[2]
     rating = row[3]
     games = row[4]
-    games = 0 unless games
+    games ||= 0
     id = row[5]
     next unless id
     next unless rating
@@ -64,14 +54,8 @@ def create_record_2020(file_name)
   add_rank(records)
 end
 
-def create_record_2020_b(file_name)
+def create_record_2020_b(file_name, date)
   # file_name: rating-YYYY-MM-DD
-  d = file_name.split('-')
-  year = d[1].to_i
-  month = d[2].to_i
-  day = d[3].to_i
-  day = 1 if day == 0
-  date = Date.new(year, month, day)
   CSV.foreach("lib/assets/#{file_name}") do |row|
     id = row[0]
     name = row[1]
@@ -92,13 +76,8 @@ def create_record_2020_b(file_name)
   add_rank(records)
 end
 
-def create_record_2021(file_name)
+def create_record_2021(file_name, date)
   # file_name: rating-YYYY-MM-DD
-  d = file_name.split('-')
-  year = d[1].to_i
-  month = d[2].to_i
-  day = d[3].to_i
-  date = Date.new(year, month, day)
   CSV.foreach("lib/assets/#{file_name}") do |row|
     next unless row
     next unless row[0]
@@ -111,11 +90,11 @@ def create_record_2021(file_name)
     player ||= Player.create(ncs_id: row[0], name_en: row[1], name_jp: row[2])
 
     rapid_rating = row[7]
-    rapid_rating = 0 unless rapid_rating
+    rapid_rating ||= 0
     rapid_games = row[8]
-    rapid_games = 0 unless rapid_games
+    rapid_games ||= 0
     standard_games = row[5]
-    standard_games = 0 unless standard_games
+    standard_games ||= 0
 
     Record.create(player_id: player.id, coefficient_k: row[3], standard_rating: row[4], standard_games: standard_games,
                   standard_ranking: row[6], rapid_rating: rapid_rating, rapid_games: rapid_games, member: row[9],
@@ -125,19 +104,33 @@ def create_record_2021(file_name)
   add_rank(records)
 end
 
+def create_date(file_name)
+  d = file_name.split('-')
+  year = d[1].to_i
+  month = d[2].to_i
+  day = d[3].to_i
+  day = 1 if day.zero?
+  Date.new(year, month, day)
+end
+
+def string_include?(words, str)
+  words.each do |word|
+    return true if str.include?(word)
+  end
+  false
+end
+
 def create_record(file_name)
-  if file_name.include?("2019-03") || file_name.include?("2019-04")
-    create_record_2019(file_name)
-  elsif file_name.include?("2019-05")
-    create_record_2020_b(file_name)
-  elsif file_name.include?("2019")
-    create_record_2020(file_name)
-  elsif file_name.include?("2020-01") || file_name.include?("2020-02") || file_name.include?("2020-03")
-    create_record_2020(file_name)
-  elsif file_name.include? "2020"
-    create_record_2020_b(file_name)
+  date = create_date(file_name)
+  if file_name.include?('2019-03') || file_name.include?('2019-04')
+    create_record_2019(file_name, date)
+  elsif string_include?(file_name,
+                        %w[2020-01 2020-02 2020-03]) || (file_name.include?('2019') && !file_name.include?('2019-05'))
+    create_record_2020(file_name, date)
+  elsif file_name.include?('2019-05') || file_name.include?('2020')
+    create_record_2020_b(file_name, date)
   else
-    create_record_2021(file_name)
+    create_record_2021(file_name, date)
   end
 end
 
