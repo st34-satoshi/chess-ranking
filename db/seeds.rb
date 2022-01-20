@@ -15,7 +15,27 @@ def add_rank(records)
   end
 end
 
-def create_record(file_name)
+def create_record_2019(file_name)
+  # file_name: rating-YYYY-MM-DD
+  d = file_name.split('-')
+  year = d[1].to_i
+  month = d[2].to_i
+  day = 1
+  date = Date.new(year, month, day)
+  CSV.foreach("lib/assets/#{file_name}", headers: true) do |row|
+    next unless row['ID']  # add this data later
+    next if row['ID'][0] != 'N'
+
+    player = Player.find_by(ncs_id: row['ID'])
+    player ||= Player.create(ncs_id: row['ID'], name_en: row['Name'], name_jp: row['Kanji'])
+
+    Record.create(player_id: player.id, standard_rating: row['Rating'], standard_games: row['Games'], month: date)
+  end
+  records = Record.all.year_is(year).month_is(month).ordered
+  add_rank(records)
+end
+
+def create_record_2020(file_name)
   # file_name: rating-YYYY-MM-DD
   d = file_name.split('-')
   year = d[1].to_i
@@ -23,18 +43,96 @@ def create_record(file_name)
   day = d[3].to_i
   date = Date.new(year, month, day)
   CSV.foreach("lib/assets/#{file_name}") do |row|
+    name = row[0]
+    kanji = row[1]
+    k = row[2]
+    rating = row[3]
+    games = row[4]
+    id = row[5]
+    next unless id
+    next if id.length < 8
+    next if id[0] != 'N'
+
+    player = Player.find_by(ncs_id: id)
+    player ||= Player.create(ncs_id: id, name_en: name, name_jp: kanji)
+
+    Record.create(player_id: player.id, coefficient_k: k, standard_rating: rating, standard_games: games, month: date)
+  end
+  records = Record.all.year_is(year).month_is(month).ordered
+  add_rank(records)
+end
+
+def create_record_2020_b(file_name)
+  # file_name: rating-YYYY-MM-DD
+  d = file_name.split('-')
+  year = d[1].to_i
+  month = d[2].to_i
+  day = d[3].to_i
+  day = 1 if day == 0
+  date = Date.new(year, month, day)
+  CSV.foreach("lib/assets/#{file_name}") do |row|
+    id = row[0]
+    name = row[1]
+    kanji = row[2]
+    k = row[3]
+    rating = row[4]
+    games = row[5]
+    next unless id
+    next if id.length < 8
+    next if id[0] != 'N'
+
+    player = Player.find_by(ncs_id: id)
+    player ||= Player.create(ncs_id: id, name_en: name, name_jp: kanji)
+
+    Record.create(player_id: player.id, coefficient_k: k, standard_rating: rating, standard_games: games, month: date)
+  end
+  records = Record.all.year_is(year).month_is(month).ordered
+  add_rank(records)
+end
+
+def create_record_2021(file_name)
+  # file_name: rating-YYYY-MM-DD
+  d = file_name.split('-')
+  year = d[1].to_i
+  month = d[2].to_i
+  day = d[3].to_i
+  date = Date.new(year, month, day)
+  CSV.foreach("lib/assets/#{file_name}") do |row|
+    next unless row
+    next unless row[0]
+    next unless row[4]  # standard rating is nil
+    next if row.length < 8
     next if row[0].length < 8
     next if row[0][0] != 'N'
 
     player = Player.find_by(ncs_id: row[0])
     player ||= Player.create(ncs_id: row[0], name_en: row[1], name_jp: row[2])
 
-    Record.create(player_id: player.id, coefficient_k: row[3], standard_rating: row[4], standard_games: row[5],
-                  standard_ranking: row[6], rapid_rating: row[7], rapid_games: row[8], member: row[9],
+    rapid_rating = row[7]
+    rapid_rating = 0 unless rapid_rating
+    rapid_games = row[8]
+    rapid_games = 0 unless rapid_games
+    standard_games = row[5]
+    standard_games = 0 unless standard_games
+
+    Record.create(player_id: player.id, coefficient_k: row[3], standard_rating: row[4], standard_games: standard_games,
+                  standard_ranking: row[6], rapid_rating: rapid_rating, rapid_games: rapid_games, member: row[9],
                   active: row[10], month: date)
   end
   records = Record.all.year_is(year).month_is(month).ordered
   add_rank(records)
+end
+
+def create_record(file_name)
+  if file_name.include? "2019"
+    create_record_2019(file_name)
+  elsif file_name.include?("2020-01") || file_name.include?("2020-02") || file_name.include?("2020-03")
+    create_record_2020(file_name)
+  elsif file_name.include? "2020"
+    create_record_2020_b(file_name)
+  else
+    create_record_2021(file_name)
+  end
 end
 
 Dir.open('./lib/assets/') do |dir|
