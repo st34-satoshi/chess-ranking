@@ -11,11 +11,16 @@ class PlayersController < ApplicationController
   end
 
   def show
+    set_player
   end
 
   private
 
   def search_params
     PlayerSearchParameter.new(params.fetch(:player_search_parameter, {}))
+  end
+
+  def set_player
+    @player = Player.find_by(public_uid: params[:id])
   end
 end
