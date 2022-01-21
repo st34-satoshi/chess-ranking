@@ -10,6 +10,9 @@ class PlayersController < ApplicationController
     @records = Record.filtered_records(@search_parameter).ordered.page(params[:page]).per(25)
   end
 
+  def show
+  end
+
   private
 
   def search_params
