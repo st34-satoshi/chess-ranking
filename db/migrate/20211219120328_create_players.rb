@@ -6,7 +6,7 @@ class CreatePlayers < ActiveRecord::Migration[5.2]
       t.string :ncs_id
       t.string :name_en
       t.string :name_jp
-      t.string :public_uid
+      t.string :public_uid, null: false
 
       t.timestamps
     end

@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_090134) do
     t.string "ncs_id"
     t.string "name_en"
     t.string "name_jp"
-    t.string "public_uid"
+    t.string "public_uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["public_uid"], name: "index_players_on_public_uid", unique: true
