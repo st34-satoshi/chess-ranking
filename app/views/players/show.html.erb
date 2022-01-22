@@ -1,4 +1,5 @@
 
+<%= javascript_include_tag 'players/show' %>
 <div class="container" style="min-height: 100%; height: 100%;">
     <div class='row mx-auto pl-1 pr-1 min-vh-100'>
     <div class="d-flex flex-column mx-auto mw-100">
@@ -7,6 +8,13 @@
         <%= link_to "Chess Ranking in Japan", players_path, {class: "nav-link text-body ps-0"} %>
     </h1>
     <hr>
+
+    <h2 class="pb-3"><%= @player.name_en + ' ( ' + @player.name_jp + ' )' %></h2>
+
+    <div>
+      <canvas id="ratingChart" data-record='{"2020-01":{"rating":1000, "rank": 2}}' data-date='["2020-01"]'></canvas>
+    </div>
+
     </div>
     </div>
     </div>
