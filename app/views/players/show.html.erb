@@ -11,10 +11,14 @@
 
     <h2 class="pb-3"><%= @player.name_en + ' ( ' + @player.name_jp + ' )' %></h2>
     <h4 class="">Rating: <%= @player.current_rating %>, Best: <%= @player.best_rating %></h4>
-    <%# <h4 class="">Rank: 1700, Best: 1705</h4> %>
+    <h4 class="">Rank: <%= @player.current_rank %>, Best: <%= @player.best_rank %></h4>
 
     <div class="pt-3">
       <canvas id="ratingChart" data-record='<%= @player.record_objects %>' data-date='<%= @player.dates %>'></canvas>
+    </div>
+
+    <div class="pt-3">
+      <canvas id="rankChart" data-record='<%= @player.record_objects %>' data-date='<%= @player.dates %>'></canvas>
     </div>
 
     </div>

@@ -59,6 +59,22 @@ class Player < ApplicationRecord
     r.last.standard_rating
   end
 
+  def best_rank
+    best_rank = 9999999
+    records.each do |record|
+      best_rank = [best_rank, record.standard_rank].min
+    end
+    best_rank
+  end
+
+  def current_rank
+    r = records
+    r.sort do |a, b|
+      a.month <=> b.month
+    end
+    r.last.standard_rank
+  end
+
   private
 
   def month_to_int(month)

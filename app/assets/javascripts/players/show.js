@@ -1,4 +1,4 @@
-function createGraph(){
+function createRatingGraph(){
     let records = $('#ratingChart').data('record');
     let dates = $('#ratingChart').data('date');
     let ratings = [];
@@ -38,6 +38,54 @@ function createGraph(){
     );
 }
 
+function createRankGraph(){
+    let records = $('#rankChart').data('record');
+    let dates = $('#rankChart').data('date');
+    let rankings = [];
+    dates.forEach(function(date){
+      let rank = NaN;
+      if (date in records){
+        rank = records[date]['rank'];
+      }
+      rankings.push(rank);
+    });
+
+    const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+    const data = {
+      labels: dates,
+      datasets: [{
+        label: 'Ranking',
+        backgroundColor: 'rgb(192,75,75)',
+        borderColor: 'rgb(192,75,75)',
+        data: rankings,
+        segment: {
+          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
+          borderDash: ctx => skipped(ctx, [6, 6]),
+        },
+        spanGaps: true
+      }]
+    };
+
+    const config = {
+      type: 'line',
+      data,
+      options: {
+        scales: {
+          y: {
+            reverse: true,
+            axis: 'r'
+          }
+        }
+      }
+    };
+
+    var rankingChart = new Chart(
+      document.getElementById('rankChart'),
+      config
+    );
+}
+
 $(function() {
-    createGraph();
+    createRatingGraph();
+    createRankGraph();
 });
