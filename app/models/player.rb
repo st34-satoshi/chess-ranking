@@ -38,7 +38,7 @@ class Player < ApplicationRecord
     # return {date: {rating: x, rank: y}}
     r = {}
     records.each do |record|
-      r[month_to_int(record.month)] = {"rating": record.standard_rating, "rank": record.standard_rank}
+      r[month_to_int(record.month)] = { rating: record.standard_rating, rank: record.standard_rank }
     end
     r.to_json
   end
@@ -60,7 +60,7 @@ class Player < ApplicationRecord
   end
 
   def best_rank
-    best_rank = 9999999
+    best_rank = 9_999_999
     records.each do |record|
       best_rank = [best_rank, record.standard_rank].min
     end
@@ -78,7 +78,7 @@ class Player < ApplicationRecord
   private
 
   def month_to_int(month)
-    month.year * 100 + month.month
+    (month.year * 100) + month.month
   end
 
   def int_to_month(date)
