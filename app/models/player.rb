@@ -43,6 +43,22 @@ class Player < ApplicationRecord
     r.to_json
   end
 
+  def best_rating
+    best_rating = 0
+    records.each do |record|
+      best_rating = [best_rating, record.standard_rating].max
+    end
+    best_rating
+  end
+
+  def current_rating
+    r = records
+    r.sort do |a, b|
+      a.month <=> b.month
+    end
+    r.last.standard_rating
+  end
+
   private
 
   def month_to_int(month)
