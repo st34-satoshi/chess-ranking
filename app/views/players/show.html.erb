@@ -10,11 +10,9 @@
     <hr>
 
     <h2 class="pb-3"><%= @player.name_en + ' ( ' + @player.name_jp + ' )' %></h2>
-    <%= @player.dates %>
-    <%= @player.record_objects %>
 
     <div>
-      <canvas id="ratingChart" data-record='{"2020-01":{"rating":1000, "rank": 2}}' data-date='["2020-01"]'></canvas>
+      <canvas id="ratingChart" data-record='<%= @player.record_objects %>' data-date='<%= @player.dates %>'></canvas>
     </div>
 
     </div>

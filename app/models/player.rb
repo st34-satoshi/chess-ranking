@@ -30,7 +30,7 @@ class Player < ApplicationRecord
     records.each do |record|
       r[month_to_int(record.month)] = {"rating": record.standard_rating, "rank": record.standard_rank}
     end
-    r
+    r.to_json
   end
 
   private

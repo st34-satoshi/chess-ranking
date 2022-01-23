@@ -1,6 +1,11 @@
 function createGraph(){
     let records = $('#ratingChart').data('record');
     let dates = $('#ratingChart').data('date');
+    let ratings = [];
+    dates.forEach(function(date){
+      let rating = records[date]['rating']
+      ratings.push(rating)
+    });
 
     const data = {
       labels: dates,
@@ -8,7 +13,7 @@ function createGraph(){
         label: 'Rating',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [records[dates[0]]['rating']],
+        data: ratings,
       }]
     };
 
