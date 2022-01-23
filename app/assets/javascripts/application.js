@@ -21,4 +21,4 @@
 //= require activestorage
 //= require turbolinks
 
-//= require chart.js/dist/chart.js
+//= require Chart.min
