@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20_220_108_090_134) do
     t.string 'ncs_id'
     t.string 'name_en'
     t.string 'name_jp'
+    t.string 'public_uid', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['public_uid'], name: 'index_players_on_public_uid', unique: true
   end
 
   create_table 'records', force: :cascade do |t|

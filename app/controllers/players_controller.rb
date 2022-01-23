@@ -10,9 +10,17 @@ class PlayersController < ApplicationController
     @records = Record.filtered_records(@search_parameter).ordered.page(params[:page]).per(25)
   end
 
+  def show
+    set_player
+  end
+
   private
 
   def search_params
     PlayerSearchParameter.new(params.fetch(:player_search_parameter, {}))
+  end
+
+  def set_player
+    @player = Player.find_by(public_uid: params[:id])
   end
 end
