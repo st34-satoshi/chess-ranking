@@ -3,8 +3,11 @@ function createGraph(){
     let dates = $('#ratingChart').data('date');
     let ratings = [];
     dates.forEach(function(date){
-      let rating = records[date]['rating']
-      ratings.push(rating)
+      let rating = 0;
+      if (date in records){
+        rating = records[date]['rating'];
+      }
+      ratings.push(rating);
     });
 
     const data = {

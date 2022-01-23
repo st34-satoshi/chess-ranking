@@ -17,11 +17,21 @@ class Player < ApplicationRecord
 
   def dates
     # return the list of date (YYYYMM) when this player has.
-    date_array = []
+    date_array_existing = []
     records.each do |record|
-      date_array.push(month_to_int(record.month))
+      date_array_existing.push(month_to_int(record.month))
     end
-    date_array.sort
+    date_array_existing.sort
+    last_month = int_to_month(date_array_existing.last)
+    current_month = int_to_month(date_array_existing.first)
+
+    date_array = []
+    while current_month.year != last_month.year || current_month.month != last_month.month
+      date_array.push(month_to_int(current_month))
+      current_month = current_month.next_month
+    end
+    date_array.push(month_to_int(current_month))
+    date_array
   end
 
   def record_objects
@@ -37,5 +47,12 @@ class Player < ApplicationRecord
 
   def month_to_int(month)
     month.year * 100 + month.month
+  end
+
+  def int_to_month(date)
+    # date = YYYYMM
+    year = date / 100
+    month = date % 100
+    Date.new(year, month, 1)
   end
 end
