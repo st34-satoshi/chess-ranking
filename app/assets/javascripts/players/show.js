@@ -22,7 +22,8 @@ function createRatingGraph(){
           borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
           borderDash: ctx => skipped(ctx, [6, 6]),
         },
-        spanGaps: true
+        spanGaps: true,
+        fill: false
       }]
     };
 
@@ -62,21 +63,15 @@ function createRankGraph(){
           borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
           borderDash: ctx => skipped(ctx, [6, 6]),
         },
-        spanGaps: true
+        spanGaps: true,
+        fill: false
       }]
     };
 
     const config = {
       type: 'line',
       data,
-      options: {
-        scales: {
-          y: {
-            reverse: true,
-            axis: 'r'
-          }
-        }
-      }
+      options: {}
     };
 
     var rankingChart = new Chart(
