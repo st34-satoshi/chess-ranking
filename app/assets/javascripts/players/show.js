@@ -71,7 +71,14 @@ function createRankGraph(){
     const config = {
       type: 'line',
       data,
-      options: {}
+      options: {
+          scales: {
+            y: {
+              reverse: true,
+              axis: 'r'
+            }
+          }
+        }
     };
 
     var rankingChart = new Chart(
