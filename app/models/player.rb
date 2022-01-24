@@ -39,6 +39,7 @@ class Player < ApplicationRecord
     set_records
     r = {}
     @records.each do |record|
+      next if record.standard_rating == 0
       r[month_to_int(record.month)] = { rating: record.standard_rating, rank: record.standard_rank }
     end
     r.to_json
