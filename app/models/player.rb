@@ -36,27 +36,25 @@ class Player < ApplicationRecord
 
   def record_objects
     # return {date: {rating: x, rank: y}}
-    set_records
     r = {}
-    @records.each do |record|
-      next if record.standard_rating == 0
+    this_records.each do |record|
+      next if record.standard_rating.zero?
+
       r[month_to_int(record.month)] = { rating: record.standard_rating, rank: record.standard_rank }
     end
     r.to_json
   end
 
   def best_rating
-    set_records
     best_rating = 0
-    @records.each do |record|
+    this_records.each do |record|
       best_rating = [best_rating, record.standard_rating].max
     end
     best_rating
   end
 
   def current_rating
-    set_records
-    r = @records
+    r = this_records
     r.sort do |a, b|
       a.month <=> b.month
     end
@@ -64,17 +62,15 @@ class Player < ApplicationRecord
   end
 
   def best_rank
-    set_records
     best_rank = 9_999_999
-    @records.each do |record|
+    this_records.each do |record|
       best_rank = [best_rank, record.standard_rank].min
     end
     best_rank
   end
 
   def current_rank
-    set_records
-    r = @records
+    r = this_records
     r.sort do |a, b|
       a.month <=> b.month
     end
@@ -94,7 +90,7 @@ class Player < ApplicationRecord
     Date.new(year, month, 1)
   end
 
-  def set_records
-    @records ||= records
+  def this_records
+    @this_records ||= records
   end
 end
