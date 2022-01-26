@@ -21,7 +21,7 @@ class Player < ApplicationRecord
     records.each do |record|
       date_array_existing.push(month_to_int(record.month))
     end
-    date_array_existing.sort
+    date_array_existing = date_array_existing.sort
     last_month = int_to_month(date_array_existing.last)
     current_month = int_to_month(date_array_existing.first)
 
