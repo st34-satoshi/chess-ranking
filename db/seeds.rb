@@ -17,6 +17,7 @@ end
 
 def create_record_2019(file_name, date)
   # file_name: rating-YYYY-MM-DD
+  # for 2019-03 and 2019-04 data
   CSV.foreach("lib/assets/#{file_name}", headers: true) do |row|
     next unless row['ID'] # add this data later
     next if row['ID'][0] != 'N'
@@ -30,6 +31,7 @@ end
 
 def create_record_2020(file_name, date)
   # file_name: rating-YYYY-MM-DD
+  # for 2019-06, 2019-07, ... 2019-12, 2020-01, 2020-02, 2020-03
   CSV.foreach("lib/assets/#{file_name}") do |row|
     name = row[0]
     kanji = row[1]
@@ -52,6 +54,7 @@ end
 
 def create_record_2020_b(file_name, date)
   # file_name: rating-YYYY-MM-DD
+  # for 2019-05, 2020-04, 2020-05, ..., 2020-12
   CSV.foreach("lib/assets/#{file_name}") do |row|
     id = row[0]
     name = row[1]
@@ -115,6 +118,7 @@ end
 def create_record(file_name)
   puts file_name
   date = create_date(file_name)
+  return if Record.month_array.include?("#{date.year}-#{date.month}") # skip exist data
   if file_name.include?('2019-03') || file_name.include?('2019-04')
     create_record_2019(file_name, date)
   elsif string_include?(%w[2020-01 2020-02 2020-03],
