@@ -13,6 +13,7 @@
       <%# filter %>
       <%# form is too long. I want to make the form shorter, but month should be in the form %>
       <%= form_with model: @search_parameter, url: "/players", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse2", id: "collapseExample2"} do |form| %>
+      <%= hidden_field_tag "locale", I18n.locale %>
 
       <div class="mb-3 align-middle">
         <%= form.label :month, class: "align-middle" %>
