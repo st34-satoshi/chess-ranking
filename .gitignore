@@ -29,3 +29,6 @@
 *.DS_Store
 
 lib/assets/*csv
+
+# Ignore sitemap file
+public/sitemap.xml.gz
