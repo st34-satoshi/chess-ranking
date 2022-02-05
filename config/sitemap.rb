@@ -16,7 +16,7 @@ SitemapGenerator::Sitemap.create do
   #           :lastmod => Time.now, :host => default_host
 
   add players_path, priority: 0.8, changefreq: 'daily'
-  add '/players?locale=jp', priority: 0.7, changefreq: 'daily'
+  add '/players?locale=ja', priority: 0.7, changefreq: 'daily'
 
   Player.find_each do |player|
     add player_path(player), lastmod: player.updated_at
