@@ -78,7 +78,7 @@ def create_record_2021(file_name, date)
   CSV.foreach("lib/assets/#{file_name}") do |row|
     next unless row
     next unless row[0]
-    next unless row[4]  # standard rating is nil
+    next unless row[4] # standard rating is nil
     next if row.length < 8
     next if row[0].length < 8
     next if row[0][0] != 'N'
@@ -119,6 +119,7 @@ def create_record(file_name)
   puts file_name
   date = create_date(file_name)
   return if Record.month_array.include?("#{date.year}-#{date.month}") # skip exist data
+
   if file_name.include?('2019-03') || file_name.include?('2019-04')
     create_record_2019(file_name, date)
   elsif string_include?(%w[2020-01 2020-02 2020-03],
