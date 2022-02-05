@@ -36,3 +36,10 @@
 - `docker-compose run web yarn run lint:js`
 - `docker-compose run web yarn run lint:stylesheet`
 - `docker-compose run web rails test`
+
+### sitemap
+We use [sitemap_generator](https://github.com/kjvarga/sitemap_generator#rails).
+
+Generate public/sitemap.xml.gz file by `rake sitemap:refresh`.
+
+This file is ignored by git.

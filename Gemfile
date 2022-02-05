@@ -68,3 +68,5 @@ gem 'kaminari'
 gem 'pry-rails'
 gem 'public_uid'
 gem 'roo'
+gem 'sitemap_generator'
+gem 'whenever', require: false
