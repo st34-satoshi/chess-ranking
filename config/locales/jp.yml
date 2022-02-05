@@ -1,5 +1,4 @@
-en:
-  hello: "Hello world"
+jp:
   views:
     pagination:
       first: "&laquo"
@@ -7,4 +6,4 @@ en:
       truncate: "..."
     players:
       index:
-        title: "Chess Ranking in Japan"
+        title: "チェスランキング"
