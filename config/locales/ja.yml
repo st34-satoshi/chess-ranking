@@ -5,5 +5,5 @@ ja:
       last: "&raquo"
       truncate: "..."
     players:
-      index:
-        title: "チェスランキング"
+      title: "チェスランキング"
+      share: "シェア"
