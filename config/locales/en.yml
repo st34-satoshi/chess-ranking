@@ -6,5 +6,5 @@ en:
       last: "&raquo"
       truncate: "..."
     players:
-      index:
-        title: "Chess Ranking in Japan"
+      title: "Chess Ranking in Japan"
+      share: "share"
