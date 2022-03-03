@@ -8,3 +8,5 @@ en:
     players:
       title: "Chess Ranking in Japan"
       share: "share"
+      index:
+        filter: "filter"
