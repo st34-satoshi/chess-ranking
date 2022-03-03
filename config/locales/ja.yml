@@ -7,3 +7,5 @@ ja:
     players:
       title: "チェスランキング"
       share: "シェア"
+      index:
+        filter: "検索"
