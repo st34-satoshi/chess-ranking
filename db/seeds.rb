@@ -7,7 +7,7 @@ def add_rank(records)
   rank = 1
   higher_rank = 99_999
   records.each_with_index do |record, i|
-    if record.standard_rating < higher_rank # same rating same rank
+    if record.standard_rating < higher_rank # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
       higher_rank = record.standard_rating
       rank = i + 1
     end
@@ -75,29 +75,96 @@ end
 
 def create_record_2021(file_name, date)
   # file_name: rating-YYYY-MM-DD
+  key_index = read_header(file_name)
   CSV.foreach("lib/assets/#{file_name}") do |row|
     next unless row
-    next unless row[0]
-    next unless row[4] # standard rating is nil
-    next if row.length < 8
-    next if row[0].length < 8
-    next if row[0][0] != 'N'
+    next unless get_row_value(row, key_index, :ncs_id)
+    next unless get_row_value(row, key_index, :standard_rating)
+    next if row.length < 4
+    next if get_row_value(row, key_index, :ncs_id).length < 8
+    next if get_row_value(row, key_index, :ncs_id)[0] != 'N'
 
-    player = Player.find_by(ncs_id: row[0])
-    player ||= Player.create(ncs_id: row[0], name_en: row[1], name_jp: row[2])
+    player = Player.find_by(ncs_id: get_row_value(row, key_index, :ncs_id))
+    player ||= Player.create(ncs_id: get_row_value(row, key_index, :ncs_id), name_en: get_row_value(row, key_index, :name_en), name_jp: get_row_value(row, key_index, :name_jp))
 
-    rapid_rating = row[7]
+    rapid_rating = get_row_value(row, key_index, :rapid_rating)
     rapid_rating ||= 0
-    rapid_games = row[8]
+    rapid_games = get_row_value(row, key_index, :rapid_games)
     rapid_games ||= 0
-    standard_games = row[5]
+    standard_games = get_row_value(row, key_index, :standard_games)
     standard_games ||= 0
 
-    Record.create(player_id: player.id, coefficient_k: row[3], standard_rating: row[4], standard_games: standard_games,
-                  standard_ranking: row[6], rapid_rating: rapid_rating, rapid_games: rapid_games, member: row[9],
-                  active: row[10], month: date)
+    Record.create(
+        player_id: player.id,
+        coefficient_k: get_row_value(row, key_index, :coefficient_k),
+        standard_rating: get_row_value(row, key_index, :standard_rating),
+        standard_games: standard_games,
+        standard_ranking: get_row_value(row, key_index, :standard_ranking),
+        rapid_rating: rapid_rating,
+        rapid_games: rapid_games,
+        member: get_row_value(row, key_index, :member),
+        active: get_row_value(row, key_index, :active),
+        month: date
+      )
   end
 end
+
+def get_row_value(row, key_map, symbol)
+  return nil if key_map[symbol].nil?
+
+  i = key_map[symbol]
+  row[i]
+end
+
+
+# read header.
+# return { 'key': row_index }
+def read_header(file_name)
+  i = 0
+  CSV.foreach("lib/assets/#{file_name}") do |row|
+    i += 1
+    if i > 10
+      raise "error: cannot find header in 10 lines"
+      return
+    end
+    next unless array_include_header_key?(row)
+    key_map = {
+      ncs_id: nil, name_en: nil, name_jp: nil,
+      coefficient_k: nil, standard_rating: nil, standard_games: nil, standard_ranking: nil, rapid_rating: nil, rapid_games: nil,
+      active: nil, member: nil
+    }
+    row.each.with_index do |c, j|
+      key_map[:ncs_id] = j if c == "ID"
+      key_map[:name_en] = j if c == "Name"
+      key_map[:name_jp] = j if c == "Kanji"
+      key_map[:coefficient_k] = j if c == "K"
+      key_map[:standard_rating] = j if c == "ST"
+      key_map[:standard_games] = j if c == "ST-G"
+      key_map[:standard_ranking] = j if c == "ST-R"
+      key_map[:rapid_rating] = j if c == "RP"
+      key_map[:rapid_games] = j if c == "RP-G"
+      key_map[:active] = j if c == "Act"
+      key_map[:member] = j if c == "Mem"
+    end
+    return key_map
+  end
+end
+
+def array_include_header_key?(row)
+  ncs_id = false
+  name_en = false
+  name_jp = false
+  standard_rating = false
+
+  row.each do |c|
+    ncs_id = true if c == "ID"
+    name_en = true if c == "Name"
+    name_jp = true if c == "Kanji"
+    standard_rating = true if c == "ST"
+  end
+  ncs_id && name_en && name_jp && standard_rating
+end
+
 
 def create_date(file_name)
   d = file_name.split('-')
