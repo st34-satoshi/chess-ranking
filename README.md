@@ -48,3 +48,6 @@ We use [sitemap_generator](https://github.com/kjvarga/sitemap_generator#rails).
 Generate public/sitemap.xml.gz file by `rake sitemap:refresh`.
 
 This file is ignored by git.
+
+## connect to the local DB
+psql --host=localhost --port=5464 --username=postgres --password --dbname=chess_ranking_development
