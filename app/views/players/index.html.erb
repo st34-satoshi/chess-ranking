@@ -36,8 +36,8 @@
       <%= paginate(@records) %>
 
       <div class="fs-5 align-items-center d-flex page-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <div><i class="fas fa-filter"></i></div>
-        <div class="ms-3"><%= t('views.players.index.filter') %></div>
+        <div><i class="fas fa-search"></i></div>
+        <div class="ms-1"><%= t('views.players.index.filter') %></div>
         <div class="ms-auto">
         <i class="fas fa-angle-down fa-lg"></i>
         </div>
@@ -55,10 +55,6 @@
             <%= form.label :rating, "rating:" %>
             <%= form.number_field :rating_lower, step: 1, min: 0, class: "number-field-width" %> ~
             <%= form.number_field :rating_upper, step: 1, min: 0, class: "number-field-width" %>
-          </li>
-          <li class="list-group-item">
-            <%= form.label :name, "active:" %>
-            <%= form.select :active, ["all", "active", "inactive"] %>
           </li>
           <li class="list-group-item">
             <%= link_to "Reset", players_path, class: "btn btn-outline-warning" %>
