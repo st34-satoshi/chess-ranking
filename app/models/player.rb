@@ -55,7 +55,7 @@ class Player < ApplicationRecord
 
   def current_rating
     r = this_records
-    r.sort do |a, b|
+    r = r.sort do |a, b|
       a.month <=> b.month
     end
     r.last.standard_rating
@@ -71,7 +71,7 @@ class Player < ApplicationRecord
 
   def current_rank
     r = this_records
-    r.sort do |a, b|
+    r = r.sort do |a, b|
       a.month <=> b.month
     end
     r.last.standard_rank
