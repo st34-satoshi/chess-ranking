@@ -3,7 +3,6 @@
 <% content_for :title do %>
   <title><%= t('views.players.title') %> - <%= @player.name_of(@locale) %></title>
 <% end %>
-<% content_for(:subtitle, ' - ' + @player.name_en) %>
 <% content_for :description do %>
   <meta name="description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
 <% end %>
