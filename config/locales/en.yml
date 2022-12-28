@@ -10,3 +10,5 @@ en:
       share: "share"
       index:
         filter: "filter"
+      show:
+        description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."

@@ -1,6 +1,10 @@
 
 <%= javascript_include_tag 'players/show' %>
 <% content_for(:subtitle, ' - ' + @player.name_en) %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+<% end %>
+
 <div class="container" style="min-height: 100%;">
     <div class='row mx-auto pl-1 pr-1 min-vh-100'>
     <div class="d-flex flex-column mx-auto mw-100">

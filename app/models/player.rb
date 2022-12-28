@@ -77,6 +77,11 @@ class Player < ApplicationRecord
     r.last.standard_rank
   end
 
+  def name_of(locale)
+    return name_jp if locale == :ja
+    return name_en
+  end
+
   private
 
   def month_to_int(month)
