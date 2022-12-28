@@ -1,8 +1,17 @@
 
 <%= javascript_include_tag 'players/show' %>
+<% content_for :title do %>
+  <title><%= t('views.players.title') %> - <%= @player.name_of(@locale) %></title>
+<% end %>
 <% content_for(:subtitle, ' - ' + @player.name_en) %>
 <% content_for :description do %>
   <meta name="description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.players.title') %> - <%= @player.name_of(@locale) %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= player_url(@player.public_uid) %>">
+  <meta property="og:description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
 <% end %>
 
 <div class="container" style="min-height: 100%;">

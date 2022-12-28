@@ -1,5 +1,14 @@
+<% content_for :title do %>
+  <title><%= t('views.players.title') %></title>
+<% end %>
 <% content_for :description do %>
   <meta name="description" content="<%= t('views.players.index.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.players.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= players_url %>">
+  <meta property="og:description" content="<%= t('views.players.index.description') %>">
 <% end %>
 
 <div class="container" style="min-height: 100%;">
