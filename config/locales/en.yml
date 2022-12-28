@@ -10,5 +10,6 @@ en:
       share: "share"
       index:
         filter: "filter"
+        description: "Japanese chess ranking. Display ranking by NCS rating for chess. You can see monthly data from 2019 to present."
       show:
         description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."
