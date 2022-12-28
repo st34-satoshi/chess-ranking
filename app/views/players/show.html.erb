@@ -1,6 +1,18 @@
 
 <%= javascript_include_tag 'players/show' %>
-<% content_for(:subtitle, ' - ' + @player.name_en) %>
+<% content_for :title do %>
+  <title><%= t('views.players.title') %> - <%= @player.name_of(@locale) %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.players.title') %> - <%= @player.name_of(@locale) %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= player_url(@player.public_uid) %>">
+  <meta property="og:description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+<% end %>
+
 <div class="container" style="min-height: 100%;">
     <div class='row mx-auto pl-1 pr-1 min-vh-100'>
     <div class="d-flex flex-column mx-auto mw-100">
@@ -19,12 +31,9 @@
     </nav>
     <%# header %>
 
-    <h1>
-        <%= link_to t('views.players.title'), players_path, {class: "nav-link text-body ps-0"} %>
-    </h1>
+    <h1 class="pt-3"><%= @player.name_en + ' ( ' + @player.name_jp + ' )' %></h1>
     <hr>
 
-    <h2 class="pb-3"><%= @player.name_en + ' ( ' + @player.name_jp + ' )' %></h2>
     <h4 class="">Rating: <%= @player.current_rating %>, Best: <%= @player.best_rating %></h4>
     <h4 class="">Rank: <%= @player.current_rank %>, Best: <%= @player.best_rank %></h4>
 
@@ -38,7 +47,7 @@
 
     <div class="pt-3 text-center pb-3">
       Share:
-      <%= link_to "https://twitter.com/intent/tweet?text=#{@player.name_jp} - #{t('views.players.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-primary"} do %>
+      <%= link_to "https://twitter.com/intent/tweet?text=#{@player.name_jp} - #{t('views.players.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
         <i class="fab fa-twitter fa-sm"></i> Twitter
       <% end %>
     </div>
