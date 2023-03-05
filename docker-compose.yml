@@ -4,8 +4,8 @@ services:
     image: postgres
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    ports:
-      - '5464:5432'
+    # ports:
+    #   - '5464:5432'
     environment:
       POSTGRES_PASSWORD: password
   web:
