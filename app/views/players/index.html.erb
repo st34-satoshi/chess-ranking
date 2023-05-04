@@ -82,7 +82,6 @@
       <table class="table table-striped">
           <thead>
             <tr>
-              <th>#</th>
               <th>Rank</th>
               <th>Name</th>
               <th>Rating</th>
@@ -91,11 +90,8 @@
           <tbody>
            <% page = params[:page].to_i %>
            <% page = 1 if page == 0 %>
-           <% nb = 1 + (page-1) * 25 %>
             <% @records.each do |record| %>
             <tr>
-              <th scope="row"><%= nb %></th>
-              <% nb += 1 %>
               <td>
                 <%= record.standard_rank %>
               </td>
