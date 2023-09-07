@@ -90,16 +90,36 @@
           <tbody>
            <% page = params[:page].to_i %>
            <% page = 1 if page == 0 %>
-            <% @records.each do |record| %>
+            <% @records.zip(@last_month_records).each do |record, last_month_record| %>
             <tr>
               <td>
                 <%= record.standard_rank %>
+                <% if last_month_record.present? %>
+                  <% diff = record.standard_rank - last_month_record.standard_rank %>
+                  <% if diff == 0 %>
+                    <span class="small text-secondary">→<%= diff %></span>
+                  <% elsif diff > 0 %>
+                    <span class="small text-danger">↓<%= diff %></span>
+                  <% else %>
+                    <span class="small text-success">↑<%= diff.abs %></span>
+                  <% end %>
+                <% end %>
               </td>
               <td>
                 <%= link_to record.player.name_en, record.player %>
               </td>
               <td>
                 <%= record.standard_rating %>
+                <% if last_month_record.present? %>
+                  <% diff = record.standard_rating - last_month_record.standard_rating %>
+                  <% if diff == 0 %>
+                    <span class="small text-secondary">→<%= diff %></span>
+                  <% elsif diff > 0 %>
+                    <span class="small text-success">↑<%= diff %></span>
+                  <% else %>
+                    <span class="small text-danger">↓<%= diff.abs %></span>
+                  <% end %>
+                <% end %>
               </td>
             </tr>
             <% end %>
