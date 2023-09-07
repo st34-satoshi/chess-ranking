@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ruby:2.5
+FROM ruby:3.0
 
 # for installing yarn
 RUN curl https://deb.nodesource.com/setup_12.x | bash

@@ -4,6 +4,7 @@ class PlayerSearchParameter
   include ActiveModel::Model
   include ActiveModel::Attributes
   include ActiveRecord::AttributeAssignment
+  include ActiveRecord::AttributeMethods::Write
 
   attribute :name, :string, default: nil
   attribute :rating_upper, :integer, default: 3000
