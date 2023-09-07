@@ -50,7 +50,7 @@ Generate public/sitemap.xml.gz file by `rake sitemap:refresh`.
 This file is ignored by git.
 
 ### pry
-1. set `binding.prry`
+1. set `binding.pry`
 1. check container id: `docker ps`
 1. docker attach container_id
 1. open browser
