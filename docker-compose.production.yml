@@ -15,8 +15,17 @@ services:
       - db
     environment:
       RAILS_ENV: production
+    healthcheck:
+      test: "curl http://localhost:3000 || exit 1"
+      interval: 3s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
   nginx:
     container_name: chess_ranking_nginx
     build: docker/nginx/
     volumes:
       - ./run/:/var/run/
+    depends_on:
+      web:
+        condition: service_healthy
