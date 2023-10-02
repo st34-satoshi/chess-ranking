@@ -13,6 +13,10 @@ class PlayersController < ApplicationController
     @last_month_records = Record.in_order_of(:player_id, player_ids).year_is(last_month.year).month_is(last_month.month)
   end
 
+  def index_json
+    render json: Player.all.to_json(only: [:ncs_id, :name_en])
+  end
+
   def show
     set_player
   end
