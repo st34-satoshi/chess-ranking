@@ -8,7 +8,6 @@
 
 ## Get Started
 - `docker-compose build`
-- `docker-compose run web yarn install`
 - `docker-compose run web rails db:seed`
 - `docker-compose up`
 - `open http://localhost:3064/players`
@@ -20,7 +19,6 @@
         - `docker-compose run -e EDITOR=vim web rails credentials:edit`
             - you need to set `Rails.application.credentials` variables
 - `docker-compose -f docker-compose.production.yml build`
-- `docker-compose -f docker-compose.production.yml run web yarn install --production`
 - `docker-compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1`
 - `docker-compose -f docker-compose.production.yml up -d`
 
@@ -38,8 +36,6 @@
 
 ### before Pull Request
 - `docker-compose run web rubocop -A`
-- `docker-compose run web yarn run lint:js`
-- `docker-compose run web yarn run lint:stylesheet`
 - `docker-compose run web rails test`
 
 ### sitemap
