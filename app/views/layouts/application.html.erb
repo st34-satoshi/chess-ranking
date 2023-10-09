@@ -15,7 +15,13 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% if content_for?(:importmap_tag) %>
+      <%= yield(:importmap_tag) %>
+    <% else %>
+      <%= javascript_importmap_tags 'application' %>
+    <% end %>
+    <%= yield(:additional_scripts) %>
 
     <% if Rails.env.production? %>
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,7 +34,6 @@
         gtag('config', '<%= "#{Rails.application.credentials.google_analytics_id}" %>');
       </script>
     <% end %>
-    <%= javascript_importmap_tags %>
 
   </head>
 

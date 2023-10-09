@@ -1,5 +1,4 @@
 
-<%= javascript_include_tag 'players/show' %>
 <% content_for :title do %>
   <title><%= t('views.players.title') %> - <%= @player.name_of(@locale) %></title>
 <% end %>
@@ -11,6 +10,10 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= player_url(@player.public_uid) %>">
   <meta property="og:description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+<% end %>
+
+<% content_for :importmap_tag do %>
+  <%= javascript_importmap_tags 'player/show' %>
 <% end %>
 
 <div class="container" style="min-height: 100%;">

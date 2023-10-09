@@ -10,14 +10,3 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
-//= require jquery/dist/jquery.js
-//= require bootstrap/dist/js/bootstrap.js
-//= require @fortawesome/fontawesome-free/js/brands.js
-//= require @fortawesome/fontawesome-free/js/solid.js
-//= require @fortawesome/fontawesome-free/js/fontawesome.js
-
-//= require rails-ujs
-//= require activestorage
-
-//= require chart.js/dist/chart.min.js

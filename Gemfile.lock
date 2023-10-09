@@ -296,6 +296,7 @@ DEPENDENCIES
   sitemap_generator
   spring (>= 3.0.0)
   spring-watcher-listen (~> 2.1.0)
+  sprockets-rails
   tzinfo-data
   web-console (>= 3.3.0)
   whenever
