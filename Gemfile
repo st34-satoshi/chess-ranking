@@ -62,3 +62,5 @@ gem 'public_uid'
 gem 'roo'
 gem 'sitemap_generator'
 gem 'whenever', require: false
+
+gem "importmap-rails", "~> 1.2"

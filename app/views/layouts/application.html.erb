@@ -28,6 +28,7 @@
         gtag('config', '<%= "#{Rails.application.credentials.google_analytics_id}" %>');
       </script>
     <% end %>
+    <%= javascript_importmap_tags %>
 
   </head>
 
