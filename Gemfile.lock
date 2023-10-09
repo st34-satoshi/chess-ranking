@@ -95,6 +95,7 @@ GEM
     crass (1.0.6)
     date (3.3.3)
     erubi (1.12.0)
+    execjs (2.9.1)
     ffi (1.15.5)
     globalid (1.2.0)
       activesupport (>= 6.1)
@@ -121,6 +122,7 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
+    libv8-node (18.16.0.0-aarch64-linux)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -136,6 +138,8 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
+    mini_racer (0.8.0)
+      libv8-node (~> 18.16.0.0)
     minitest (5.19.0)
     msgpack (1.7.2)
     net-imap (0.3.7)
@@ -251,6 +255,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    terser (1.1.18)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.2)
     tilt (2.2.0)
     timeout (0.4.0)
@@ -284,6 +290,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   kaminari
   listen (>= 3.0.8)
+  mini_racer
   pg (>= 0.18, < 2.0)
   pry-rails
   public_uid
@@ -297,6 +304,7 @@ DEPENDENCIES
   spring (>= 3.0.0)
   spring-watcher-listen (~> 2.1.0)
   sprockets-rails
+  terser
   tzinfo-data
   web-console (>= 3.3.0)
   whenever

@@ -15,6 +15,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use terser as compressor for JavaScript assets
+gem 'terser'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -66,3 +68,4 @@ gem 'sitemap_generator'
 gem 'whenever', require: false
 
 gem "importmap-rails", "~> 1.2"
+gem 'mini_racer'
