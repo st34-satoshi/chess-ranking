@@ -14,8 +14,15 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application'%>
+    <%= stylesheet_link_tag 'bootstrap'%>
+
+    <% if content_for?(:importmap_tag) %>
+      <%= yield(:importmap_tag) %>
+    <% else %>
+      <%= javascript_importmap_tags 'application' %>
+    <% end %>
+    <%= yield(:additional_scripts) %>
 
     <% if Rails.env.production? %>
       <!-- Global site tag (gtag.js) - Google Analytics -->

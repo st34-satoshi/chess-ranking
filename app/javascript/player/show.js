@@ -1,3 +1,6 @@
+import "application"
+import "chart.js"
+
 function createRatingGraph(){
     let records = $('#ratingChart').data('record');
     let dates = $('#ratingChart').data('date');
