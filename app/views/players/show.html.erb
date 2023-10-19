@@ -10,6 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= player_url(@player.public_uid) %>">
   <meta property="og:description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
 <% end %>
 
 <% content_for :importmap_tag do %>
