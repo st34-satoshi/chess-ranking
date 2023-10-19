@@ -1,0 +1,10 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <%= link_to image_tag('white_king_log.png', {:alt => 'icon', :class => 'navbar-brand icon-size'}), players_path(locale: I18n.locale) %>
+    <div class="d-flex">
+      <%= link_to "EN", request.path + "?locale=en", {class: "link-secondary me-1"} %>
+      <span> / </span>
+      <%= link_to "JA", request.path + "?locale=ja", {class: "link-secondary ms-1"} %>
+    </div>
+  </div>
+</nav>
