@@ -2,6 +2,9 @@ import "application"
 import "chart.js"
 
 function createRatingDistributionGraph(){
+    let ratings = $('#ratingDistributionChart').data('ratings');
+    console.log('ratings')
+    console.log(ratings)
     const labels = [1,2,3,4,5,6,7,8,9,'a','s','d'];
     const data = {
       labels: labels,
