@@ -22,11 +22,16 @@ function createRatingDistributionGraph(){
     for(let i=0;i<dataLength;i++){
         labels[i] = i * range
     }
+    const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
     const data = {
       labels: labels,
       datasets: [{
         label: 'My First Dataset',
         data: dataList,
+        segment: {
+          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
+          borderDash: ctx => skipped(ctx, [6, 6]),
+        },
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1
@@ -36,7 +41,14 @@ function createRatingDistributionGraph(){
     const config = {
       type: 'line',
       data,
-      options: {}
+      options: {
+        scales: {
+          y: {
+            reverse: false,
+            axis: 'r'
+          }
+        }
+      }
     };
 
     const ratingDistributionChart = new Chart(
