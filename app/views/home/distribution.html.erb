@@ -27,9 +27,29 @@
     </div>
 
     <div class="pt-3">
-      <div><%= t('views.home.distribution.graphName') %></div>
+      <h3><%= t('views.home.distribution.graphName') %></h3>
       <canvas id="ratingDistributionChart" data-ratings1='<%= @ratings1 %>' data-ratings2='<%= @ratings2 %>' data-name='<%= t('views.home.distribution.graphName') %>' data-date1='<%= @date1.strftime("%Y-%m") %>' data-date2='<%= @date2.strftime("%Y-%m")%>'></canvas>
     </div>
+
+    <div class="mt-5">
+      <h3><%= t('views.home.distribution.updateGraph') %></h3>
+      <%= form_with model: @distribution_graph_parameter, url: "/distribution", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "", id: "graph_form"} do |form| %>
+        <%= hidden_field_tag "locale", I18n.locale %>
+
+        <div class="form-group">
+          <%= form.label :month_1, class: "align-middle" %>
+          <%= form.select :month_1, Record.month_array, {selected: @distribution_graph_parameter.selected_month_1}, {class: "align-middle"} %>
+        </div>
+        <div class="form-group">
+          <%= form.label :month_2, class: "align-middle" %>
+          <%= form.select :month_2, Record.month_array, {selected: @distribution_graph_parameter.selected_month_2}, {class: "align-middle"} %>
+        </div>
+
+        <%= form.submit  t('views.home.distribution.updateButton'), name: nil, class: "btn btn-outline-primary" %>
+      <% end %>
+    </div>
+
+    <hr>
 
     <div class="pt-3 text-center pb-3">
       Share:
