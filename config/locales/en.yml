@@ -1,6 +1,9 @@
 en:
   hello: "Hello world"
   views:
+    header:
+      ranking: "Ranking"
+      distribution: "Distribution"
     pagination:
       first: "&laquo"
       last: "&raquo"
@@ -13,3 +16,10 @@ en:
         description: "Japanese chess ranking. Display ranking by NCS rating for chess. You can see monthly data from 2019 to present."
       show:
         description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."
+    home:
+      distribution:
+        title: "Chess Rating Distribution in Japan"
+        description: "Displaying the Elo rating distribution of Japanese chess players. You can also view rating distributions for past months and create customized graphs."
+        graphName: "Number of people within the rating range"
+        updateGraph: "Change the month for comparison"
+        updateButton: "Update"

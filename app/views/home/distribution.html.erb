@@ -1,0 +1,64 @@
+<% content_for :title do %>
+  <title><%= t('views.home.distribution.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.home.distribution.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.home.distribution.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= distribution_url %>">
+  <meta property="og:description" content="<%= t('views.home.distribution.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/distribution-ogp.png">
+<% end %>
+
+<% content_for :importmap_tag do %>
+  <%= javascript_importmap_tags 'home/distribution' %>
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+    <div>
+    <%= render "layouts/header" %>
+    <h1>
+        <%= link_to t('views.home.distribution.title'), players_path, {class: "nav-link text-body ps-0"} %>
+    </h1>
+    <hr>
+    </div>
+
+    <div class="pt-3">
+      <h3><%= t('views.home.distribution.graphName') %></h3>
+      <canvas id="ratingDistributionChart" data-ratings1='<%= @ratings1 %>' data-ratings2='<%= @ratings2 %>' data-name='<%= t('views.home.distribution.graphName') %>' data-date1='<%= @date1.strftime("%Y-%m") %>' data-date2='<%= @date2.strftime("%Y-%m")%>'></canvas>
+    </div>
+
+    <div class="mt-5">
+      <h3><%= t('views.home.distribution.updateGraph') %></h3>
+      <%= form_with model: @distribution_graph_parameter, url: "/distribution", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "", id: "graph_form"} do |form| %>
+        <%= hidden_field_tag "locale", I18n.locale %>
+
+        <div class="form-group">
+          <%= form.label :month_1, class: "align-middle" %>
+          <%= form.select :month_1, Record.month_array, {selected: @distribution_graph_parameter.selected_month_1}, {class: "align-middle"} %>
+        </div>
+        <div class="form-group">
+          <%= form.label :month_2, class: "align-middle" %>
+          <%= form.select :month_2, Record.month_array, {selected: @distribution_graph_parameter.selected_month_2}, {class: "align-middle"} %>
+        </div>
+
+        <%= form.submit  t('views.home.distribution.updateButton'), name: nil, class: "btn btn-outline-primary" %>
+      <% end %>
+    </div>
+
+    <hr>
+
+    <div class="pt-3 text-center pb-3">
+      Share:
+      <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.home.distribution.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
+        <i class="fab fa-twitter fa-sm"></i> Twitter
+      <% end %>
+    </div>
+
+    </div>
+    </div>
+</div>

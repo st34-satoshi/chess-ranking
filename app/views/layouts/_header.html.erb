@@ -1,0 +1,14 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <%= link_to image_tag('white_king_log.png', {:alt => 'icon', :class => 'icon-size'}), players_path(locale: I18n.locale) %>
+    <div class="d-flex">
+      <%= link_to t('views.header.ranking'), players_path, {class: "btn btn-light p-0"} %>
+      <%= link_to t('views.header.distribution'), distribution_path, {class: "btn btn-light p-0 ms-1"} %>
+    </div>
+    <div class="d-flex">
+      <%= link_to "EN", request.path + "?locale=en", {class: "link-secondary me-1"} %>
+      <span> / </span>
+      <%= link_to "JA", request.path + "?locale=ja", {class: "link-secondary ms-1"} %>
+    </div>
+  </div>
+</nav>

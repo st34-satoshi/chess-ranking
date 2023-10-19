@@ -7,3 +7,4 @@ pin "chart.js", to: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart
 pin "application", preload: true
 
 pin 'player/show', preload: true
+pin 'home/distribution', preload: true
