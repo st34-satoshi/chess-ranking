@@ -20,3 +20,4 @@ en:
       distribution:
         title: "Chess Rating Distribution in Japan"
         description: "Displaying the Elo rating distribution of Japanese chess players. You can also view rating distributions for past months and create customized graphs."
+        graphName: "Number of people within the rating range"

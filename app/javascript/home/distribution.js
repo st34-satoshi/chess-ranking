@@ -3,6 +3,7 @@ import "chart.js"
 
 function createRatingDistributionGraph(){
     const range = 100
+    const graphName = $('#ratingDistributionChart').data('name');
     let ratings = $('#ratingDistributionChart').data('ratings');
     ratings.sort(function(a, b){return a-b});; // [0, 0, ... 2500]
 
@@ -26,7 +27,7 @@ function createRatingDistributionGraph(){
     const data = {
       labels: labels,
       datasets: [{
-        label: 'My First Dataset',
+        label: graphName,
         data: dataList,
         segment: {
           borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
