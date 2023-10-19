@@ -27,7 +27,8 @@
     </div>
 
     <div class="pt-3">
-      <canvas id="ratingDistributionChart" data-ratings='<%= @ratings %>' data-name='<%= t('views.home.distribution.graphName') %>'></canvas>
+      <div><%= t('views.home.distribution.graphName') %></div>
+      <canvas id="ratingDistributionChart" data-ratings1='<%= @ratings1 %>' data-ratings2='<%= @ratings2 %>' data-name='<%= t('views.home.distribution.graphName') %>' data-date1='<%= @date1.strftime("%Y-%m") %>' data-date2='<%= @date2.strftime("%Y-%m")%>'></canvas>
     </div>
 
     <div class="pt-3 text-center pb-3">
