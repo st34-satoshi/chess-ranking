@@ -1,6 +1,9 @@
 en:
   hello: "Hello world"
   views:
+    header:
+      ranking: "Ranking"
+      distribution: "Distribution"
     pagination:
       first: "&laquo"
       last: "&raquo"

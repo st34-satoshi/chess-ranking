@@ -1,5 +1,8 @@
 ja:
   views:
+    header:
+      ranking: "ランキング"
+      distribution: "分布"
     pagination:
       first: "&laquo"
       last: "&raquo"
