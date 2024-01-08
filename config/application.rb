@@ -14,7 +14,7 @@ module ChessRanking
     config.load_defaults 5.2
 
     config.i18n.available_locales = %i[ja en]
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :ja
     config.i18n.enforce_available_locales = false # allow illegal locale
   end
 end
