@@ -10,7 +10,7 @@ class PlayerSearchParameter
   attribute :rating_upper, :integer, default: 3000
   attribute :rating_lower, :integer, default: 0
   attribute :active, :string, default: 'all'
-  attribute :month, :date, default: Record.maximum(:month)
+  attribute :month, :date, default: Record.latest_month
 
   def initialize(params)
     super(params.permit(:name, :rating_upper, :rating_lower, :active, :month))

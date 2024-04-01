@@ -31,6 +31,10 @@ class Record < ApplicationRecord
     Record.group(:month).count.keys.sort.map { |d| "#{d.year}-#{d.month}" }  # ["2021-12", "2022-1"]
   end
 
+  def self.latest_month
+    Record.group(:month).count.keys.sort.last
+  end
+
   def member=(value)
     write_attribute(:member, value == 'Mem')
   end
