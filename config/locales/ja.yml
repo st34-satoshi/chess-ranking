@@ -3,6 +3,7 @@ ja:
     header:
       ranking: "ランキング"
       distribution: "分布"
+      victoryDistance: "到達勝利距離"
     pagination:
       first: "&laquo"
       last: "&raquo"

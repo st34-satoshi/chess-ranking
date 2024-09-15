@@ -22,7 +22,10 @@
     <div>
     <%= render "layouts/header" %>
     <h1>
-        <%= link_to t('views.home.distribution.title'), distribution_path, {class: "nav-link text-body ps-0"} %>
+        <%= link_to distribution_path, {class: "nav-link text-body ps-0"} do %>
+          <i class="fa-solid fa-chart-simple d-none d-md-inline"></i>
+          <%= t('views.home.distribution.title') %>
+        <% end %>
     </h1>
     <hr>
     </div>

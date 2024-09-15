@@ -4,6 +4,7 @@ en:
     header:
       ranking: "Ranking"
       distribution: "Distribution"
+      victoryDistance: "Victory Distance"
     pagination:
       first: "&laquo"
       last: "&raquo"

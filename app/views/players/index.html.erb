@@ -18,7 +18,10 @@
     <div>
     <%= render "layouts/header" %>
     <h1>
-        <%= link_to t('views.players.title'), players_path, {class: "nav-link text-body ps-0"} %>
+      <%= link_to players_path, {class: "nav-link text-body ps-0"} do %>
+        <i class="fa-solid fa-ranking-star d-none d-md-inline"></i>
+        <%= t('views.players.title') %>
+      <% end %>
     </h1>
     <div>
       <%= t('views.players.index.description') %>
