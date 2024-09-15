@@ -22,3 +22,6 @@ ja:
         graphName: "レーティング範囲に属する人数"
         updateGraph: "比較する月を変更する"
         updateButton: "更新"
+      victoryDistance:
+        title: "到達勝利距離"
+        description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。あなたは何人辿ればチャンピオンに勝っていますか？"

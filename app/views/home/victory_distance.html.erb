@@ -1,0 +1,31 @@
+<% content_for :title do %>
+  <title><%= t('views.home.victoryDistance.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.home.victoryDistance.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.home.victoryDistance.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= victory_distance_url %>">
+  <meta property="og:description" content="<%= t('views.home.victoryDistance.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.png">
+<% end %>
+
+<% content_for :importmap_tag do %>
+  <%= javascript_importmap_tags 'home/victory_distance' %>
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+    <div>
+    <%= render "layouts/header" %>
+    <h1>
+        <%= link_to t('views.home.victoryDistance.title'), victory_distance_path, {class: "nav-link text-body ps-0"} %>
+    </h1>
+    <hr>
+    </div>
+    </div>
+    </div>
+</div>

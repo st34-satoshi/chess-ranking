@@ -23,3 +23,6 @@ en:
         graphName: "Number of people within the rating range"
         updateGraph: "Change the month for comparison"
         updateButton: "Update"
+      victoryDistance:
+        title: "Chess Rating Victory Distance in Japan"
+        description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. How many people would you need to trace back through to say you've defeated the champion?"

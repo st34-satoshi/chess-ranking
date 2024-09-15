@@ -10,6 +10,10 @@ class HomeController < ApplicationController
     @ratings2 = records2.map{ |r| r.standard_rating}
   end
 
+  def victory_graph
+    puts "victory_graph"
+  end
+
   private
 
   def distribution_graph_params
