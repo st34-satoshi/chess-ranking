@@ -24,7 +24,7 @@ ja:
         updateGraph: "比較する月を変更する"
         updateButton: "更新"
       victoryDistance:
-        title: "到達勝利距離"
+        title: "チェス到達勝利距離"
         description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。あなたは何人辿ればチャンピオンに勝っていますか？"
         updateButton: "計算する"
         form:
@@ -33,4 +33,8 @@ ja:
         table:
           title: "%{player1}は%{distance}回辿れば%{player2}に勝っている"
           no_path: "%{player1}から6回以上辿っても%{player2}には勝てません"
+        what:
+          title: "到達勝利距離とは"
+          inspiration: "参考にしたサイト"
+          description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。という論理をもとにプレーヤーを比較する距離です。"
 
