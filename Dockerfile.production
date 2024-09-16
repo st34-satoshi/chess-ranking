@@ -6,7 +6,7 @@ RUN apt-get update -y -qq && apt-get install -yq postgresql-client vim
 WORKDIR /chess_ranking
 COPY Gemfile /chess_ranking/Gemfile
 COPY Gemfile.lock /chess_ranking/Gemfile.lock
-RUN bundle install --wihout test development
+RUN bundle install --without test development
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
