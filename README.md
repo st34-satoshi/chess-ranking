@@ -27,6 +27,8 @@
 - put the csv file to lib/assets
 - `docker compose run web rails db:seed`
 
+- victory distance: `docker compose exec web rake victory_distance:save`
+
 ## Development
 - generate Home controller `docker compose run web rails g controller Users`
 
