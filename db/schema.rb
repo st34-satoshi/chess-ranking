@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_01_08_090134) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_16_071901) do
   create_table "players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ncs_id"
     t.string "name_en"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_01_08_090134) do
     t.string "public_uid", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["ncs_id"], name: "index_players_on_ncs_id", unique: true
     t.index ["public_uid"], name: "index_players_on_public_uid", unique: true
   end
 
