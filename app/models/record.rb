@@ -28,11 +28,11 @@ class Record < ApplicationRecord
 
   def self.month_array
     # this sort may not be good. It does not work: [2021-10, 2021-9]
-    Record.group(:month).count.keys.sort.map { |d| "#{d.year}-#{d.month}" }  # ["2021-12", "2022-1"]
+    Record.group(:month).count.keys.sort.map { |d| "#{d.year}-#{d.month}" } # ["2021-12", "2022-1"]
   end
 
   def self.latest_month
-    Record.group(:month).count.keys.sort.last
+    Record.group(:month).count.keys.max
   end
 
   def member=(value)

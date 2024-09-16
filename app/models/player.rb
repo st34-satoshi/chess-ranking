@@ -79,7 +79,8 @@ class Player < ApplicationRecord
 
   def name_of(locale)
     return name_jp if locale == :ja
-    return name_en
+
+    name_en
   end
 
   private
