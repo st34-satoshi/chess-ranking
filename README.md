@@ -19,8 +19,8 @@
         - `docker compose run -e EDITOR=vim web rails credentials:edit`
             - you need to set `Rails.application.credentials` variables
 - `docker compose -f docker-compose.production.yml build`
-- `docker compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1`
 - `docker compose -f docker-compose.production.yml up -d`
+- reset database: `docker compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1`
 
 ### Update DB
 - get a new excel file from NCS and export as csv file
@@ -52,6 +52,9 @@ This file is ignored by git.
 1. open browser
 1. `exit`
 1. Ctrl + q
+
+### tasks
+- `docker compose exec web rake add_rank:update_null_ranks`
 
 ## connect to the local DB
 psql --host=localhost --port=5464 --username=postgres --password --dbname=chess_ranking_development

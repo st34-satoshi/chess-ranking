@@ -47,4 +47,17 @@ class Record < ApplicationRecord
     value ||= 0
     write_attribute(:rapid_rating, value)
   end
+
+  def self.add_rank(date)
+    records = Record.all.year_is(date.year).month_is(date.month).ordered
+    rank = 1
+    higher_rank = 999_999
+    records.each_with_index do |record, i|
+      if record.standard_rating < higher_rank # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
+        higher_rank = record.standard_rating
+        rank = i + 1
+      end
+      record.update(standard_rank: rank)
+    end
+  end
 end
