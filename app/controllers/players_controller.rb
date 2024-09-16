@@ -9,12 +9,12 @@ class PlayersController < ApplicationController
     @search_parameter = search_params
     @records = Record.filtered_records(@search_parameter).ordered.page(params[:page]).per(50)
     last_month = @search_parameter.month.last_month
-    player_ids = @records.map{|r| r.player_id}
+    player_ids = @records.map(&:player_id)
     @last_month_records = Record.in_order_of(:player_id, player_ids).year_is(last_month.year).month_is(last_month.month)
   end
 
   def index_json
-    render json: Player.all.to_json(only: [:ncs_id, :name_en])
+    render json: Player.all.to_json(only: %i[ncs_id name_en])
   end
 
   def show

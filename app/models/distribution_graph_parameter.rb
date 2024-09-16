@@ -18,14 +18,14 @@ class DistributionGraphParameter
     # value example: 2021-12
     y = value.split('-')[0].to_i
     m = value.split('-')[1].to_i
-    write_attribute(:month_1, Date.new(y, m, 5))  # any day is ok
+    write_attribute(:month_1, Date.new(y, m, 5)) # any day is ok
   end
 
   def month_2=(value)
     # value example: 2021-12
     y = value.split('-')[0].to_i
     m = value.split('-')[1].to_i
-    write_attribute(:month_2, Date.new(y, m, 5))  # any day is ok
+    write_attribute(:month_2, Date.new(y, m, 5)) # any day is ok
   end
 
   def selected_month_1

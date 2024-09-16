@@ -1,11 +1,5 @@
 version: "3.9"
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
   web:
     build: 
       context: .
@@ -13,8 +7,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && RAILS_ENV=production bundle exec rails assets:precompile && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/chess_ranking
-    depends_on:
-      - db
     environment:
       RAILS_ENV: production
     healthcheck:
