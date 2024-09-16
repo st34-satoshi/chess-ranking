@@ -14,6 +14,7 @@ class HomeController < ApplicationController
   def victory_distance
     @players = Player.all
     @victory_distance_parameter = victory_distance_params
+    @victory_distance_parameter.calculate_path
   end
 
   private

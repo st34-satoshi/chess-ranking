@@ -30,4 +30,7 @@ ja:
         form:
           description: "比較するプレーヤー2人を入力してください"
           between: "と"
+        table:
+          title: "%{player1}は%{distance}回辿れば%{player2}に勝っている"
+          no_path: "%{player1}から6回以上辿っても%{player2}には勝てません"
 

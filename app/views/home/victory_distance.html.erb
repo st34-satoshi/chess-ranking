@@ -62,6 +62,26 @@
         </div>
       <% end %>
     </div>
+
+    <% if @victory_distance_parameter.start.present? && @victory_distance_parameter.goal.present? %>
+      <div class="mt-5">
+        <div>
+          <% if @victory_distance_parameter.path1.present? %>
+            <%= render "distance_table", path: @victory_distance_parameter.path1 %>
+          <% else %>
+            <%= render "no_path", start: @victory_distance_parameter.player2, goal: @victory_distance_parameter.player1 %>
+          <% end %>
+        </div>
+        <div class="mt-5">
+          <% if @victory_distance_parameter.path2.present? %>
+            <%= render "distance_table", path: @victory_distance_parameter.path2 %>
+          <% else %>
+            <%= render "no_path", start: @victory_distance_parameter.player1, goal: @victory_distance_parameter.player2 %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
     </div>
     </div>
     </div>

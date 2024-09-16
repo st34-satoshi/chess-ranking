@@ -31,3 +31,6 @@ en:
         form:
           description: "Enter 2 players to compare"
           between: "and"
+        table:
+          title: "%{player1} is winning against %{player2} if you trace back through %{distance} players"
+          no_path: "%{player1} can't win against %{player2} even if you trace back through more than 6 players"
