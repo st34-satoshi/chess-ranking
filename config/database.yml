@@ -1,20 +1,19 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  host: db
-  username: postgres
-  password: password
+  adapter: mysql2
+  encoding: utf8mb4
   pool: 5
+  username: root
+  password: mysql
+  host: db
+  port: 3306
 
 development:
   <<: *default
   database: chess_ranking_development
 
-
 test:
   <<: *default
   database: chess_ranking_test
-
 
 production:
   <<: *default
