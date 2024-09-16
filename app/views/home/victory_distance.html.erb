@@ -22,9 +22,46 @@
     <div>
     <%= render "layouts/header" %>
     <h1>
-        <%= link_to t('views.home.victoryDistance.title'), victory_distance_path, {class: "nav-link text-body ps-0"} %>
+      <%= link_to victory_distance_path, {class: "nav-link text-body ps-0"} do %>
+        <i class="fa-solid fa-diagram-project d-none d-md-inline"></i>
+        <%= t('views.home.victoryDistance.title') %>
+      <% end %>
     </h1>
     <hr>
+    <div class="mt-3">
+      <h4><%= t('views.home.victoryDistance.form.description') %></h4>
+      <%= form_with model: @victory_distance_parameter, url: "/victory_distance", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "", id: "victory_distance_form"} do |form| %>
+        <%= hidden_field_tag "locale", I18n.locale %>
+
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+          <% if I18n.locale == :en %>
+            <div class="me-2 mb-2 mb-md-0">
+              Distance between
+            </div>
+          <% end %>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= form.text_field :player1, class: "align-middle", autocomplete: "off", list: "player-list", style: "width: 150px;" %>
+            <datalist id="player-list">
+              <% @players.each do |player| %>
+                <option value="<%= player.name_en %>">
+              <% end %>
+            </datalist>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= t('views.home.victoryDistance.form.between') %>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= form.text_field :player2, class: "align-middle", autocomplete: "off", list: "player-list", style: "width: 150px;" %>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <% if I18n.locale == :ja %>
+              <span>の距離を</span>
+            <% end %>
+            <%= form.submit t('views.home.victoryDistance.updateButton'), name: nil, class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
     </div>
     </div>
     </div>

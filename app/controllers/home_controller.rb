@@ -10,8 +10,8 @@ class HomeController < ApplicationController
     @ratings2 = records2.map{ |r| r.standard_rating}
   end
 
-  def victory_graph
-    puts "victory_graph"
+  def victory_distance
+    @players = Player.all
   end
 
   private

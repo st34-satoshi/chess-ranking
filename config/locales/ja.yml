@@ -26,3 +26,8 @@ ja:
       victoryDistance:
         title: "到達勝利距離"
         description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。あなたは何人辿ればチャンピオンに勝っていますか？"
+        updateButton: "計算する"
+        form:
+          description: "比較するプレーヤー2人を入力してください"
+          between: "と"
+

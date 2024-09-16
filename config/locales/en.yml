@@ -27,3 +27,7 @@ en:
       victoryDistance:
         title: "Chess Rating Victory Distance in Japan"
         description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. How many people would you need to trace back through to say you've defeated the champion?"
+        updateButton: "Calculate"
+        form:
+          description: "Enter 2 players to compare"
+          between: "and"
