@@ -13,11 +13,16 @@ class HomeController < ApplicationController
 
   def victory_distance
     @players = Player.all
+    @victory_distance_parameter = victory_distance_params
   end
 
   private
 
   def distribution_graph_params
     DistributionGraphParameter.new(params.fetch(:distribution_graph_parameter, {}))
+  end
+
+  def victory_distance_params
+    VictoryDistanceParameter.new(params.fetch(:victory_distance_parameter, {}))
   end
 end
