@@ -95,6 +95,13 @@
       </div>
     </div>
 
+    <div class="pt-3 text-center pb-3">
+      <%= t('views.common.share') %>
+      <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.home.victoryDistance.title')} - #{@victory_distance_parameter.player1} vs #{@victory_distance_parameter.player2}&url=#{request.url}&hashtags=チェスランキング", {target: "_blank", class: "btn btn-outline-primary"} do %>
+        <i class="fa-brands fa-x-twitter"></i> (Twitter)
+      <% end %>
+    </div>
+
     </div>
     </div>
     </div>

@@ -1,5 +1,7 @@
 ja:
   views:
+    common:
+      share: "シェア"
     header:
       ranking: "ランキング"
       distribution: "分布"
@@ -10,7 +12,6 @@ ja:
       truncate: "..."
     players:
       title: "チェスレーティングランキング"
-      share: "シェア"
       index:
         filter: "検索"
         description: "日本人のチェスレーティングランキング。日本チェス連盟のレーティングでランキングを表示します。2019年から現在まで毎月のデータを見ることができます。"

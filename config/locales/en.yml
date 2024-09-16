@@ -1,6 +1,8 @@
 en:
   hello: "Hello world"
   views:
+    common:
+      share: "Share"
     header:
       ranking: "Ranking"
       distribution: "Distribution"
@@ -11,7 +13,6 @@ en:
       truncate: "..."
     players:
       title: "Chess Rating Ranking in Japan"
-      share: "share"
       index:
         filter: "filter"
         description: "Japanese chess rating ranking. Display ranking by NCS rating for chess. You can see monthly data from 2019 to present."
