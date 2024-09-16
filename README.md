@@ -7,36 +7,36 @@
 - csv file for ranking. get from ncs web page
 
 ## Get Started
-- `docker-compose build`
-- `docker-compose run web rails db:seed`
-- `docker-compose up`
+- `docker compose build`
+- `docker compose run web rails db:seed`
+- `docker compose up`
 - `open http://localhost:3064/players`
 
 ### In Production
 - copy config/master.key (this file is ignored from git)
     - or you can recreate credentials.yml.enc and master.key: 
         - `rm credentials.yml.enc`
-        - `docker-compose run -e EDITOR=vim web rails credentials:edit`
+        - `docker compose run -e EDITOR=vim web rails credentials:edit`
             - you need to set `Rails.application.credentials` variables
-- `docker-compose -f docker-compose.production.yml build`
-- `docker-compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1`
-- `docker-compose -f docker-compose.production.yml up -d`
+- `docker compose -f docker-compose.production.yml build`
+- `docker compose -f docker-compose.production.yml run web rails db:migrate:reset RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=1`
+- `docker compose -f docker-compose.production.yml up -d`
 
 ### Update DB
 - get a new excel file from NCS and export as csv file
 - put the csv file to lib/assets
-- `docker-compose run web rails db:seed`
+- `docker compose run web rails db:seed`
 
 ## Development
-- generate Home controller `docker-compose run web rails g controller Users`
+- generate Home controller `docker compose run web rails g controller Users`
 
 ### after you change something
-- `docker-compose run web bundle install`
-- `docker-compose up --build`
+- `docker compose run web bundle install`
+- `docker compose up --build`
 
 ### before Pull Request
-- `docker-compose run web rubocop -A`
-- `docker-compose run web rails test`
+- `docker compose exec web rubocop -A`
+- `docker compose exec web rails test`
 
 ### sitemap
 We use [sitemap_generator](https://github.com/kjvarga/sitemap_generator#rails).
