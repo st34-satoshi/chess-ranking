@@ -92,6 +92,13 @@
         <p>
           <%= t('views.home.victoryDistance.what.description') %>
         </p>
+        <p>
+          <%= t('views.home.victoryDistance.what.dataSource', 
+                link: link_to(t('views.home.victoryDistance.what.databaseSite'), 
+                              'https://results.japanchess.org/', 
+                              target: '_blank', 
+                              rel: 'noopener noreferrer')).html_safe %>
+        </p>
       </div>
     </div>
 

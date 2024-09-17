@@ -39,3 +39,5 @@ en:
           title: "What is the Victory Distance?"
           inspiration: "Inspired by"
           description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. And this is the distance to say you've defeated the champion."
+          dataSource: "Using data from %{link} from 2019 to August 2024."
+          databaseSite: "Japanese Chess Federation Official Database"
