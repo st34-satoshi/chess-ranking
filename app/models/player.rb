@@ -2,6 +2,13 @@
 
 class Player < ApplicationRecord
   has_many :records, dependent: :destroy
+
+  has_many :won_match, class_name: 'Match', foreign_key: 'won_id'
+  has_many :won_players, through: :won_match, source: :lost
+
+  has_many :lost_match, class_name: 'Match', foreign_key: 'lost_id'
+  has_many :lost_players, through: :lost_match, source: :won
+
   generate_public_uid
 
   scope :name_en_has, ->(name) { where('lower(name_en) like ?', "%#{name&.downcase}%") }

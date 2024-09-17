@@ -1,0 +1,115 @@
+<% content_for :title do %>
+  <title><%= t('views.home.victoryDistance.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.home.victoryDistance.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.home.victoryDistance.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= victory_distance_url %>">
+  <meta property="og:description" content="<%= t('views.home.victoryDistance.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.png">
+<% end %>
+
+<% content_for :importmap_tag do %>
+  <%= javascript_importmap_tags 'home/victory_distance' %>
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+    <div>
+    <%= render "layouts/header" %>
+    <h1>
+      <%= link_to victory_distance_path, {class: "nav-link text-body ps-0"} do %>
+        <i class="fa-solid fa-diagram-project d-none d-md-inline"></i>
+        <%= t('views.home.victoryDistance.title') %>
+      <% end %>
+    </h1>
+    <hr>
+    <div class="mt-3">
+      <h4><%= t('views.home.victoryDistance.form.description') %></h4>
+      <%= form_with model: @victory_distance_parameter, url: "/victory_distance", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "", id: "victory_distance_form"} do |form| %>
+        <%= hidden_field_tag "locale", I18n.locale %>
+
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+          <% if I18n.locale == :en %>
+            <div class="me-2 mb-2 mb-md-0">
+              Distance between
+            </div>
+          <% end %>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= form.text_field :player1, class: "align-middle", autocomplete: "off", list: "player-list", style: "width: 150px;" %>
+            <datalist id="player-list">
+              <% @players.each do |player| %>
+                <option value="<%= player.name_en %>">
+              <% end %>
+            </datalist>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= t('views.home.victoryDistance.form.between') %>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <%= form.text_field :player2, class: "align-middle", autocomplete: "off", list: "player-list", style: "width: 150px;" %>
+          </div>
+          <div class="me-2 mb-2 mb-md-0">
+            <% if I18n.locale == :ja %>
+              <span>の距離を</span>
+            <% end %>
+            <%= form.submit t('views.home.victoryDistance.updateButton'), name: nil, class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @victory_distance_parameter.start.present? && @victory_distance_parameter.goal.present? %>
+      <div class="mt-5">
+        <div>
+          <% if @victory_distance_parameter.path1.present? %>
+            <%= render "distance_table", path: @victory_distance_parameter.path1 %>
+          <% else %>
+            <%= render "no_path", start: @victory_distance_parameter.player2, goal: @victory_distance_parameter.player1 %>
+          <% end %>
+        </div>
+        <div class="mt-5">
+          <% if @victory_distance_parameter.path2.present? %>
+            <%= render "distance_table", path: @victory_distance_parameter.path2 %>
+          <% else %>
+            <%= render "no_path", start: @victory_distance_parameter.player1, goal: @victory_distance_parameter.player2 %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="mt-5" >
+      <h4><%= t('views.home.victoryDistance.what.title') %></h4>
+      <div>
+        <p>
+          <%= t('views.home.victoryDistance.what.inspiration') %>
+          <%= link_to 'Magnus Number', 'https://magnusnumber.com/', target: '_blank', rel: 'noopener noreferrer' %>
+        </p>
+        <p>
+          <%= t('views.home.victoryDistance.what.description') %>
+        </p>
+        <p>
+          <%= t('views.home.victoryDistance.what.dataSource', 
+                link: link_to(t('views.home.victoryDistance.what.databaseSite'), 
+                              'https://results.japanchess.org/', 
+                              target: '_blank', 
+                              rel: 'noopener noreferrer')).html_safe %>
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-3 text-center pb-3">
+      <%= t('views.common.share') %>
+      <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.home.victoryDistance.title')} - #{@victory_distance_parameter.player1} vs #{@victory_distance_parameter.player2}&url=#{request.url}&hashtags=チェスランキング", {target: "_blank", class: "btn btn-outline-primary"} do %>
+        <i class="fa-brands fa-x-twitter"></i> (Twitter)
+      <% end %>
+    </div>
+
+    </div>
+    </div>
+    </div>
+</div>

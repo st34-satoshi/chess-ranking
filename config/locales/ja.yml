@@ -1,15 +1,17 @@
 ja:
   views:
+    common:
+      share: "シェア"
     header:
       ranking: "ランキング"
       distribution: "分布"
+      victoryDistance: "到達勝利距離"
     pagination:
       first: "&laquo"
       last: "&raquo"
       truncate: "..."
     players:
       title: "チェスレーティングランキング"
-      share: "シェア"
       index:
         filter: "検索"
         description: "日本人のチェスレーティングランキング。日本チェス連盟のレーティングでランキングを表示します。2019年から現在まで毎月のデータを見ることができます。"
@@ -22,3 +24,20 @@ ja:
         graphName: "レーティング範囲に属する人数"
         updateGraph: "比較する月を変更する"
         updateButton: "更新"
+      victoryDistance:
+        title: "チェス到達勝利距離"
+        description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。あなたは何人辿ればチャンピオンに勝っていますか？"
+        updateButton: "計算する"
+        form:
+          description: "比較するプレーヤー2人を入力してください"
+          between: "と"
+        table:
+          title: "%{player1}は%{distance}回辿れば%{player2}に勝っている"
+          no_path: "%{player1}から6回以上辿っても%{player2}には勝てません"
+        what:
+          title: "到達勝利距離とは"
+          inspiration: "参考にしたサイト"
+          description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。という論理をもとにプレーヤーを比較する距離です。"
+          dataSource: "2024年9月に%{link}に掲載されている2019年から2024年8月までの対局を使用しています。"
+          databaseSite: "日本チェス連盟公式戦データベース"
+

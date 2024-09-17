@@ -1,0 +1,19 @@
+<h4><%= t('views.home.victoryDistance.table.title', player1: path.last.name_en, distance: path.size - 1, player2: path.first.name_en) %></h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">勝者名</th>
+      <th scope="col">敗者名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% path.reverse.each_cons(2).with_index do |(winner, loser), index| %>
+      <tr>
+        <th scope="row"><%= path.size - index - 1 %></th>
+        <td><%= winner.name_en %></td>
+        <td><%= loser.name_en %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

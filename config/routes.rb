@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get '/all_players' => 'players#index_json'
   get '/' => 'players#root'
   get '/distribution' => 'home#distribution'
+  get '/victory_distance' => 'home#victory_distance'
 end

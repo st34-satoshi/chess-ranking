@@ -1,14 +1,37 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
     <%= link_to image_tag('white_king_log.png', {:alt => 'icon', :class => 'icon-size'}), players_path(locale: I18n.locale) %>
-    <div class="d-flex">
-      <%= link_to t('views.header.ranking'), players_path, {class: "btn btn-light p-0"} %>
-      <%= link_to t('views.header.distribution'), distribution_path, {class: "btn btn-light p-0 ms-1"} %>
-    </div>
-    <div class="d-flex">
-      <%= link_to "EN", request.path + "?locale=en", {class: "link-secondary me-1"} %>
-      <span> / </span>
-      <%= link_to "JA", request.path + "?locale=ja", {class: "link-secondary ms-1"} %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to players_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-ranking-star"></i>
+            <%= t('views.header.ranking') %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to distribution_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-chart-simple"></i>
+            <%= t('views.header.distribution') %>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to victory_distance_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-diagram-project"></i>
+            <%= t('views.header.victoryDistance') %>
+          <% end %>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <div class="d-flex">
+          <%= link_to "EN", request.path + "?locale=en", {class: "nav-link"} %>
+          <span class="nav-link px-1">/</span>
+          <%= link_to "JA", request.path + "?locale=ja", {class: "nav-link"} %>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
