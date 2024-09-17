@@ -53,7 +53,8 @@ class Record < ApplicationRecord
     rank = 1
     higher_rank = 999_999
     records.each_with_index do |record, i|
-      if record.standard_rating < higher_rank # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
+      # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
+      if record.standard_rating < higher_rank
         higher_rank = record.standard_rating
         rank = i + 1
       end

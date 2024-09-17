@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 require 'csv'
 
+# rubocop:disable Metrics/BlockLength
 namespace :victory_distance do
-  desc "Save match results"
+  desc 'Save match results'
   task save: :environment do
-    puts "Saving match results"
+    puts 'Saving match results'
     puts "match size: #{Match.count}"
 
     CSV.foreach('./lib/data/games.tsv', col_sep: "\t").with_index do |row, i|
-      puts "Processing row: #{i}" if i % 100 == 0
+      puts "Processing row: #{i}" if (i % 100).zero?
       result, white_name, white_ncs_id, black_name, black_ncs_id = row
-      next if white_ncs_id[0] == "F" or black_ncs_id[0] == "F"
+      next if (white_ncs_id[0] == 'F') || (black_ncs_id[0] == 'F')
 
       # get player
       white = Player.find_by(ncs_id: white_ncs_id)
@@ -23,16 +26,17 @@ namespace :victory_distance do
         next
       end
 
-      if result == "1"
+      if result == '1'
         white.lost_players << black
-      elsif result == "0"
+      elsif result == '0'
         black.lost_players << white
-      elsif result != "0.5"
+      elsif result != '0.5'
         puts "\e[31mResult is unexpected: #{result}\e[0m"
       end
     end
 
-    puts "Finished"
+    puts 'Finished'
     puts "match size: #{Match.count}"
   end
 end
+# rubocop:enable Metrics/BlockLength

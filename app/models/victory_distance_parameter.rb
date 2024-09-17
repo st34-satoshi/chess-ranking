@@ -6,7 +6,7 @@ class VictoryDistanceParameter
   include ActiveRecord::AttributeAssignment
   include ActiveRecord::AttributeMethods::Write
 
-  attribute :player1, :string, default: "Nanjo Ryosuke"
+  attribute :player1, :string, default: 'Nanjo Ryosuke'
   attribute :player2, :string
 
   attribute :start
@@ -14,7 +14,6 @@ class VictoryDistanceParameter
 
   attribute :path1, default: [] # [0]は[1]に勝っている, [player2, ..., player1] or nil
   attribute :path2, default: []
-
 
   def initialize(params)
     super(params.permit(:player1, :player2))
@@ -28,7 +27,7 @@ class VictoryDistanceParameter
     # 計算時間を制限するために6回で止める
     self.start = Player.find_by(name_en: player1)
     self.goal = Player.find_by(name_en: player2)
-    if self.start.nil? || self.goal.nil?
+    if start.nil? || goal.nil?
       self.path1 = nil
       self.path2 = nil
       return
@@ -37,10 +36,10 @@ class VictoryDistanceParameter
     self.path2 = find_loser([start.id], [], goal, 1)
   end
 
-  def find_loser(player_ids, appeard_ids, start, i)
+  def find_loser(player_ids, appeard_ids, start, ind)
     # return path from goal [start, ..., goal]
-    return nil if i > 6
-    
+    return nil if ind > 6
+
     losers = Match.where(lost_id: player_ids).pluck(:won_id).uniq - appeard_ids
     return nil if losers.empty?
 
@@ -52,7 +51,7 @@ class VictoryDistanceParameter
 
     appeard_ids = (player_ids + appeard_ids).uniq
 
-    path = find_loser(losers, appeard_ids, start, i + 1)
+    path = find_loser(losers, appeard_ids, start, ind + 1)
     return nil if path.nil?
 
     # player_idsからpathの最初のプレーヤーが勝ったプレーヤーをランダムに選択してpathに加える
