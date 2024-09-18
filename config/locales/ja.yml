@@ -34,6 +34,8 @@ ja:
         table:
           title: "%{player1}は%{distance}回辿れば%{player2}に勝っている"
           no_path: "%{player1}から6回以上辿っても%{player2}には勝てません"
+          winner: "勝者名"
+          loser: "敗者名"
         what:
           title: "到達勝利距離とは"
           inspiration: "参考にしたサイト"
