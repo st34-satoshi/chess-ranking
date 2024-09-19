@@ -57,6 +57,8 @@ This file is ignored by git.
 
 ### tasks
 - `docker compose exec web rake add_rank:update_null_ranks`
+- create erd.pdf: `docker compose run web bundle exec erd`
+[erd](erd.pdf)
 
 ## connect to the local DB
 psql --host=localhost --port=5464 --username=postgres --password --dbname=chess_ranking_development

@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM ruby:3.0
 
-RUN apt-get update -y -qq && apt-get install -yq postgresql-client vim
+RUN apt-get update -y -qq && apt-get install -yq postgresql-client vim graphviz
 
 WORKDIR /chess_ranking
 COPY Gemfile /chess_ranking/Gemfile
