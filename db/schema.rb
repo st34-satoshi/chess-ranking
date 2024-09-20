@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_16_134045) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_20_081139) do
   create_table "matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "won_id", null: false
     t.bigint "lost_id", null: false
@@ -46,6 +46,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_16_134045) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["player_id"], name: "index_records_on_player_id"
+  end
+
+  create_table "redirects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "ncs_id"
+    t.string "public_uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ncs_id"], name: "index_redirects_on_ncs_id", unique: true
+    t.index ["public_uid"], name: "index_redirects_on_public_uid", unique: true
   end
 
   add_foreign_key "matches", "players", column: "lost_id"
