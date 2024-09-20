@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 namespace :to_csv do
-  desc "DB to CSV. player.ncs_id, player.public_uid"
+  desc 'DB to CSV. player.ncs_id, player.public_uid'
   task palyers_to_csv: :environment do
     puts 'start'
 
     require 'csv'
 
     CSV.open('players.csv', 'w') do |csv|
-      csv << ['ncs_id', 'public_uid']  # Header row
+      csv << %w[ncs_id public_uid]  # Header row
       Player.all.each do |player|
         csv << [player.ncs_id, player.public_uid]
       end
@@ -16,7 +16,7 @@ namespace :to_csv do
     puts 'CSV file "players.csv" has been created.'
   end
 
-  desc "CSV to DB. player.ncs_id, player.public_uid"
+  desc 'CSV to DB. player.ncs_id, player.public_uid'
   task palyers_csv_to_db: :environment do
     puts 'start'
 

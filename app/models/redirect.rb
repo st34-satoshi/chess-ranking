@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Redirect < ApplicationRecord
   def self.new_player_public_uid(old_uid)
     ncs = find_by(public_uid: old_uid)&.ncs_id
