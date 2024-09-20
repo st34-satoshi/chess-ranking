@@ -25,6 +25,14 @@
     <%= yield(:additional_scripts) %>
 
     <% if Rails.env.production? %>
+    <%# javascript sentry %>
+    <script
+      src="https://js.sentry-cdn.com/6a26b3d675241b1b3c25aa3d95fd0342.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <% end %>
+
+    <% if Rails.env.production? %>
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src=<%= "https://www.googletagmanager.com/gtag/js?id=#{Rails.application.credentials.google_analytics_id}" %>></script>
       <script>

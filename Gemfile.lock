@@ -72,6 +72,7 @@ GEM
       io-like (~> 0.3.0)
     ast (2.4.2)
     base64 (0.1.1)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -242,6 +243,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.19.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.19.0)
+    sentry-ruby (5.19.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
     spring (4.1.1)
@@ -300,6 +307,8 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   sitemap_generator
   spring (>= 3.0.0)
   spring-watcher-listen (~> 2.1.0)

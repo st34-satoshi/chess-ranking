@@ -68,3 +68,8 @@ gem 'whenever', require: false
 
 gem 'importmap-rails', '~> 1.2'
 gem 'mini_racer'
+
+# Sentry
+gem 'sentry-rails'
+gem 'sentry-ruby'
+gem "stackprof"
