@@ -29,9 +29,14 @@ class PlayersController < ApplicationController
 
   def set_player
     @player = Player.find_by(public_uid: params[:id])
-    if @player.nil?
-      flash[:alert] = "Player not found" # TODO: 表示する
+    return unless @player.nil?
+
+    new_uid = Redirect.new_player_public_uid(params[:id])
+    if new_uid.nil?
+      flash[:alert] = 'Player not found' # TODO: 表示する
       redirect_to players_path
+    else
+      redirect_to player_path(new_uid), status: :moved_permanently
     end
   end
 end
