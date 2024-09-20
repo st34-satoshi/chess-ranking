@@ -29,5 +29,9 @@ class PlayersController < ApplicationController
 
   def set_player
     @player = Player.find_by(public_uid: params[:id])
+    if @player.nil?
+      flash[:alert] = "Player not found" # TODO: 表示する
+      redirect_to players_path
+    end
   end
 end
