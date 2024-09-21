@@ -5,6 +5,15 @@ def create_rating_diff_graph(input_file='player_rating_diff.csv', output_file='r
     # Read the CSV file
     df = pd.read_csv(input_file)
 
+    # # Filter players with diff less than 1000
+    # filtered_df = df[df['diff'] < -300]
+    # # Sort the filtered dataframe by diff in descending order
+    # filtered_df = filtered_df.sort_values('diff', ascending=False)
+    # # Print the filtered and sorted data
+    # print("Players with rating difference less than -300:")
+    # print(filtered_df.to_string(index=False))
+    # return
+
     # Calculate the quotient of diff divided by 100
     df['diff_quotient'] = df['diff'] // 100
 
@@ -15,13 +24,17 @@ def create_rating_diff_graph(input_file='player_rating_diff.csv', output_file='r
     plt.figure(figsize=(12, 6))
     quotient_counts.plot(kind='bar')
     plt.title('Distribution of Rating Differences')
-    plt.xlabel('Difference Quotient (diff / 100)')
+    plt.xlabel('Difference Range')
     plt.ylabel('Count')
-    plt.xticks(rotation=0)
+    plt.xticks(rotation=45, ha='right')
 
     # Add value labels on top of each bar
     for i, v in enumerate(quotient_counts):
         plt.text(i, v, str(v), ha='center', va='bottom')
+
+    # Modify x-axis labels to show ranges
+    x_labels = [f'{i*100} to {(i+1)*100-1}' for i in quotient_counts.index]
+    plt.gca().set_xticklabels(x_labels)
 
     # Save the plot
     plt.tight_layout()
