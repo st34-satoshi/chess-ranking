@@ -72,4 +72,4 @@ gem 'mini_racer'
 # Sentry
 gem 'sentry-rails'
 gem 'sentry-ruby'
-gem "stackprof"
+gem 'stackprof'
