@@ -4,14 +4,17 @@ import matplotlib.pyplot as plt
 def create_rating_diff_graph(input_file='player_rating_diff.csv', output_file='rating_diff.png'):
     # Read the CSV file
     df = pd.read_csv(input_file)
+    # print(f"Total number of records: {len(df)}")
+    # return
 
     # # Filter players with diff less than 1000
-    # filtered_df = df[df['diff'] < -300]
+    # filtered_df = df[df['diff'].abs() > 300]
     # # Sort the filtered dataframe by diff in descending order
     # filtered_df = filtered_df.sort_values('diff', ascending=False)
     # # Print the filtered and sorted data
     # print("Players with rating difference less than -300:")
-    # print(filtered_df.to_string(index=False))
+    # # print(filtered_df.to_string(index=False))
+    # print(filtered_df.to_csv(index=False, sep='\t'))
     # return
 
     # Calculate the quotient of diff divided by 100
