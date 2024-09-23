@@ -12,6 +12,9 @@
   <meta property="og:description" content="<%= t('views.players.show.description', name: @player.name_of(@locale)) %>">
   <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
 <% end %>
+<% content_for :canonical do %>
+  <link rel="canonical" href="<%= player_url(@player.public_uid, locale: @locale) %>">
+<% end %>
 
 <% content_for :importmap_tag do %>
   <%= javascript_importmap_tags 'player/show' %>

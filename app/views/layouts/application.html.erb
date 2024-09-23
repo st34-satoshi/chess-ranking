@@ -4,6 +4,7 @@
     <%= yield(:title) %>
     <%= yield(:description) %>
     <%= yield(:ogp) %>
+    <%= yield(:canonical) if content_for?(:canonical) %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
