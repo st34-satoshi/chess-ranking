@@ -140,6 +140,7 @@ def read_header(file_name)
       key_map[:name_en] = j if c == 'Name'
       key_map[:name_jp] = j if c == 'Kanji'
       key_map[:coefficient_k] = j if c == 'K'
+      key_map[:coefficient_k] = j if c == 'ST-K'
       key_map[:standard_rating] = j if c == 'ST'
       key_map[:standard_games] = j if c == 'ST-G'
       key_map[:standard_ranking] = j if c == 'ST-R'
