@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 namespace :analysis do
-  desc "Diff between oldest and latest player rating"
+  desc 'Diff between oldest and latest player rating'
   task diff_rating: :environment do
     puts 'start'
 
     require 'csv'
 
     CSV.open('player_rating_diff.csv', 'w') do |csv|
-      csv << ['diff', 'ncs_id', 'name']  # Header row
+      csv << %w[diff ncs_id name] # Header row
       zero_cnt = 0
       Player.all.each do |player|
         first_non_zero = player.records.find { |r| r.standard_rating != 0 }
@@ -27,13 +27,14 @@ namespace :analysis do
     puts 'Task completed.'
   end
 
-  desc "find a player who has no rating at the last month record"
+  desc 'find a player who has no rating at the last month record'
   task find_player_no_rating_at_last_month: :environment do
     puts 'start'
 
     Player.all.each do |player|
       last_month_record = player.records.last
       next if last_month_record.nil?
+
       last_month = Date.today.prev_month.beginning_of_month
 
       if last_month_record.month.month == last_month.month && last_month_record.month.year == last_month.year
