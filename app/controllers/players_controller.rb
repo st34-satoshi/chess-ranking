@@ -11,6 +11,7 @@ class PlayersController < ApplicationController
     last_month = @search_parameter.month.last_month
     player_ids = @records.map(&:player_id)
     @last_month_records = Record.in_order_of(:player_id, player_ids).year_is(last_month.year).month_is(last_month.month)
+    @non_membership_records = Record.non_membership_records(@search_parameter, player_ids, @records.size) if @search_parameter.name.present?
   end
 
   def index_json

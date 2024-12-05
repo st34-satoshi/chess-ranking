@@ -119,6 +119,19 @@
               </td>
             </tr>
             <% end %>
+            <% @non_membership_records&.each do |non_membership_record| %>
+            <tr>
+              <td>
+                -
+              </td>
+              <td>
+                <%= link_to non_membership_record.player.name_en, non_membership_record.player %>
+              </td>
+              <td>
+                -
+              </td>
+            </tr>
+            <% end %>
           </tbody>
       </table>
       <%= paginate(@records) %>

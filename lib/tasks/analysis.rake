@@ -26,4 +26,21 @@ namespace :analysis do
 
     puts 'Task completed.'
   end
+
+  desc "find a player who has no rating at the last month record"
+  task find_player_no_rating_at_last_month: :environment do
+    puts 'start'
+
+    Player.all.each do |player|
+      last_month_record = player.records.last
+      next if last_month_record.nil?
+      last_month = Date.today.prev_month.beginning_of_month
+
+      if last_month_record.month.month == last_month.month && last_month_record.month.year == last_month.year
+        puts "player: #{player.name_en}"
+      end
+    end
+
+    puts 'Task completed.'
+  end
 end
