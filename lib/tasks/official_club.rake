@@ -7,7 +7,6 @@ require 'json'
 namespace :official_club do
   desc 'Scrape official chess clubs and output as JSON'
   task scrape: :environment do
-    # NCS official club page URL
     url = 'https://japanchess.org/clublist/'
 
     begin
@@ -17,8 +16,7 @@ namespace :official_club do
 
       clubs = []
 
-      # binding.pry
-      region = nil
+      location = nil
       doc.css('.entry-content > *').each do |content|
         if content.name == 'h2'
           location = content.text.strip
@@ -70,12 +68,12 @@ namespace :official_club do
 
       clubs.each do |club_data|
         club = Club.find_or_initialize_by(
-          name: club_data['name'],
-          representative_name: club_data['representative_name'],
-          email: club_data['email']
+          name: club_data['name']
         )
 
         club.assign_attributes(
+          representative_name: club_data['representative_name'],
+          email: club_data['email'],
           location: club_data['location'],
           site_url: club_data['site_url'],
           x_url: club_data['x_url'],
