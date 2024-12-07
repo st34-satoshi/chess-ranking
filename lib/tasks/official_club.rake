@@ -29,6 +29,9 @@ namespace :official_club do
             site_url = header_link['href']
             name = header_link.text.strip
             puts "Name: #{name}, URL: #{site_url}"
+          else
+            name = header_row.text.strip
+            puts "Name: #{name}"
           end
 
           representative_row = content.css('tr')[1]
@@ -54,6 +57,42 @@ namespace :official_club do
       puts "Successfully scraped #{clubs.count} clubs and saved to lib/data/official_clubs.json"
     rescue StandardError => e
       puts "Error occurred while scraping: #{e.message}"
+    end
+  end
+
+  desc 'Save official clubs from JSON to DB'
+  task save_to_db: :environment do
+    puts 'Start saving official clubs to DB...'
+
+    begin
+      json_data = File.read('lib/data/official_clubs.json')
+      clubs = JSON.parse(json_data)
+
+      clubs.each do |club_data|
+        club = Club.find_or_initialize_by(
+          name: club_data['name'],
+          representative_name: club_data['representative_name'],
+          email: club_data['email']
+        )
+
+        club.assign_attributes(
+          location: club_data['location'],
+          site_url: club_data['site_url'],
+          x_url: club_data['x_url'],
+          is_official: club_data['is_official']
+        )
+
+        if club.save
+          puts "Saved club: #{club.name}"
+        else
+          puts "Failed to save club: #{club.name}"
+          puts club.errors.full_messages
+        end
+      end
+
+      puts "Successfully saved #{clubs.count} clubs to database"
+    rescue StandardError => e
+      puts "Error occurred while saving to DB: #{e.message}"
     end
   end
 end
