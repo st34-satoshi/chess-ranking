@@ -73,3 +73,7 @@ gem 'mini_racer'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'stackprof'
+
+# for scraping
+gem 'httparty'
+gem 'nokogiri'
