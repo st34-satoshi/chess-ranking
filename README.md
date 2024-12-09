@@ -60,3 +60,7 @@ This file is ignored by git.
 
 ## connect to the local DB
 psql --host=localhost --port=5464 --username=postgres --password --dbname=chess_ranking_development
+
+## 公認クラブ
+### 準備
+- `docker compose exec web rake official_club:scrape` 公認クラブ一覧をjsonで保存する
