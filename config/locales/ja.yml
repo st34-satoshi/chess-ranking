@@ -51,5 +51,6 @@ ja:
       submit: "更新"
       textInput: "テキスト入力"
       urlInput: "URL入力"
-      inputLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
+      inputTextLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
+      inputUrlLabel: "Chess Resultsの選手リストのURLを入力してください。"
 

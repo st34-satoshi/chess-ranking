@@ -32,7 +32,7 @@
           <div class="tab-pane fade show active" id="input" role="tabpanel" aria-labelledby="input-tab">
             <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
               <div class="form-group">
-                <%= f.label :input_text, t('views.playersComparisons.inputLabel') %>
+                <%= f.label :input_text, t('views.playersComparisons.inputTextLabel') %>
                 <%= f.text_area :input_text, class: "form-control", rows: 13, placeholder: "No.		Name	FideID	FED	RtgI	RtgN	Club/City
 1	CM	Tran Thanh Tu	12401404	JPN	2372	2557	
 2	IM	Nanjo Ryosuke	7000634	JPN	2310	2472	
@@ -55,8 +55,8 @@
           <div class="tab-pane fade" id="url" role="tabpanel" aria-labelledby="url-tab">
             <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
               <div class="form-group">
-                <%= f.label :input_text, t('views.playersComparisons.inputLabel') %>
-                <%= f.text_area :input_text, class: "form-control", rows: 5 %>
+                <%= f.label :result_url, t('views.playersComparisons.inputUrlLabel') %>
+                <%= f.text_field :result_url, class: "form-control", placeholder: "https://chess-results.com/tnr938218.aspx" %>
               </div>
         
               <div class="mt-3">
