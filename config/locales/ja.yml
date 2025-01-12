@@ -49,4 +49,7 @@ ja:
       graphName: "プレーヤーのレーティング推移"
       updateGraph: "選手リストを更新する"
       submit: "更新"
+      textInput: "テキスト入力"
+      urlInput: "URL入力"
+      inputLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
 

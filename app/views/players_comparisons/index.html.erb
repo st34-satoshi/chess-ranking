@@ -40,10 +40,10 @@
       <div class="border p-3">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="input-tab" data-bs-toggle="tab" data-bs-target="#input" type="button" role="tab" aria-controls="input" aria-selected="true">Input Text</button>
+            <button class="nav-link active" id="input-tab" data-bs-toggle="tab" data-bs-target="#input" type="button" role="tab" aria-controls="input" aria-selected="true"><%= t('views.playersComparisons.textInput') %></button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button" role="tab" aria-controls="url" aria-selected="false">URL</button>
+            <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button" role="tab" aria-controls="url" aria-selected="false"><%= t('views.playersComparisons.urlInput') %></button>
           </li>
         </ul>
         <div class="tab-content mt-2">
@@ -51,7 +51,18 @@
             <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
               <div class="form-group">
                 <%= f.label :input_text, t('views.playersComparisons.inputLabel') %>
-                <%= f.text_area :input_text, class: "form-control", rows: 5 %>
+                <%= f.text_area :input_text, class: "form-control", rows: 13, placeholder: "No.		Name	FideID	FED	RtgI	RtgN	Club/City
+1	CM	Tran Thanh Tu	12401404	JPN	2372	2557	
+2	IM	Nanjo Ryosuke	7000634	JPN	2310	2472	
+3	FM	Yamada Kohei	7000936	JPN	2204	2278	
+4	FM	Jones Stephen	2000970	USA	2202	2074	
+5	CM	Averbukh Alex	2028255	JPN	2111	2281	
+6		Matsumura Cocoro	36087114	JPN	2033	1883	
+7		Nagataki Kota	7003544	JPN	2001	1971	
+8		Yonemitsu Kohei	7005318	JPN	1998	1611	
+9		Nguyen Tuan Anh	12432288	VIE	1987	1811	
+10		Furuya Masahiro	7001606	JPN	1978	2003	
+" %>
               </div>
         
               <div class="mt-3">

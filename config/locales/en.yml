@@ -50,3 +50,6 @@ en:
       graphName: "Players Rating Transition"
       updateGraph: "Update Players List"
       submit: "Submit"
+      textInput: "Text Input"
+      urlInput: "URL Input"
+      inputLabel: "You can copy and paste from the player list on the Chess Results site. Please make sure the first line contains the word 'Name'."
