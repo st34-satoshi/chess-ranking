@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/' => 'players#root'
   get '/distribution' => 'home#distribution'
   get '/victory_distance' => 'home#victory_distance'
+  get '/compare_players' => 'home#compare_players'
 end

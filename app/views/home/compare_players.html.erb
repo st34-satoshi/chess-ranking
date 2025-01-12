@@ -1,0 +1,54 @@
+<% content_for :title do %>
+  <title><%= t('views.home.comparePlayers.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.home.comparePlayers.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.home.comparePlayers.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= compare_players_url %>">
+  <meta property="og:description" content="<%= t('views.home.comparePlayers.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.png">
+<% end %>
+
+<% content_for :importmap_tag do %>
+  <%= javascript_importmap_tags 'home/compare_players' %>
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+    <div>
+    <%= render "layouts/header" %>
+    <h1>
+        <%= link_to compare_players_path, {class: "nav-link text-body ps-0"} do %>
+          <i class="fa-solid fa-users"></i>
+          <%= t('views.home.comparePlayers.title') %>
+        <% end %>
+    </h1>
+    <hr>
+    </div>
+
+    <div class="pt-3">
+      <h3><%= t('views.home.comparePlayers.graphName') %></h3>
+      TODO: graph
+    </div>
+
+    <div class="mt-5">
+      <h3><%= t('views.home.comparePlayers.updateGraph') %></h3>
+      TODO: form
+    </div>
+
+    <hr>
+
+    <div class="pt-3 text-center pb-3">
+      Share:
+      <%= link_to "https://x.com/intent/tweet?text=#{t('views.home.comparePlayers.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-secondary"} do %>
+        <i class="fa-brands fa-x-twitter"></i>
+      <% end %>
+    </div>
+
+    </div>
+    </div>
+</div>

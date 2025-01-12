@@ -7,6 +7,7 @@ en:
       ranking: "Ranking"
       distribution: "Distribution"
       victoryDistance: "Victory Distance"
+      comparePlayers: "Compare Players"
     pagination:
       first: "&laquo"
       last: "&raquo"
@@ -43,3 +44,9 @@ en:
           description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. And this is the distance to say you've defeated the champion."
           dataSource: "Using data from %{link} from 2019 to August 2024."
           databaseSite: "Japanese Chess Federation Official Database"
+      comparePlayers:
+        title: "Compare Players Rating Transition"
+        description: "Compare the rating transitions of multiple players."
+        graphName: "Players Rating Transition"
+        updateGraph: "Update Players List"
+        updateButton: "Update"

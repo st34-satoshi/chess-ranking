@@ -24,6 +24,12 @@
             <%= t('views.header.victoryDistance') %>
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to compare_players_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-users"></i>
+            <%= t('views.header.comparePlayers') %>
+          <% end %>
+        </li>
       </ul>
       <div class="navbar-nav">
         <div class="d-flex">

@@ -17,6 +17,9 @@ class HomeController < ApplicationController
     @victory_distance_parameter.calculate_path
   end
 
+  def compare_players
+  end
+
   private
 
   def distribution_graph_params
