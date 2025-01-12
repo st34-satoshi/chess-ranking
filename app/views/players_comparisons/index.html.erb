@@ -1,14 +1,14 @@
 <% content_for :title do %>
-  <title><%= t('views.home.comparePlayers.title') %></title>
+  <title><%= t('views.playersComparisons.title') %></title>
 <% end %>
 <% content_for :description do %>
-  <meta name="description" content="<%= t('views.home.comparePlayers.description') %>">
+  <meta name="description" content="<%= t('views.playersComparisons.description') %>">
 <% end %>
 <% content_for :ogp do %>
-  <meta property="og:title" content="<%= t('views.home.comparePlayers.title') %>">
+  <meta property="og:title" content="<%= t('views.playersComparisons.title') %>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= request.url %>">
-  <meta property="og:description" content="<%= t('views.home.comparePlayers.description') %>">
+  <meta property="og:description" content="<%= t('views.playersComparisons.description') %>">
   <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.png">
 <% end %>
 
@@ -24,27 +24,27 @@
     <h1>
         <%= link_to players_comparisons_path, {class: "nav-link text-body ps-0"} do %>
           <i class="fa-solid fa-users"></i>
-          <%= t('views.home.comparePlayers.title') %>
+          <%= t('views.playersComparisons.title') %>
         <% end %>
     </h1>
     <hr>
     </div>
 
     <div class="pt-3">
-      <h3><%= t('views.home.comparePlayers.graphName') %></h3>
+      <h3><%= t('views.playersComparisons.graphName') %></h3>
       TODO: graph
     </div>
 
     <div class="mt-5">
-      <h3><%= t('views.home.comparePlayers.updateGraph') %></h3>
-      <%= form_with model: @players_comparison, local: true do |f| %>
+      <h3><%= t('views.playersComparisons.updateGraph') %></h3>
+      <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
         <div class="form-group">
-          <%= f.label :input_text, t('views.home.comparePlayers.inputLabel') %>
+          <%= f.label :input_text, t('views.playersComparisons.inputLabel') %>
           <%= f.text_area :input_text, class: "form-control", rows: 5 %>
         </div>
 
         <div class="mt-3">
-          <%= f.submit t('views.home.comparePlayers.submit'), class: "btn btn-primary" %>
+          <%= f.submit t('views.playersComparisons.submit'), class: "btn btn-primary" %>
         </div>
       <% end %>
       TODO: form
