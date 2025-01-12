@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <title><%= t('views.playersComparisons.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.playersComparisons.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.playersComparisons.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= request.url %>">
+  <meta property="og:description" content="<%= t('views.playersComparisons.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.png">
+<% end %>

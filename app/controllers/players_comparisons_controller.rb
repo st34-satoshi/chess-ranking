@@ -10,8 +10,7 @@ class PlayersComparisonsController < ApplicationController
   def create
     @players_comparison = PlayersComparison.new(players_comparison_params)
     if @players_comparison.save
-      redirect_to players_comparisons_path
-      # redirect_to players_comparison_path(@players_comparison)
+      redirect_to players_comparison_path(@players_comparison)
     else
       render :index
     end

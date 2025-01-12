@@ -12,4 +12,5 @@ pin 'player/show', preload: true
 pin 'home/distribution', preload: true
 pin 'home/victory_distance', preload: true
 pin 'players_comparison/index', preload: true
+pin 'players_comparison/show', preload: true
 pin 'players_comparison/switch_tab', preload: true
