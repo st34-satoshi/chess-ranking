@@ -6,6 +6,7 @@ class PlayersComparison < ApplicationRecord
   before_save :clean_result_url
   before_save :result_url_to_players_list
   before_save :input_to_list
+  before_save :sanitize_players_list
 
   def to_param
     public_uid
@@ -88,5 +89,9 @@ class PlayersComparison < ApplicationRecord
       fields = row.css('td').map(&:text).map(&:strip)
       fields[name_index] if fields[name_index].present?
     end.compact
+  end
+
+  def sanitize_players_list
+    self.players_list = players_list&.map { |name| name&.gsub(',', '') }
   end
 end
