@@ -96,7 +96,7 @@ class PlayersComparison < ApplicationRecord
     end
     return true if result_url.blank?
 
-    if result_url.present? && result_url.start_with?('https://chess-results.com/tnr')
+    if result_url.present? && (result_url.start_with?('https://chess-results.com/tnr') || result_url.start_with?('https://chess-results.com/Tnr'))
       true
     else
       errors.add(:result_url, :invalid)
