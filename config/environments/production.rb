@@ -82,9 +82,9 @@ Rails.application.configure do
   config.log_formatter = Logger::Formatter.new
 
   config.logger = ActiveSupport::Logger.new(
-    config.paths['log'].first, 
-    'monthly',    # rotate monthly
-    100             # keep last 100 files
+    config.paths['log'].first,
+    'monthly', # rotate monthly
+    100 # keep last 100 files
   )
   config.logger.formatter = config.log_formatter
 

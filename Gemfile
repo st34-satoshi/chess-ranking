@@ -60,12 +60,12 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # added by me
 gem 'kaminari'
+gem 'nokogiri'
 gem 'pry-rails'
 gem 'public_uid'
 gem 'roo'
 gem 'sitemap_generator'
 gem 'whenever', require: false
-gem 'nokogiri'
 
 gem 'importmap-rails', '~> 1.2'
 gem 'mini_racer'

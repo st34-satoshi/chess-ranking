@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlayersComparisonsController < ApplicationController
   def index
     @players_comparison = PlayersComparison.find_by(is_default_data: true)
@@ -13,11 +15,11 @@ class PlayersComparisonsController < ApplicationController
       if @players_comparison.save
         redirect_to players_comparison_path(@players_comparison)
       else
-        flash.now[:alert] = @players_comparison.errors.full_messages.join(", ")
+        flash.now[:alert] = @players_comparison.errors.full_messages.join(', ')
         render :index
       end
     else
-      flash.now[:alert] = @players_comparison.errors.full_messages.join(", ")
+      flash.now[:alert] = @players_comparison.errors.full_messages.join(', ')
       render :index
     end
   end

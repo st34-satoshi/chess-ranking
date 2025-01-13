@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class PlayersComparison < ApplicationRecord
   generate_public_uid
   serialize :players_list, Array
   attr_accessor :contain_result_url
   attr_accessor :not_found_players
+
   serialize :not_found_players, Array
   validate :result_url_valid?
   before_save :clean_result_url
@@ -25,7 +28,7 @@ class PlayersComparison < ApplicationRecord
     date_array = []
     current_month = first_record.month
     today = Date.today.beginning_of_month
-    
+
     while current_month <= today
       date_array.push(current_month.strftime('%Y-%m'))
       current_month = current_month.next_month
@@ -45,10 +48,12 @@ class PlayersComparison < ApplicationRecord
     players_list.first(200).each do |player_name|
       player = Player.find_by(name_en: player_name)
       unless player
-        self.not_found_players.push(player_name)
+        not_found_players.push(player_name)
         next
       end
-      player_records = player.records.order(:month).map { |record| [record.month.strftime('%Y-%m'), record.standard_rating] }.to_h
+      player_records = player.records.order(:month).map do |record|
+        [record.month.strftime('%Y-%m'), record.standard_rating]
+      end.to_h
       players.push({ name: player_name, ratings: player_records })
     end
     players.to_json
@@ -63,22 +68,22 @@ class PlayersComparison < ApplicationRecord
 
   def input_to_list
     return if contain_result_url == 'true'
+
     if input_text.blank?
       errors.add(:input_text, :blank)
       throw(:abort)
-      return
     end
-    
+
     lines = input_text.split("\n")
     header = lines.shift.split(/,|\t/).map(&:strip) # Split and store header
     name_index = header.index { |col| col.downcase.include?('name') }
     if name_index.blank?
       errors.add(:input_text, :name_column_missing)
       throw(:abort)
-      return
     end
     self.players_list = lines.map do |line|
       next if line.strip.empty?
+
       fields = line.split("\t").map(&:strip)
       fields[name_index] if fields[name_index].present? # Only store name
     end.compact
@@ -90,6 +95,7 @@ class PlayersComparison < ApplicationRecord
       return false
     end
     return true if result_url.blank?
+
     if result_url.present? && result_url.start_with?('https://chess-results.com/tnr')
       true
     else
@@ -105,21 +111,19 @@ class PlayersComparison < ApplicationRecord
     response = URI.open(result_url)
     html = Nokogiri::HTML(response)
     table = html.css('table.CRs1').first
-    
+
     if table.nil?
       errors.add(:result_url, :failed_to_get_players)
       throw(:abort)
-      return
     end
 
     rows = table.css('tr')
     header = rows.shift.css('td,th').map(&:text).map(&:strip)
     name_index = header.index { |col| col.downcase.include?('name') }
-    
+
     if name_index.blank?
-      errors.add(:result_url, :failed_to_get_players) 
+      errors.add(:result_url, :failed_to_get_players)
       throw(:abort)
-      return
     end
 
     self.players_list = rows.map do |row|
