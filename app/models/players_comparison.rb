@@ -32,11 +32,20 @@ class PlayersComparison < ApplicationRecord
   end
 
   def players_records
-    [
-      { name: 'Player 1', ratings: {'2020-01': 2500, '2020-02': 2600, '2020-03': 2700} },
-      { name: 'Player 2', ratings: {'2020-01': 2400, '2020-02': 2500, '2020-03': 2600} },
-      { name: 'Player 3', ratings: {'2020-01': 2300, '2020-03': 2500} }
-    ].to_json
+    # return example
+    # [
+    #   { name: 'Player 1', ratings: {'2020-01': 2500, '2020-02': 2600, '2020-03': 2700} },
+    #   { name: 'Player 2', ratings: {'2020-01': 2400, '2020-02': 2500, '2020-03': 2600} },
+    #   { name: 'Player 3', ratings: {'2020-01': 2300, '2020-03': 2500} }
+    # ].to_json
+    players = []
+    players_list.each do |player_name|
+      player = Player.find_by(name_en: player_name)
+      next unless player
+      player_records = player.records.order(:month).map { |record| [record.month.strftime('%Y-%m'), record.standard_rating] }.to_h
+      players.push({ name: player_name, ratings: player_records })
+    end
+    players.to_json
   end
 
   private
@@ -62,10 +71,9 @@ class PlayersComparison < ApplicationRecord
       throw(:abort)
       return
     end
-    
     self.players_list = lines.map do |line|
       next if line.strip.empty?
-      fields = line.split(/,|\t/).map(&:strip)
+      fields = line.split("\t").map(&:strip)
       fields[name_index] if fields[name_index].present? # Only store name
     end.compact
   end
