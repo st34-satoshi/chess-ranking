@@ -29,14 +29,14 @@
       <div class="border p-3">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="input-tab" data-bs-toggle="tab" data-bs-target="#input" type="button" role="tab" aria-controls="input" aria-selected="true"><%= t('views.playersComparisons.textInput') %></button>
+            <button class="nav-link <%= @players_comparison.open_url_tab? ? '' : 'active' %>" id="input-tab" data-bs-toggle="tab" data-bs-target="#input" type="button" role="tab" aria-controls="input" aria-selected="<%= !@players_comparison.open_url_tab? %>"><%= t('views.playersComparisons.textInput') %></button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button" role="tab" aria-controls="url" aria-selected="false"><%= t('views.playersComparisons.urlInput') %></button>
+            <button class="nav-link <%= @players_comparison.open_url_tab? ? 'active' : '' %>" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button" role="tab" aria-controls="url" aria-selected="<%= @players_comparison.open_url_tab? %>"><%= t('views.playersComparisons.urlInput') %></button>
           </li>
         </ul>
         <div class="tab-content mt-2">
-          <div class="tab-pane fade show active" id="input" role="tabpanel" aria-labelledby="input-tab">
+          <div class="tab-pane fade <%= @players_comparison.open_url_tab? ? '' : 'show active' %>" id="input" role="tabpanel" aria-labelledby="input-tab">
             <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
               <div class="form-group">
                 <%= f.label :input_text, t('views.playersComparisons.inputTextLabel') %>
@@ -58,12 +58,13 @@
               </div>
             <% end %>
           </div>
-          <div class="tab-pane fade" id="url" role="tabpanel" aria-labelledby="url-tab">
+          <div class="tab-pane fade <%= @players_comparison.open_url_tab? ? 'show active' : '' %>" id="url" role="tabpanel" aria-labelledby="url-tab">
             <%= form_with model: @players_comparison, url: players_comparisons_path, method: :post, local: true do |f| %>
               <div class="form-group">
                 <%= f.label :result_url, t('views.playersComparisons.inputUrlLabel') %>
                 <%= f.text_field :result_url, class: "form-control", placeholder: "https://chess-results.com/tnr938218.aspx" %>
               </div>
+              <%= f.hidden_field :contain_result_url, value: true %>
         
               <div class="mt-3">
                 <%= f.submit t('views.playersComparisons.submit'), class: "btn btn-primary" %>

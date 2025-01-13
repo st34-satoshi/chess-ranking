@@ -25,6 +25,6 @@ class PlayersComparisonsController < ApplicationController
   private
 
   def players_comparison_params
-    params.require(:players_comparison).permit(:input_text, :result_url)
+    params.require(:players_comparison).permit(:input_text, :result_url, :contain_result_url)
   end
 end

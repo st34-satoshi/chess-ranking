@@ -1,12 +1,17 @@
 class PlayersComparison < ApplicationRecord
   generate_public_uid
   serialize :players_list, Array
+  attr_accessor :contain_result_url
   validate :result_url_valid?
   before_save :clean_result_url
   before_save :input_to_list
 
   def to_param
     public_uid
+  end
+
+  def open_url_tab?
+    contain_result_url == 'true' || result_url.present?
   end
 
   private
@@ -40,7 +45,10 @@ class PlayersComparison < ApplicationRecord
   end
 
   def result_url_valid?
-    Rails.logger.info "result_url_valid? 7777777 9999999 #{result_url}"
+    if contain_result_url == 'true' && result_url.blank?
+      errors.add(:result_url, :blank)
+      return false
+    end
     return true if result_url.blank?
     if result_url.present? && result_url.start_with?('https://chess-results.com/')
       true
