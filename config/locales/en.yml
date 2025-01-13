@@ -56,6 +56,7 @@ en:
       inputUrlLabel: "Enter the URL of the player list on the Chess Results site."
       notFoundPlayers: "Players not found in the database"
       tooManyPlayers: "Maximum %{count} players can be displayed"
+      ratingRange: "Rating range to display on the graph"
   activerecord:
     errors:
       models:

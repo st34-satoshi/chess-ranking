@@ -28,6 +28,14 @@
 
     <div class="pt-3">
       <h3><%= t('views.playersComparisons.graphName') %></h3>
+      <div class="mb-3">
+        <div class="d-flex align-items-center">
+          <label class="form-label mb-0 me-2"><%= t('views.playersComparisons.ratingRange') %></label>
+          <input type="number" class="form-control form-control-sm" style="width: 70px;" id="ratingMin" min="0" max="3000" value="0">
+          <span class="mx-2">~</span>
+          <input type="number" class="form-control form-control-sm" style="width: 70px;" id="ratingMax" min="0" max="3000" value="3000">
+        </div>
+      </div>
       <canvas id="playersComparisonChart" data-players-records='<%= @players_comparison.players_records %>' data-dates='<%= @players_comparison.dates %>' data-name='<%= t('views.playersComparison.graphName') %>'></canvas>
       <% if @players_comparison.not_found_players.present? %>
         <div class="alert alert-warning mt-3">

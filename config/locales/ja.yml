@@ -55,6 +55,7 @@ ja:
       inputUrlLabel: "Chess Resultsの選手リストのURLを入力してください。"
       notFoundPlayers: "データベースにないプレーヤー"
       tooManyPlayers: "最大%{count}人まで表示できます"
+      ratingRange: "グラフに表示するレーティング範囲"
   activerecord:
     errors:
       models:
