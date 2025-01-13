@@ -62,8 +62,9 @@ en:
           attributes:
             input_text:
               blank: "can't be blank"
-            input_url:
+            result_url:
               blank: "can't be blank"
+              invalid: "is invalid. Please enter a URL starting with 'https://chess-results.com'."
     models:
       players_comparison: "Players Comparison"
     attributes:

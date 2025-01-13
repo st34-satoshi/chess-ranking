@@ -9,8 +9,13 @@ class PlayersComparisonsController < ApplicationController
 
   def create
     @players_comparison = PlayersComparison.new(players_comparison_params)
-    if @players_comparison.save
-      redirect_to players_comparison_path(@players_comparison)
+    if @players_comparison.valid?
+      if @players_comparison.save
+        redirect_to players_comparison_path(@players_comparison)
+      else
+        flash.now[:alert] = @players_comparison.errors.full_messages.join(", ")
+        render :index
+      end
     else
       flash.now[:alert] = @players_comparison.errors.full_messages.join(", ")
       render :index

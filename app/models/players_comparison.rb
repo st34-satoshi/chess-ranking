@@ -1,6 +1,7 @@
 class PlayersComparison < ApplicationRecord
   generate_public_uid
   serialize :players_list, Array
+  validate :result_url_valid?
   before_save :clean_result_url
   before_save :input_to_list
 
@@ -36,5 +37,16 @@ class PlayersComparison < ApplicationRecord
       fields = line.split(/,|\t/).map(&:strip)
       fields[name_index] if fields[name_index].present? # Only store name
     end.compact
+  end
+
+  def result_url_valid?
+    Rails.logger.info "result_url_valid? 7777777 9999999 #{result_url}"
+    return true if result_url.blank?
+    if result_url.present? && result_url.start_with?('https://chess-results.com/')
+      true
+    else
+      errors.add(:result_url, :invalid)
+      false
+    end
   end
 end
