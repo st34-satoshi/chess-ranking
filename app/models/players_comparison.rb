@@ -4,6 +4,7 @@ class PlayersComparison < ApplicationRecord
   attr_accessor :contain_result_url
   validate :result_url_valid?
   before_save :clean_result_url
+  before_save :result_url_to_players_list
   before_save :input_to_list
 
   def to_param
@@ -22,6 +23,7 @@ class PlayersComparison < ApplicationRecord
   end
 
   def input_to_list
+    return if contain_result_url == 'true'
     if input_text.blank?
       errors.add(:input_text, :blank)
       throw(:abort)
@@ -59,15 +61,15 @@ class PlayersComparison < ApplicationRecord
   end
 
   def result_url_to_players_list
-  end
+    return if contain_result_url != 'true'
 
-  def fetch_table_from_url
+    require 'open-uri'
     response = URI.open(result_url)
     html = Nokogiri::HTML(response)
     table = html.css('table.CRs1').first
     
     if table.nil?
-      errors.add(:result_url, :invalid)
+      errors.add(:result_url, :failed_to_get_players)
       throw(:abort)
       return
     end
@@ -77,7 +79,7 @@ class PlayersComparison < ApplicationRecord
     name_index = header.index { |col| col.downcase.include?('name') }
     
     if name_index.blank?
-      errors.add(:result_url, :name_column_missing) 
+      errors.add(:result_url, :failed_to_get_players) 
       throw(:abort)
       return
     end

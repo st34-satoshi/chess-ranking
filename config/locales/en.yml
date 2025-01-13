@@ -65,6 +65,7 @@ en:
             result_url:
               blank: "can't be blank"
               invalid: "is invalid. Please enter a URL starting with 'https://chess-results.com/tnr'."
+              failed_to_get_players: "failed to get players. Please check if the URL is correct. You can also use the text input."
     models:
       players_comparison: "Players Comparison"
     attributes:

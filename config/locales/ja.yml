@@ -64,6 +64,7 @@ ja:
             result_url:
               blank: "を入力してください"
               invalid: "が無効です。「https://chess-results.com/tnr」から始まるURLを入力してください。"
+              failed_to_get_players: "選手リストを取得できませんでした。URLが正しいか確認してください。テキスト入力もご利用ください。"
     models:
       players_comparison: "プレーヤー比較"
     attributes:
