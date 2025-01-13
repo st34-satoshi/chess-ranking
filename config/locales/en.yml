@@ -57,6 +57,7 @@ en:
       notFoundPlayers: "Players not found in the database"
       tooManyPlayers: "Maximum %{count} players can be displayed"
       ratingRange: "Rating range to display on the graph"
+      graphInfo: "If the graph is distorted, please view it on a larger screen such as a computer."
   activerecord:
     errors:
       models:

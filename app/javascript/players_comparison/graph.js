@@ -49,12 +49,13 @@ function createGraph() {
     type: 'line',
     data,
     options: {
-        scales: {
-          y: {
-            axis: 'r'
-          }
+      responsive: true,
+      scales: {
+        y: {
+          axis: 'r'
         }
       }
+    }
   };
 
   PlayersComparisonChart = new Chart(
