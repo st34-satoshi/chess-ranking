@@ -53,4 +53,19 @@ ja:
       urlInput: "URL入力"
       inputTextLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
       inputUrlLabel: "Chess Resultsの選手リストのURLを入力してください。"
-
+  activerecord:
+    errors:
+      models:
+        players_comparison:
+          name_column_missing: "に「Name」が含まれていません"
+          attributes:
+            input_text:
+              blank: "を入力してください"
+            input_url:
+              blank: "を入力してください"
+    models:
+      players_comparison: "プレーヤー比較"
+    attributes:
+      players_comparison:
+        input_text: "入力テキスト"
+        result_url: "入力URL"

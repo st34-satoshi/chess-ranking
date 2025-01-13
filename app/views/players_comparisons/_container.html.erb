@@ -12,6 +12,13 @@
     <hr>
     </div>
 
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
     <div class="pt-3">
       <h3><%= t('views.playersComparisons.graphName') %></h3>
       TODO: graph
@@ -34,7 +41,6 @@
               <div class="form-group">
                 <%= f.label :input_text, t('views.playersComparisons.inputTextLabel') %>
                 <%= f.text_area :input_text, class: "form-control", rows: 13, placeholder: "No.		Name	FideID	FED	RtgI	RtgN	Club/City
-1	CM	Tran Thanh Tu	12401404	JPN	2372	2557	
 2	IM	Nanjo Ryosuke	7000634	JPN	2310	2472	
 3	FM	Yamada Kohei	7000936	JPN	2204	2278	
 4	FM	Jones Stephen	2000970	USA	2202	2074	

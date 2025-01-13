@@ -54,3 +54,19 @@ en:
       urlInput: "URL Input"
       inputTextLabel: "You can copy and paste from the player list on the Chess Results site. Please make sure the first line contains the word 'Name'."
       inputUrlLabel: "Enter the URL of the player list on the Chess Results site."
+  activerecord:
+    errors:
+      models:
+        players_comparison:
+          name_column_missing: "does not contain the word 'Name'"
+          attributes:
+            input_text:
+              blank: "can't be blank"
+            input_url:
+              blank: "can't be blank"
+    models:
+      players_comparison: "Players Comparison"
+    attributes:
+      players_comparison:
+        input_text: "Input Text"
+        result_url: "Input URL"
