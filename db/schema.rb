@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_20_081139) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_12_055916) do
   create_table "matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "won_id", null: false
     t.bigint "lost_id", null: false
@@ -29,6 +29,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_081139) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["ncs_id"], name: "index_players_on_ncs_id", unique: true
     t.index ["public_uid"], name: "index_players_on_public_uid", unique: true
+  end
+
+  create_table "players_comparisons", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "public_uid", null: false
+    t.text "players_list"
+    t.string "result_url"
+    t.text "input_text"
+    t.boolean "is_default_data", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["public_uid"], name: "index_players_comparisons_on_public_uid", unique: true
   end
 
   create_table "records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

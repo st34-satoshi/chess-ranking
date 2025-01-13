@@ -7,6 +7,7 @@ en:
       ranking: "Ranking"
       distribution: "Distribution"
       victoryDistance: "Victory Distance"
+      comparePlayers: "Compare Players"
     pagination:
       first: "&laquo"
       last: "&raquo"
@@ -43,3 +44,35 @@ en:
           description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. And this is the distance to say you've defeated the champion."
           dataSource: "Using data from %{link} from 2019 to August 2024."
           databaseSite: "Japanese Chess Federation Official Database"
+    playersComparisons:
+      title: "Compare Players Rating Transition"
+      description: "Compare the rating transitions of multiple players."
+      graphName: "Players Rating Transition"
+      updateGraph: "Update Players List"
+      submit: "Submit"
+      textInput: "Text Input"
+      urlInput: "URL Input"
+      inputTextLabel: "You can copy and paste from the player list on the Chess Results site. Please make sure the first line contains the word 'Name'."
+      inputUrlLabel: "Enter the URL of the player list on the Chess Results site."
+      notFoundPlayers: "Players not found in the database"
+      tooManyPlayers: "Maximum %{count} players can be displayed"
+      ratingRange: "Rating range to display on the graph"
+      graphInfo: "If the graph is distorted, please view it on a larger screen such as a computer."
+  activerecord:
+    errors:
+      models:
+        players_comparison:
+          name_column_missing: "does not contain the word 'Name'"
+          attributes:
+            input_text:
+              blank: "can't be blank"
+            result_url:
+              blank: "can't be blank"
+              invalid: "is invalid. Please enter a URL starting with 'https://chess-results.com/tnr'."
+              failed_to_get_players: "failed to get players. Please check if the URL is correct. You can also use the text input."
+    models:
+      players_comparison: "Players Comparison"
+    attributes:
+      players_comparison:
+        input_text: "Input Text"
+        result_url: "Input URL"

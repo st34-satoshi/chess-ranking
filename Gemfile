@@ -60,6 +60,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # added by me
 gem 'kaminari'
+gem 'nokogiri'
 gem 'pry-rails'
 gem 'public_uid'
 gem 'roo'

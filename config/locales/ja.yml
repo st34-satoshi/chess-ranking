@@ -6,6 +6,7 @@ ja:
       ranking: "ランキング"
       distribution: "分布"
       victoryDistance: "到達勝利距離"
+      comparePlayers: "プレーヤー比較"
     pagination:
       first: "&laquo"
       last: "&raquo"
@@ -42,4 +43,35 @@ ja:
           description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。という論理をもとにプレーヤーを比較する距離です。"
           dataSource: "2024年9月に%{link}に掲載されている2019年から2024年8月までの対局を使用しています。"
           databaseSite: "日本チェス連盟公式戦データベース"
-
+    playersComparisons:
+      title: "チェスプレーヤーレーティング推移一括比較"
+      description: "日本人のチェスレーティングプレーヤーを一括比較します。大会参加者のレーティング推移グラフを表示します。"
+      graphName: "プレーヤーのレーティング推移"
+      updateGraph: "選手リストを更新する"
+      submit: "更新"
+      textInput: "テキスト入力"
+      urlInput: "URL入力"
+      inputTextLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
+      inputUrlLabel: "Chess Resultsの選手リストのURLを入力してください。"
+      notFoundPlayers: "データベースにないプレーヤー"
+      tooManyPlayers: "最大%{count}人まで表示できます"
+      ratingRange: "グラフに表示するレーティング範囲"
+      graphInfo: "グラフの表示が崩れる場合は、パソコンなど、より大きな画面でご覧ください。"
+  activerecord:
+    errors:
+      models:
+        players_comparison:
+          name_column_missing: "に「Name」が含まれていません"
+          attributes:
+            input_text:
+              blank: "を入力してください"
+            result_url:
+              blank: "を入力してください"
+              invalid: "が無効です。「https://chess-results.com/tnr」から始まるURLを入力してください。"
+              failed_to_get_players: "選手リストを取得できませんでした。URLが正しいか確認してください。テキスト入力もご利用ください。"
+    models:
+      players_comparison: "プレーヤー比較"
+    attributes:
+      players_comparison:
+        input_text: "入力テキスト"
+        result_url: "入力URL"
