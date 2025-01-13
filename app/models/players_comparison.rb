@@ -42,7 +42,7 @@ class PlayersComparison < ApplicationRecord
     # ].to_json
     self.not_found_players = []
     players = []
-    players_list.each do |player_name|
+    players_list.first(200).each do |player_name|
       player = Player.find_by(name_en: player_name)
       unless player
         self.not_found_players.push(player_name)

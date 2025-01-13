@@ -19,6 +19,13 @@
       </div>
     <% end %>
 
+    <% if @players_comparison.players_list&.size.to_i > 200 %>
+      <div class="alert alert-warning" role="alert">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <%= t('views.playersComparisons.tooManyPlayers', count: 200) %>
+      </div>
+    <% end %>
+
     <div class="pt-3">
       <h3><%= t('views.playersComparisons.graphName') %></h3>
       <canvas id="playersComparisonChart" data-players-records='<%= @players_comparison.players_records %>' data-dates='<%= @players_comparison.dates %>' data-name='<%= t('views.playersComparison.graphName') %>'></canvas>

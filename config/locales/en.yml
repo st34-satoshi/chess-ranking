@@ -55,6 +55,7 @@ en:
       inputTextLabel: "You can copy and paste from the player list on the Chess Results site. Please make sure the first line contains the word 'Name'."
       inputUrlLabel: "Enter the URL of the player list on the Chess Results site."
       notFoundPlayers: "Players not found in the database"
+      tooManyPlayers: "Maximum %{count} players can be displayed"
   activerecord:
     errors:
       models:

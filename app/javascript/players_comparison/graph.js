@@ -43,7 +43,6 @@ function createGraph() {
     options: {
         scales: {
           y: {
-            reverse: true,
             axis: 'r'
           }
         }
