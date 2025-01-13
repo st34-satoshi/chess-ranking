@@ -63,7 +63,7 @@ ja:
               blank: "を入力してください"
             result_url:
               blank: "を入力してください"
-              invalid: "が無効です。「https://chess-results.com」から始まるURLを入力してください。"
+              invalid: "が無効です。「https://chess-results.com/tnr」から始まるURLを入力してください。"
     models:
       players_comparison: "プレーヤー比較"
     attributes:

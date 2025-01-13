@@ -64,7 +64,7 @@ en:
               blank: "can't be blank"
             result_url:
               blank: "can't be blank"
-              invalid: "is invalid. Please enter a URL starting with 'https://chess-results.com'."
+              invalid: "is invalid. Please enter a URL starting with 'https://chess-results.com/tnr'."
     models:
       players_comparison: "Players Comparison"
     attributes:

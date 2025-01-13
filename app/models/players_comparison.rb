@@ -50,11 +50,41 @@ class PlayersComparison < ApplicationRecord
       return false
     end
     return true if result_url.blank?
-    if result_url.present? && result_url.start_with?('https://chess-results.com/')
+    if result_url.present? && result_url.start_with?('https://chess-results.com/tnr')
       true
     else
       errors.add(:result_url, :invalid)
       false
     end
+  end
+
+  def result_url_to_players_list
+  end
+
+  def fetch_table_from_url
+    response = URI.open(result_url)
+    html = Nokogiri::HTML(response)
+    table = html.css('table.CRs1').first
+    
+    if table.nil?
+      errors.add(:result_url, :invalid)
+      throw(:abort)
+      return
+    end
+
+    rows = table.css('tr')
+    header = rows.shift.css('td,th').map(&:text).map(&:strip)
+    name_index = header.index { |col| col.downcase.include?('name') }
+    
+    if name_index.blank?
+      errors.add(:result_url, :name_column_missing) 
+      throw(:abort)
+      return
+    end
+
+    self.players_list = rows.map do |row|
+      fields = row.css('td').map(&:text).map(&:strip)
+      fields[name_index] if fields[name_index].present?
+    end.compact
   end
 end
