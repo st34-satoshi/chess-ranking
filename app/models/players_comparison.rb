@@ -16,6 +16,18 @@ class PlayersComparison < ApplicationRecord
     contain_result_url == 'true' || result_url.present?
   end
 
+  def dates
+    ['2020-01', '2020-02', '2020-03']
+  end
+
+  def players_records
+    [
+      { name: 'Player 1', ratings: {'2020-01': 2500, '2020-02': 2600, '2020-03': 2700} },
+      { name: 'Player 2', ratings: {'2020-01': 2400, '2020-02': 2500, '2020-03': 2600} },
+      { name: 'Player 3', ratings: {'2020-01': 2300, '2020-03': 2500} }
+    ].to_json
+  end
+
   private
 
   def clean_result_url

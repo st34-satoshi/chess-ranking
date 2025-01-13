@@ -21,7 +21,7 @@
 
     <div class="pt-3">
       <h3><%= t('views.playersComparisons.graphName') %></h3>
-      TODO: graph
+      <canvas id="playersComparisonChart" data-players-records='<%= @players_comparison.players_records %>' data-dates='<%= @players_comparison.dates %>' data-name='<%= t('views.playersComparison.graphName') %>'></canvas>
     </div>
 
     <div class="mt-5">
