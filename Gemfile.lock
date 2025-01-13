@@ -300,6 +300,7 @@ DEPENDENCIES
   listen (>= 3.0.8)
   mini_racer
   mysql2 (~> 0.5)
+  nokogiri
   pry-rails
   public_uid
   puma (~> 4.3)

@@ -65,6 +65,7 @@ gem 'public_uid'
 gem 'roo'
 gem 'sitemap_generator'
 gem 'whenever', require: false
+gem 'nokogiri'
 
 gem 'importmap-rails', '~> 1.2'
 gem 'mini_racer'
