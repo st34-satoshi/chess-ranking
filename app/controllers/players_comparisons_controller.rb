@@ -1,6 +1,6 @@
 class PlayersComparisonsController < ApplicationController
   def index
-    @players_comparison = PlayersComparison.first
+    @players_comparison = PlayersComparison.find_by(is_default_data: true)
   end
 
   def show
