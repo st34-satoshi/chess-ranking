@@ -17,7 +17,18 @@ class PlayersComparison < ApplicationRecord
   end
 
   def dates
-    ['2020-01', '2020-02', '2020-03']
+    first_record = Record.order(:month).first
+    return [] unless first_record
+
+    date_array = []
+    current_month = first_record.month
+    today = Date.today.beginning_of_month
+    
+    while current_month <= today
+      date_array.push(current_month.strftime('%Y-%m'))
+      current_month = current_month.next_month
+    end
+    date_array
   end
 
   def players_records
