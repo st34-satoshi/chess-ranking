@@ -2,6 +2,8 @@ class PlayersComparison < ApplicationRecord
   generate_public_uid
   serialize :players_list, Array
   attr_accessor :contain_result_url
+  attr_accessor :not_found_players
+  serialize :not_found_players, Array
   validate :result_url_valid?
   before_save :clean_result_url
   before_save :result_url_to_players_list
@@ -38,10 +40,14 @@ class PlayersComparison < ApplicationRecord
     #   { name: 'Player 2', ratings: {'2020-01': 2400, '2020-02': 2500, '2020-03': 2600} },
     #   { name: 'Player 3', ratings: {'2020-01': 2300, '2020-03': 2500} }
     # ].to_json
+    self.not_found_players = []
     players = []
     players_list.each do |player_name|
       player = Player.find_by(name_en: player_name)
-      next unless player
+      unless player
+        self.not_found_players.push(player_name)
+        next
+      end
       player_records = player.records.order(:month).map { |record| [record.month.strftime('%Y-%m'), record.standard_rating] }.to_h
       players.push({ name: player_name, ratings: player_records })
     end

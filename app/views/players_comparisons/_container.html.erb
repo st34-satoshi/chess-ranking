@@ -22,6 +22,16 @@
     <div class="pt-3">
       <h3><%= t('views.playersComparisons.graphName') %></h3>
       <canvas id="playersComparisonChart" data-players-records='<%= @players_comparison.players_records %>' data-dates='<%= @players_comparison.dates %>' data-name='<%= t('views.playersComparison.graphName') %>'></canvas>
+      <% if @players_comparison.not_found_players.present? %>
+        <div class="alert alert-warning mt-3">
+          <h5><%= t('views.playersComparisons.notFoundPlayers') %></h5>
+          <ul class="mb-0">
+            <% @players_comparison.not_found_players.each do |player| %>
+              <li><%= player %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
 
     <div class="mt-5">

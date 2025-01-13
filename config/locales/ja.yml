@@ -53,6 +53,7 @@ ja:
       urlInput: "URL入力"
       inputTextLabel: "Chess Resultsの選手リストからコピペできます。最初の行にNameが含まれていることを確認してください。"
       inputUrlLabel: "Chess Resultsの選手リストのURLを入力してください。"
+      notFoundPlayers: "データベースにないプレーヤー"
   activerecord:
     errors:
       models:
