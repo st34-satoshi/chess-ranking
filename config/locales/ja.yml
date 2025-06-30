@@ -7,6 +7,7 @@ ja:
       distribution: "分布"
       victoryDistance: "到達勝利距離"
       comparePlayers: "プレーヤー比較"
+      ratingChange: "レーティング変動"
     pagination:
       first: "&laquo"
       last: "&raquo"
@@ -57,6 +58,9 @@ ja:
       tooManyPlayers: "最大%{count}人まで表示できます"
       ratingRange: "グラフに表示するレーティング範囲"
       graphInfo: "グラフの表示が崩れる場合は、パソコンなど、より大きな画面でご覧ください。"
+    ratingChanges:
+      title: "レーティング変動ランキング"
+      description: "月ごとのレーティング増加量で並べ替えたランキング"
   activerecord:
     errors:
       models:

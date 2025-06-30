@@ -1,0 +1,58 @@
+<% content_for :title do %>
+  <title><%= t('views.ratingChanges.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.ratingChanges.description') %>">
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+  <div class="row mx-auto pl-1 pr-1 min-vh-100">
+    <div class="d-flex flex-column mx-auto mw-100">
+      <div>
+        <%= render "layouts/header" %>
+        <h1>
+          <%= link_to rating_changes_path, {class: 'nav-link text-body ps-0'} do %>
+            <i class="fa-solid fa-arrow-trend-up d-none d-md-inline"></i>
+            <%= t('views.ratingChanges.title') %>
+          <% end %>
+        </h1>
+        <div>
+          <%= t('views.ratingChanges.description') %>
+        </div>
+        <hr>
+      </div>
+
+      <div class="table-responsive mt-3">
+        <%= form_with model: @search_parameter, url: rating_changes_path, method: :get, local: true, skip_enforcing_utf8: true, html: {class: 'collapse2', id: 'collapseExample2'} do |form| %>
+          <%= hidden_field_tag 'locale', I18n.locale %>
+          <div class="mb-3 align-middle">
+            <%= form.label :month, class: 'align-middle' %>
+            <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: 'align-middle'} %>
+            <%= form.submit 'Update', name: nil, class: 'btn btn-outline-primary ms-1 btn-sm' %>
+          </div>
+        <% end %>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Rating Change</th>
+              <th>Current Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @changes.each_with_index do |change, index| %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= link_to change[:record].player.name_en, change[:record].player %></td>
+                <td><%= change[:diff] %></td>
+                <td><%= change[:record].standard_rating %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
