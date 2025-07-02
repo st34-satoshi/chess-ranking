@@ -1,9 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  player: one
-  player: one
+match_magnus_beats_hikaru:
+  won: magnus
+  lost: hikaru
 
-two:
-  player: two
-  player: two
+match_fabiano_beats_ding:
+  won: fabiano
+  lost: ding
+
+match_magnus_beats_ian:
+  won: magnus
+  lost: ian
+
+match_hikaru_beats_fabiano:
+  won: hikaru
+  lost: fabiano
+
+match_ding_beats_ian:
+  won: ding
+  lost: ian

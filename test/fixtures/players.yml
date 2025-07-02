@@ -1,13 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {
+magnus:
+  ncs_id: "NCS001"
+  name_en: "Magnus Carlsen"
+  name_jp: "マグヌス・カールセン"
   public_uid: "3b52bd53"
-}
 
-two: {
+hikaru:
+  ncs_id: "NCS002"
+  name_en: "Hikaru Nakamura"
+  name_jp: "中村光"
   public_uid: "3b52bd33"
-}
+
+fabiano:
+  ncs_id: "NCS003"
+  name_en: "Fabiano Caruana"
+  name_jp: "ファビアーノ・カルアナ"
+  public_uid: "4c52bd44"
+
+ding:
+  ncs_id: "NCS004"
+  name_en: "Ding Liren"
+  name_jp: "丁立人"
+  public_uid: "5d52bd55"
+
+ian:
+  ncs_id: "NCS005"
+  name_en: "Ian Nepomniachtchi"
+  name_jp: "イアン・ネポムニャシチ"
+  public_uid: "6e52bd66"

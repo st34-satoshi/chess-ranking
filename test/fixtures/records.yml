@@ -1,13 +1,61 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {
-  month: <%= Date.new() %>
-}
+magnus_june:
+  player: magnus
+  coefficient_k: 16
+  standard_rating: 2850
+  standard_games: 45
+  standard_rank: 1
+  rapid_rating: 2820
+  rapid_games: 30
+  member: true
+  active: true
+  month: <%= Date.new(2025, 6, 1) %>
 
-two: {
-  month: <%= Date.new() %>
-}
+hikaru_june:
+  player: hikaru
+  coefficient_k: 20
+  standard_rating: 2810
+  standard_games: 42
+  standard_rank: 2
+  rapid_rating: 2780
+  rapid_games: 35
+  member: true
+  active: true
+  month: <%= Date.new(2025, 6, 1) %>
+
+fabiano_june:
+  player: fabiano
+  coefficient_k: 20
+  standard_rating: 2800
+  standard_games: 38
+  standard_rank: 3
+  rapid_rating: 2750
+  rapid_games: 28
+  member: true
+  active: true
+  month: <%= Date.new(2025, 6, 1) %>
+
+ding_june:
+  player: ding
+  coefficient_k: 24
+  standard_rating: 2790
+  standard_games: 40
+  standard_rank: 4
+  rapid_rating: 2740
+  rapid_games: 32
+  member: true
+  active: true
+  month: <%= Date.new(2025, 6, 1) %>
+
+ian_june:
+  player: ian
+  coefficient_k: 20
+  standard_rating: 2780
+  standard_games: 36
+  standard_rank: 5
+  rapid_rating: 2720
+  rapid_games: 25
+  member: true
+  active: false
+  month: <%= Date.new(2025, 6, 1) %>

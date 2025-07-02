@@ -1,11 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+top_three:
+  public_uid: "comp001"
+  players_list: '[1, 2, 3]'
+  input_text: "Magnus Carlsen vs Hikaru Nakamura vs Fabiano Caruana"
+  result_url: "comparison/top-three"
+  is_default_data: true
+
+world_championship:
+  public_uid: "comp002"
+  players_list: '[1, 4]'
+  input_text: "Magnus Carlsen vs Ding Liren"
+  result_url: "comparison/world-championship"
+  is_default_data: false
