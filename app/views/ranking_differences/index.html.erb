@@ -1,0 +1,169 @@
+<% content_for :title do %>
+  <title><%= t('views.ranking_differences.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.ranking_differences.index.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.ranking_differences.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= ranking_differences_url %>">
+  <meta property="og:description" content="<%= t('views.ranking_differences.index.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+  <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+      <div>
+        <%= render "layouts/header" %>
+        <h1>
+          <%= link_to ranking_differences_path, {class: "nav-link text-body ps-0"} do %>
+            <i class="fa-solid fa-chart-line d-none d-md-inline"></i>
+            <%= t('views.ranking_differences.title') %>
+          <% end %>
+        </h1>
+        <div>
+          <%= t('views.ranking_differences.index.description') %>
+        </div>
+        <hr>
+      </div>
+
+      <div class="mt-4">
+        <%# Month selection form with enhanced styling %>
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <%= form_with model: @search_parameter, url: ranking_differences_path, method: :get, local: true, skip_enforcing_utf8: true, html: {class: "d-flex align-items-center gap-3"} do |form| %>
+              <%= hidden_field_tag "locale", I18n.locale %>
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-calendar-alt text-primary"></i>
+                <%= form.label :month, class: "form-label mb-0 fw-semibold" %>
+              </div>
+              <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: "form-select form-select-sm", style: "width: auto;"} %>
+              <%= form.submit "Update", name: nil, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+
+        <%= paginate(@current_records) %>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #6c5ce7, #74b9ff);">
+            <h5 class="mb-0">
+              <i class="fa-solid fa-trophy me-2"></i>
+              Ranking Differences
+            </h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="fw-semibold">
+                    <i class="fa-solid fa-medal text-warning me-1"></i>
+                    Current Rank
+                  </th>
+                  <th class="fw-semibold">
+                    <i class="fa-solid fa-chart-line text-info me-1"></i>
+                    Rank Change
+                  </th>
+                  <th class="fw-semibold">
+                    <i class="fa-solid fa-user text-primary me-1"></i>
+                    Name
+                  </th>
+                  <th class="fw-semibold">
+                    <i class="fa-solid fa-star text-success me-1"></i>
+                    Current Rating
+                  </th>
+                  <th class="fw-semibold">
+                    <i class="fa-solid fa-arrow-trend-up text-warning me-1"></i>
+                    Rating Change
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @records_with_differences.each do |data| %>
+                  <tr class="align-middle">
+                    <td class="fw-bold">
+                      <span class="badge bg-primary rounded-pill fs-6 px-3 py-2">
+                        #<%= data[:current].standard_rank %>
+                      </span>
+                    </td>
+                    <td>
+                      <% if data[:rank_difference] %>
+                        <% diff = data[:rank_difference] %>
+                        <% if diff == 0 %>
+                          <span class="badge bg-secondary rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-equals me-1"></i>0
+                          </span>
+                        <% elsif diff > 0 %>
+                          <span class="badge bg-danger rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-arrow-down me-1"></i><%= diff %>
+                          </span>
+                        <% else %>
+                          <span class="badge bg-success rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-arrow-up me-1"></i><%= diff.abs %>
+                          </span>
+                        <% end %>
+                        <div class="small text-muted mt-1">
+                          <i class="fa-solid fa-arrow-right me-1"></i>
+                          <%= data[:previous].standard_rank %> → <%= data[:current].standard_rank %>
+                        </div>
+                      <% else %>
+                        <span class="badge bg-info rounded-pill fs-6 px-3 py-2">
+                          <i class="fa-solid fa-star me-1"></i>NEW
+                        </span>
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= link_to data[:current].player.name_en, data[:current].player, class: "text-decoration-none fw-semibold text-primary" %>
+                    </td>
+                    <td class="fw-bold">
+                      <span class="badge bg-success rounded-pill fs-6 px-3 py-2">
+                        <%= data[:current].standard_rating %>
+                      </span>
+                    </td>
+                    <td>
+                      <% if data[:rating_difference] %>
+                        <% diff = data[:rating_difference] %>
+                        <% if diff == 0 %>
+                          <span class="badge bg-secondary rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-equals me-1"></i>0
+                          </span>
+                        <% elsif diff > 0 %>
+                          <span class="badge bg-success rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-arrow-up me-1"></i><%= diff %>
+                          </span>
+                        <% else %>
+                          <span class="badge bg-danger rounded-pill fs-6 px-3 py-2">
+                            <i class="fa-solid fa-arrow-down me-1"></i><%= diff.abs %>
+                          </span>
+                        <% end %>
+                        <div class="small text-muted mt-1">
+                          <i class="fa-solid fa-arrow-right me-1"></i>
+                          <%= data[:previous].standard_rating %> → <%= data[:current].standard_rating %>
+                        </div>
+                      <% else %>
+                        <span class="badge bg-info rounded-pill fs-6 px-3 py-2">
+                          <i class="fa-solid fa-star me-1"></i>NEW
+                        </span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <%= paginate(@current_records) %>
+      </div>
+
+      <div class="pt-3 text-center pb-3">
+        Share:
+        <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.ranking_differences.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
+          <i class="fab fa-twitter fa-sm"></i> Twitter
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
