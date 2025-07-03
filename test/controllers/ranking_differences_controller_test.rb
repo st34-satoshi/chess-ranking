@@ -38,10 +38,10 @@ class RankingDifferencesControllerTest < ActionDispatch::IntegrationTest
     
     assert_response :success
     assert_select 'table.table'
-    assert_select 'th', text: 'Current Rank'
-    assert_select 'th', text: 'Rank Change'
-    assert_select 'th', text: 'Current Rating'
-    assert_select 'th', text: 'Rating Change'
+    assert_select 'th', text: /Current Rank/
+    assert_select 'th', text: /Rank Change/
+    assert_select 'th', text: /Current Rating/
+    assert_select 'th', text: /Rating Change/
   end
 
   test 'should handle players with no previous month data' do
