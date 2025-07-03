@@ -1,0 +1,117 @@
+<% content_for :title do %>
+  <title><%= t('views.ranking_differences.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.ranking_differences.index.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.ranking_differences.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= ranking_differences_url %>">
+  <meta property="og:description" content="<%= t('views.ranking_differences.index.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+  <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+      <div>
+        <%= render "layouts/header" %>
+        <h1>
+          <%= link_to ranking_differences_path, {class: "nav-link text-body ps-0"} do %>
+            <i class="fa-solid fa-chart-line d-none d-md-inline"></i>
+            <%= t('views.ranking_differences.title') %>
+          <% end %>
+        </h1>
+        <div>
+          <%= t('views.ranking_differences.index.description') %>
+        </div>
+        <hr>
+      </div>
+
+      <div class="table-responsive mt-3">
+        <%# Month selection form %>
+        <%= form_with model: @search_parameter, url: ranking_differences_path, method: :get, local: true, skip_enforcing_utf8: true, html: {class: "mb-3"} do |form| %>
+          <%= hidden_field_tag "locale", I18n.locale %>
+          <div class="mb-3 align-middle">
+            <%= form.label :month, class: "align-middle" %>
+            <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
+            <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
+          </div>
+        <% end %>
+
+        <%= paginate(@current_records) %>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Current Rank</th>
+              <th>Rank Change</th>
+              <th>Name</th>
+              <th>Current Rating</th>
+              <th>Rating Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @records_with_differences.each do |data| %>
+              <tr>
+                <td>
+                  <%= data[:current].standard_rank %>
+                </td>
+                <td>
+                  <% if data[:rank_difference] %>
+                    <% diff = data[:rank_difference] %>
+                    <% if diff == 0 %>
+                      <span class="badge bg-secondary">→ 0</span>
+                    <% elsif diff > 0 %>
+                      <span class="badge bg-danger">↓ <%= diff %></span>
+                    <% else %>
+                      <span class="badge bg-success">↑ <%= diff.abs %></span>
+                    <% end %>
+                    <div class="small text-muted">
+                      <%= data[:last].standard_rank %> → <%= data[:current].standard_rank %>
+                    </div>
+                  <% else %>
+                    <span class="badge bg-info">NEW</span>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to data[:current].player.name_en, data[:current].player %>
+                </td>
+                <td>
+                  <%= data[:current].standard_rating %>
+                </td>
+                <td>
+                  <% if data[:rating_difference] %>
+                    <% diff = data[:rating_difference] %>
+                    <% if diff == 0 %>
+                      <span class="badge bg-secondary">→ 0</span>
+                    <% elsif diff > 0 %>
+                      <span class="badge bg-success">↑ <%= diff %></span>
+                    <% else %>
+                      <span class="badge bg-danger">↓ <%= diff.abs %></span>
+                    <% end %>
+                    <div class="small text-muted">
+                      <%= data[:last].standard_rating %> → <%= data[:current].standard_rating %>
+                    </div>
+                  <% else %>
+                    <span class="badge bg-info">NEW</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        
+        <%= paginate(@current_records) %>
+      </div>
+
+      <div class="pt-3 text-center pb-3">
+        Share:
+        <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.ranking_differences.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
+          <i class="fab fa-twitter fa-sm"></i> Twitter
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

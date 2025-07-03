@@ -4,6 +4,7 @@ ja:
       share: "シェア"
     header:
       ranking: "ランキング"
+      rankingDifferences: "差分ランキング"
       distribution: "分布"
       victoryDistance: "到達勝利距離"
       comparePlayers: "プレーヤー比較"
@@ -57,6 +58,10 @@ ja:
       tooManyPlayers: "最大%{count}人まで表示できます"
       ratingRange: "グラフに表示するレーティング範囲"
       graphInfo: "グラフの表示が崩れる場合は、パソコンなど、より大きな画面でご覧ください。"
+    rankingDifferences:
+      title: "先月との差分ランキング"
+      index:
+        description: "先月と今月のランキングとレーティングの変化を表示します。ランクの上昇・下降やレーティングの増減を確認できます。"
   activerecord:
     errors:
       models:

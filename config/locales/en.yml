@@ -5,6 +5,7 @@ en:
       share: "Share"
     header:
       ranking: "Ranking"
+      rankingDifferences: "Ranking Differences"
       distribution: "Distribution"
       victoryDistance: "Victory Distance"
       comparePlayers: "Compare Players"
@@ -58,6 +59,10 @@ en:
       tooManyPlayers: "Maximum %{count} players can be displayed"
       ratingRange: "Rating range to display on the graph"
       graphInfo: "If the graph is distorted, please view it on a larger screen such as a computer."
+    rankingDifferences:
+      title: "Monthly Ranking Differences"
+      index:
+        description: "View ranking and rating changes compared to last month. See rank improvements, declines, and rating changes."
   activerecord:
     errors:
       models:
