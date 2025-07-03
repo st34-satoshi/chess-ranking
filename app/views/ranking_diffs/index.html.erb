@@ -1,0 +1,65 @@
+<% content_for :title do %>
+  <title><%= t('views.rankingDiffs.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.rankingDiffs.index.description') %>">
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+  <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+  <div class="d-flex flex-column mx-auto mw-100">
+  <div>
+    <%= render "layouts/header" %>
+    <h1>
+      <%= link_to ranking_diffs_path, {class: "nav-link text-body ps-0"} do %>
+        <i class="fa-solid fa-arrows-up-down"></i>
+        <%= t('views.rankingDiffs.title') %>
+      <% end %>
+    </h1>
+    <div>
+      <%= t('views.rankingDiffs.index.description') %>
+    </div>
+    <hr>
+  </div>
+
+  <div class="mb-3">
+    <%= form_with model: @ranking_diff_parameter, url: ranking_diffs_path, method: :get, local: true, skip_enforcing_utf8: true do |form| %>
+      <%= hidden_field_tag "locale", I18n.locale %>
+      <%= form.label :month, class: "align-middle" %>
+      <%= form.select :month, Record.month_array, {selected: @ranking_diff_parameter.selected_month}, {class: "align-middle"} %>
+      <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
+    <% end %>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Diff</th>
+        <th>Name</th>
+        <th>Last Rank</th>
+        <th>Current Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @diffs.each do |d| %>
+        <tr>
+          <td>
+            <% if d[:diff] > 0 %>
+              <span class="text-success">↑<%= d[:diff] %></span>
+            <% elsif d[:diff] < 0 %>
+              <span class="text-danger">↓<%= d[:diff].abs %></span>
+            <% else %>
+              <span class="text-secondary">→0</span>
+            <% end %>
+          </td>
+          <td><%= link_to d[:player].name_en, d[:player] %></td>
+          <td><%= d[:last_rank] %></td>
+          <td><%= d[:current_rank] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  </div>
+  </div>
+</div>
