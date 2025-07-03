@@ -13,6 +13,12 @@
           <% end %>
         </li>
         <li class="nav-item">
+          <%= link_to ranking_diffs_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-arrows-up-down"></i>
+            <%= t('views.header.diffRanking') %>
+          <% end %>
+        </li>
+        <li class="nav-item">
           <%= link_to distribution_path, {class: "nav-link"} do %>
             <i class="fa-solid fa-chart-simple"></i>
             <%= t('views.header.distribution') %>
