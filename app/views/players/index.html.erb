@@ -36,9 +36,9 @@
       <%= hidden_field_tag "locale", I18n.locale %>
 
       <div class="mb-3 align-middle">
-        <%= form.label :month, class: "align-middle" %>
+        <%= form.label :month, t('views.players.index.month'), class: "align-middle" %>
         <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
-        <%= form.submit "Update", name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
+        <%= form.submit t('views.players.index.update'), name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
       </div>
 
       <%= paginate(@records) %>
@@ -56,17 +56,18 @@
         <div class="card card-body">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <%= form.label :name %>
+            <%= form.label :name, t('views.players.index.name') %>
             <%= form.text_field :name %>
           </li>
           <li class="list-group-item">
-            <%= form.label :rating, "rating:" %>
-            <%= form.number_field :rating_lower, step: 1, min: 0, class: "number-field-width" %> ~
+            <%= form.label :rating, t('views.players.index.rating') %>
+            <%= form.number_field :rating_lower, step: 1, min: 0, class: "number-field-width" %> 
+            <span class="ms-1 me-1">~</span>
             <%= form.number_field :rating_upper, step: 1, min: 0, class: "number-field-width" %>
           </li>
           <li class="list-group-item">
-            <%= link_to "Reset", players_path, class: "btn btn-outline-warning" %>
-            <%= form.submit "Search", name: nil, class: "btn btn-outline-primary" %>
+            <%= link_to t('views.players.index.reset'), players_path, class: "btn btn-outline-warning" %>
+            <%= form.submit t('views.players.index.search'), name: nil, class: "btn btn-outline-primary" %>
           </li>
         </ul>
         </div>
@@ -78,9 +79,9 @@
       <table class="table table-striped">
           <thead>
             <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Rating</th>
+              <th><%= t('views.players.index.rank') %></th>
+              <th><%= t('views.players.index.name') %></th>
+              <th><%= t('views.players.index.rating') %></th>
             </tr>
           </thead>
           <tbody>

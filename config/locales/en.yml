@@ -17,6 +17,13 @@ en:
       index:
         filter: "filter"
         description: "Japanese chess rating ranking. Display ranking by NCS rating for chess. You can see monthly data from 2019 to present."
+        rank: "Rank"
+        name: "Name"
+        rating: "Rating"
+        reset: "Reset"
+        search: "Search"
+        month: "Month"
+        update: "Update"
       show:
         description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."
     home:
