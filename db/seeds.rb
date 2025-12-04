@@ -7,13 +7,25 @@
 def add_rank(records)
   rank = 1
   higher_rank = 99_999
+  id_rank_map = {}
+  
   records.each_with_index do |record, i|
     if record.standard_rating < higher_rank # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
       higher_rank = record.standard_rating
       rank = i + 1
     end
-    record.update(standard_rank: rank)
+    id_rank_map[record.id] = rank
   end
+  
+  return if id_rank_map.empty?
+  
+  # SQLのCASE文で一括更新
+  case_statements = id_rank_map.map { |id, rank| "WHEN #{id} THEN #{rank}" }.join(' ')
+  ids = id_rank_map.keys.join(',')
+  
+  Record.connection.execute(
+    "UPDATE records SET standard_rank = CASE id #{case_statements} END, updated_at = NOW() WHERE id IN (#{ids})"
+  )
 end
 
 def create_record_2019(file_name, date)
@@ -77,6 +89,8 @@ end
 def create_record_2021(file_name, date)
   # file_name: rating-YYYY-MM-DD
   key_index = read_header(file_name)
+  records_to_insert = []
+  
   CSV.foreach("lib/assets/#{file_name}") do |row|
     next unless row
     next unless get_row_value(row, key_index, :ncs_id)
@@ -96,7 +110,7 @@ def create_record_2021(file_name, date)
     standard_games = get_row_value(row, key_index, :standard_games)
     standard_games ||= 0
 
-    Record.create(
+    records_to_insert << {
       player_id: player.id,
       coefficient_k: get_row_value(row, key_index, :coefficient_k),
       standard_rating: get_row_value(row, key_index, :standard_rating),
@@ -104,11 +118,15 @@ def create_record_2021(file_name, date)
       standard_ranking: get_row_value(row, key_index, :standard_ranking),
       rapid_rating: rapid_rating,
       rapid_games: rapid_games,
-      member: get_row_value(row, key_index, :member),
-      active: get_row_value(row, key_index, :active),
-      month: date
-    )
+      member: true,
+      active: true,
+      month: date,
+      created_at: Time.current,
+      updated_at: Time.current
+    }
   end
+  
+  Record.insert_all(records_to_insert) if records_to_insert.any?
 end
 
 def get_row_value(row, key_map, symbol)
@@ -189,18 +207,20 @@ def create_record(file_name)
   date = create_date(file_name)
   return if Record.month_array.include?("#{date.year}-#{date.month}") # skip exist data
 
-  if file_name.include?('2019-03') || file_name.include?('2019-04')
-    create_record_2019(file_name, date)
-  elsif string_include?(%w[2020-01 2020-02 2020-03],
-                        file_name) || (file_name.include?('2019') && !file_name.include?('2019-05'))
-    create_record_2020(file_name, date)
-  elsif file_name.include?('2019-05') || file_name.include?('2020')
-    create_record_2020_b(file_name, date)
-  else
-    create_record_2021(file_name, date)
+  ActiveRecord::Base.transaction do
+    if file_name.include?('2019-03') || file_name.include?('2019-04')
+      create_record_2019(file_name, date)
+    elsif string_include?(%w[2020-01 2020-02 2020-03],
+                          file_name) || (file_name.include?('2019') && !file_name.include?('2019-05'))
+      create_record_2020(file_name, date)
+    elsif file_name.include?('2019-05') || file_name.include?('2020')
+      create_record_2020_b(file_name, date)
+    else
+      create_record_2021(file_name, date)
+    end
+    records = Record.all.year_is(date.year).month_is(date.month).ordered
+    add_rank(records)
   end
-  records = Record.all.year_is(date.year).month_is(date.month).ordered
-  add_rank(records)
 end
 
 Dir.open('./lib/assets/') do |dir|
