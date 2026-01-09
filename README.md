@@ -25,7 +25,7 @@
 ### Update DB
 - get a new excel file from NCS and export as csv file
 - put the csv file to lib/assets
-- `docker compose run web rails db:seed`
+- `docker compose exec web rake 'data:import[rating-2026-01-05.csv]'`
 
 - victory distance: `docker compose exec web rake victory_distance:save`
 

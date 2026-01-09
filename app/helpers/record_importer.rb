@@ -1,0 +1,158 @@
+# frozen_string_literal: true
+
+# rubocop:disable all
+module RecordImporter
+  def self.add_rank(records)
+    rank = 1
+    higher_rank = 99_999
+    id_rank_map = {}
+    
+    records.each_with_index do |record, i|
+      if record.standard_rating < higher_rank # same rating same rank. ex) rating is [101, 100, 100, 99]. rank is [1, 2, 2, 3]
+        higher_rank = record.standard_rating
+        rank = i + 1
+      end
+      id_rank_map[record.id] = rank
+    end
+    
+    return if id_rank_map.empty?
+    
+    # SQLのCASE文で一括更新
+    case_statements = id_rank_map.map { |id, rank| "WHEN #{id} THEN #{rank}" }.join(' ')
+    ids = id_rank_map.keys.join(',')
+    
+    Record.connection.execute(
+      "UPDATE records SET standard_rank = CASE id #{case_statements} END, updated_at = NOW() WHERE id IN (#{ids})"
+    )
+  end
+
+  def self.create_records(file_name, date)
+    # file_name: rating-YYYY-MM-DD
+    key_index = read_header(file_name)
+    records_to_insert = []
+    
+    CSV.foreach("lib/assets/#{file_name}") do |row|
+      next unless row
+      next unless get_row_value(row, key_index, :ncs_id)
+      next unless get_row_value(row, key_index, :standard_rating)
+      next if row.length < 4
+      next if get_row_value(row, key_index, :ncs_id).length < 8
+      next if get_row_value(row, key_index, :ncs_id)[0] != 'N'
+
+      player = Player.find_by(ncs_id: get_row_value(row, key_index, :ncs_id))
+      player ||= Player.create(ncs_id: get_row_value(row, key_index, :ncs_id),
+                               name_en: get_row_value(row, key_index, :name_en), name_jp: get_row_value(row, key_index, :name_jp))
+
+      rapid_rating = get_row_value(row, key_index, :rapid_rating)
+      rapid_rating ||= 0
+      rapid_games = get_row_value(row, key_index, :rapid_games)
+      rapid_games ||= 0
+      standard_games = get_row_value(row, key_index, :standard_games)
+      standard_games ||= 0
+
+      records_to_insert << {
+        player_id: player.id,
+        coefficient_k: get_row_value(row, key_index, :coefficient_k),
+        standard_rating: get_row_value(row, key_index, :standard_rating),
+        standard_games: standard_games,
+        standard_ranking: get_row_value(row, key_index, :standard_ranking),
+        rapid_rating: rapid_rating,
+        rapid_games: rapid_games,
+        member: true,
+        active: true,
+        month: date,
+        created_at: Time.current,
+        updated_at: Time.current
+      }
+    end
+    
+    Record.insert_all(records_to_insert) if records_to_insert.any?
+  end
+
+  def self.get_row_value(row, key_map, symbol)
+    return nil if key_map[symbol].nil?
+
+    i = key_map[symbol]
+    row[i]
+  end
+
+  # read header.
+  # return { 'key': row_index }
+  def self.read_header(file_name)
+    i = 0
+    CSV.foreach("lib/assets/#{file_name}") do |row|
+      i += 1
+      if i > 10
+        raise 'error: cannot find header in 10 lines'
+        return
+      end
+      next unless array_include_header_key?(row)
+
+      key_map = {
+        ncs_id: nil, name_en: nil, name_jp: nil,
+        coefficient_k: nil, standard_rating: nil, standard_games: nil, standard_ranking: nil, rapid_rating: nil, rapid_games: nil,
+        active: nil, member: nil
+      }
+      row.each.with_index do |c, j|
+        key_map[:ncs_id] = j if c == 'ID'
+        key_map[:name_en] = j if c == 'Name'
+        key_map[:name_jp] = j if c == 'Kanji'
+        key_map[:coefficient_k] = j if c == 'K'
+        key_map[:coefficient_k] = j if c == 'ST-K'
+        key_map[:standard_rating] = j if c == 'ST'
+        key_map[:standard_games] = j if c == 'ST-G'
+        key_map[:standard_ranking] = j if c == 'ST-R'
+        key_map[:rapid_rating] = j if c == 'RP'
+        key_map[:rapid_games] = j if c == 'RP-G'
+        key_map[:active] = j if c == 'Act'
+        key_map[:member] = j if c == 'Mem'
+      end
+      return key_map
+    end
+  end
+
+  def self.array_include_header_key?(row)
+    ncs_id = false
+    name_en = false
+    name_jp = false
+    standard_rating = false
+
+    row.each do |c|
+      ncs_id = true if c == 'ID'
+      name_en = true if c == 'Name'
+      name_jp = true if c == 'Kanji'
+      standard_rating = true if c == 'ST'
+    end
+    ncs_id && name_en && name_jp && standard_rating
+  end
+
+  def self.create_date(file_name)
+    d = file_name.split('-')
+    year = d[1].to_i
+    month = d[2].to_i
+    day = d[3].to_i
+    day = 1 if day.zero?
+    Date.new(year, month, day)
+  end
+
+  def self.string_include?(words, str)
+    words.each do |word|
+      return true if str.include?(word)
+    end
+    false
+  end
+
+  def self.create_record(file_name)
+    puts file_name
+    date = create_date(file_name)
+    return if Record.month_array.include?("#{date.year}-#{date.month}") # skip exist data
+
+    ActiveRecord::Base.transaction do
+      create_records(file_name, date)
+      records = Record.all.year_is(date.year).month_is(date.month).ordered
+      add_rank(records)
+    end
+  end
+end
+# rubocop:enable all
+
