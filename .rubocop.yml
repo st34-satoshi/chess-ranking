@@ -20,3 +20,11 @@ Metrics/PerceivedComplexity:
 
 Metrics/CyclomaticComplexity:
   Max: 15
+
+Metrics/BlockLength:
+  Exclude:
+    - "lib/tasks/**/*.rake"
+    - "config/environments/production.rb"
+
+Layout/LineLength:
+  Max: 140
