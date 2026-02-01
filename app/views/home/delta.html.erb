@@ -1,0 +1,96 @@
+<% content_for :title do %>
+  <title><%= t('views.home.delta.title') %></title>
+<% end %>
+<% content_for :description do %>
+  <meta name="description" content="<%= t('views.home.delta.description') %>">
+<% end %>
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= t('views.home.delta.title') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= delta_url %>">
+  <meta property="og:description" content="<%= t('views.home.delta.description') %>">
+  <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
+<% end %>
+
+<div class="container" style="min-height: 100%;">
+    <div class='row mx-auto pl-1 pr-1 min-vh-100'>
+    <div class="d-flex flex-column mx-auto mw-100">
+    <div>
+    <%= render "layouts/header" %>
+    <h1>
+      <%= link_to delta_path, {class: "nav-link text-body ps-0"} do %>
+        <i class="fa-solid fa-arrow-trend-up d-none d-md-inline"></i>
+        <%= t('views.home.delta.title') %>
+      <% end %>
+    </h1>
+    <div>
+      <%= t('views.home.delta.description') %>
+    </div>
+    <hr>
+    </div>
+
+    <div class="table-responsive mt-3">
+      <%= form_with model: @delta_parameter, scope: :delta_parameter, url: delta_path, method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse2", id: "collapseExample2"} do |form| %>
+      <%= hidden_field_tag "locale", I18n.locale %>
+
+      <div class="mb-3 align-middle">
+        <%= form.label :month, t('views.home.delta.month'), class: "align-middle" %>
+        <%= form.select :month, Record.month_array, {selected: @delta_parameter.selected_month}, {class: "align-middle"} %>
+        <span class="ms-3 align-middle">
+          <%= form.check_box :include_initial, class: "form-check-input align-middle" %>
+          <%= form.label :include_initial, t('views.home.delta.include_initial'), class: "form-check-label align-middle ms-1" %>
+        </span>
+        <%= form.submit t('views.home.delta.update'), name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
+      </div>
+
+      <%= paginate(@delta_entries) %>
+
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t('views.home.delta.delta_rank') %></th>
+              <th><%= t('views.players.index.name') %></th>
+              <th><%= t('views.players.index.rating') %></th>
+              <th><%= t('views.home.delta.delta') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% page = params[:page].to_i %>
+            <% page = 1 if page == 0 %>
+            <% @delta_entries.each_with_index do |record, i| %>
+            <tr>
+              <td><%= (page - 1) * 50 + i + 1 %></td>
+              <td>
+                <%= link_to record.player.name_en, record.player %>
+              </td>
+              <td><%= record.standard_rating %></td>
+              <td>
+                <% delta = record.standard_rating_delta %>
+                <% if delta.nil? %>
+                  <span class="text-secondary">-</span>
+                <% elsif delta == 0 %>
+                  <span class="text-secondary">→<%= delta %></span>
+                <% elsif delta > 0 %>
+                  <span class="text-success">↑<%= delta %></span>
+                <% else %>
+                  <span class="text-danger">↓<%= delta.abs %></span>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+      </table>
+      <%= paginate(@delta_entries) %>
+      <% end %>
+    </div>
+
+    <div class="pt-3 text-center pb-3">
+      Share:
+      <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.home.delta.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
+        <i class="fab fa-twitter fa-sm"></i> Twitter
+      <% end %>
+    </div>
+
+    </div>
+    </div>
+</div>

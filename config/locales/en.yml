@@ -6,6 +6,7 @@ en:
     header:
       ranking: "Ranking"
       distribution: "Distribution"
+      delta: "Month-to-Month Change"
       victoryDistance: "Victory Distance"
       comparePlayers: "Compare Players"
     pagination:
@@ -33,6 +34,14 @@ en:
         graphName: "Number of people within the rating range"
         updateGraph: "Change the month for comparison"
         updateButton: "Update"
+      delta:
+        title: "Ranking by Month-to-Month Change"
+        description: "Ranking by the change in standard rating from the previous month."
+        month: "Month"
+        update: "Update"
+        include_initial: "Include initial rating players"
+        delta_rank: "Change Rank"
+        delta: "Change"
       victoryDistance:
         title: "Chess Victory Distance in Japan"
         description: "If you defeat someone who has beaten a chess champion, you're essentially stronger than the champion. How many people would you need to trace back through to say you've defeated the champion?"
