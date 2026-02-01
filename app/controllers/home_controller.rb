@@ -21,9 +21,10 @@ class HomeController < ApplicationController
     @delta_parameter = delta_params
     month = @delta_parameter.month
 
-    # standard のみ対象。standard_rating_delta でソート（上がり幅大きい順）
+    # standard のみ対象。standard_rating_delta でソート（上がり幅大きい順）。delta=0 は除外
     scope = Record.year_is(month.year).month_is(month.month).includes(:player)
     scope = scope.where.not(standard_rating_delta: nil) unless @delta_parameter.include_initial
+    scope = scope.where('standard_rating_delta IS NULL OR standard_rating_delta != ?', 0)
     @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(50)
   end
 

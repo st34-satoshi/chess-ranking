@@ -36,7 +36,7 @@ en:
         updateButton: "Update"
       delta:
         title: "Ranking by Month-to-Month Change"
-        description: "Ranking by the change in standard rating from the previous month."
+        description: "Ranking by the change in standard rating from the previous month. Players with no change are not included."
         month: "Month"
         update: "Update"
         include_initial: "Include initial rating players"
