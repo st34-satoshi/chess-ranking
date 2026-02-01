@@ -44,7 +44,8 @@ namespace :data do
           standard_rating_delta: standard_delta,
           rapid_rating_delta: rapid_delta
         )
-        prev = record
+        prev_std = record.standard_rating
+        prev_rapid = record.rapid_rating
       end
     end
   end
