@@ -34,7 +34,7 @@ ja:
         updateGraph: "比較する月を変更する"
         updateButton: "更新"
       delta:
-        title: "先月との差分ランキング"
+        title: "先月からの上昇幅ランキング"
         description: "先月と今月のスタンダードレーティングの変動幅でランキングしています。変動がないプレーヤーは含まれません。"
         month: "年月"
         update: "更新"
