@@ -25,7 +25,7 @@ class HomeController < ApplicationController
     scope = Record.year_is(month.year).month_is(month.month).includes(:player)
     scope = scope.where('previous_standard_rating IS NOT NULL AND previous_standard_rating != ?', 0) unless @delta_parameter.include_initial
     scope = scope.where('standard_rating_delta IS NULL OR standard_rating_delta != ?', 0)
-    @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(50)
+    @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(100)
   end
 
   private

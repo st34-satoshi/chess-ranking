@@ -61,7 +61,7 @@
             <% page = 1 if page == 0 %>
             <% @delta_entries.each_with_index do |record, i| %>
             <tr>
-              <td><%= (page - 1) * 50 + i + 1 %></td>
+              <td><%= (page - 1) * 100 + i + 1 %></td>
               <td>
                 <%= link_to record.player.name_en, record.player %>
               </td>
