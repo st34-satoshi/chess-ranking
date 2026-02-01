@@ -19,6 +19,12 @@
           <% end %>
         </li>
         <li class="nav-item">
+          <%= link_to delta_path, {class: "nav-link"} do %>
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <%= t('views.header.delta') %>
+          <% end %>
+        </li>
+        <li class="nav-item">
           <%= link_to victory_distance_path, {class: "nav-link"} do %>
             <i class="fa-solid fa-diagram-project"></i>
             <%= t('views.header.victoryDistance') %>

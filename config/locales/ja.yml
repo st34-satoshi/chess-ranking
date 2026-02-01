@@ -5,6 +5,7 @@ ja:
     header:
       ranking: "ランキング"
       distribution: "分布"
+      delta: "上昇幅ランキング"
       victoryDistance: "到達勝利距離"
       comparePlayers: "プレーヤー比較"
     pagination:
@@ -32,6 +33,14 @@ ja:
         graphName: "レーティング範囲に属する人数"
         updateGraph: "比較する月を変更する"
         updateButton: "更新"
+      delta:
+        title: "先月からの上昇幅ランキング"
+        description: "先月と今月のスタンダードレーティングの変動幅でランキングしています。変動がないプレーヤーは含まれません。"
+        month: "年月"
+        update: "更新"
+        include_initial: "初期レーティングを含む"
+        delta_rank: "差分順位"
+        delta: "差分"
       victoryDistance:
         title: "チェス到達勝利距離"
         description: "チェスのチャンピオンに勝った人に勝ったら実質チャンピオンより強い。あなたは何人辿ればチャンピオンに勝っていますか？"
