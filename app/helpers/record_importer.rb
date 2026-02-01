@@ -155,4 +155,3 @@ module RecordImporter
   end
 end
 # rubocop:enable all
-
