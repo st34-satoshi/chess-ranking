@@ -30,7 +30,7 @@ module RecordImporter
     # file_name: rating-YYYY-MM-DD
     key_index = read_header(file_name)
     records_to_insert = []
-    
+
     CSV.foreach("lib/assets/#{file_name}") do |row|
       next unless row
       next unless get_row_value(row, key_index, :ncs_id)
@@ -43,17 +43,23 @@ module RecordImporter
       player ||= Player.create(ncs_id: get_row_value(row, key_index, :ncs_id),
                                name_en: get_row_value(row, key_index, :name_en), name_jp: get_row_value(row, key_index, :name_jp))
 
-      rapid_rating = get_row_value(row, key_index, :rapid_rating)
-      rapid_rating ||= 0
+      rapid_rating = (get_row_value(row, key_index, :rapid_rating) || 0).to_i
       rapid_games = get_row_value(row, key_index, :rapid_games)
       rapid_games ||= 0
       standard_games = get_row_value(row, key_index, :standard_games)
       standard_games ||= 0
+      standard_rating = get_row_value(row, key_index, :standard_rating).to_i
+
+      prev_record = Record.where(player_id: player.id).where('month < ?', date).order(month: :desc).first
+      previous_standard_rating = prev_record&.standard_rating
+      previous_rapid_rating = prev_record&.rapid_rating
+      standard_rating_delta = previous_standard_rating ? standard_rating - previous_standard_rating : nil
+      rapid_rating_delta = previous_rapid_rating ? rapid_rating - previous_rapid_rating : nil
 
       records_to_insert << {
         player_id: player.id,
         coefficient_k: get_row_value(row, key_index, :coefficient_k),
-        standard_rating: get_row_value(row, key_index, :standard_rating),
+        standard_rating: standard_rating,
         standard_games: standard_games,
         standard_ranking: get_row_value(row, key_index, :standard_ranking),
         rapid_rating: rapid_rating,
@@ -61,11 +67,15 @@ module RecordImporter
         member: true,
         active: true,
         month: date,
+        previous_standard_rating: previous_standard_rating,
+        previous_rapid_rating: previous_rapid_rating,
+        standard_rating_delta: standard_rating_delta,
+        rapid_rating_delta: rapid_rating_delta,
         created_at: Time.current,
         updated_at: Time.current
       }
     end
-    
+
     Record.insert_all(records_to_insert) if records_to_insert.any?
   end
 
