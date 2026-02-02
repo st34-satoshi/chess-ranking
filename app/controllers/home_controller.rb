@@ -23,8 +23,10 @@ class HomeController < ApplicationController
 
     # standard のみ対象。standard_rating_delta でソート（上がり幅大きい順）。delta=0 は除外
     scope = Record.year_is(month.year).month_is(month.month).includes(:player)
+    scope = scope.where('standard_rating IS NOT NULL AND standard_rating != ?', 0)
     scope = scope.where('previous_standard_rating IS NOT NULL AND previous_standard_rating != ?', 0) unless @delta_parameter.include_initial
     scope = scope.where('standard_rating_delta IS NULL OR standard_rating_delta != ?', 0)
+    scope = scope.where('standard_rating_delta > ?', 0) unless @delta_parameter.include_declining
     @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(100)
   end
 

@@ -42,6 +42,10 @@
           <%= form.check_box :include_initial, class: "form-check-input" %>
           <%= form.label :include_initial, t('views.home.delta.include_initial'), class: "form-check-label ms-1" %>
         </div>
+        <div class="mb-2 form-check">
+          <%= form.check_box :include_declining, class: "form-check-input" %>
+          <%= form.label :include_declining, t('views.home.delta.include_declining'), class: "form-check-label ms-1" %>
+        </div>
         <%= form.submit t('views.home.delta.update'), name: nil, class: "btn btn-outline-primary btn-sm" %>
       </div>
 

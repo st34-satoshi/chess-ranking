@@ -8,9 +8,11 @@ class DeltaParameter
 
   attribute :month, :date, default: -> { Record.latest_month }
   attribute :include_initial, :boolean, default: false
+  attribute :include_declining, :boolean, default: false
 
   def initialize(params = {})
-    attrs = params.respond_to?(:permit) ? params.permit(:month, :include_initial) : params.slice(:month, 'month', :include_initial, 'include_initial')
+    permitted = %i[month include_initial include_declining]
+    attrs = params.respond_to?(:permit) ? params.permit(permitted) : params.slice(*(permitted + permitted.map(&:to_s)))
     super(attrs)
   end
 

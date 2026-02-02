@@ -39,6 +39,7 @@ ja:
         month: "年月"
         update: "更新"
         include_initial: "初期レーティングを含む"
+        include_declining: "下降プレーヤーを表示"
         delta_rank: "差分順位"
         delta: "差分"
       victoryDistance:
