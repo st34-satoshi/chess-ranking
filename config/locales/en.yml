@@ -40,6 +40,7 @@ en:
         month: "Month"
         update: "Update"
         include_initial: "Include initial rating players"
+        include_declining: "Show declining players"
         delta_rank: "Change Rank"
         delta: "Change"
       victoryDistance:

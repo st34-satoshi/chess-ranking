@@ -1,6 +1,31 @@
 # frozen_string_literal: true
 
 namespace :data do
+  desc 'Remove records for a specific month (usage: rake "data:remove[2026-02-01]")'
+  task :remove, [:month] => :environment do |_t, args|
+    month_str = args[:month]
+
+    unless month_str
+      puts 'Error: Please specify a month.'
+      puts 'Usage: rake "data:remove[2026-02-01]"'
+      exit 1
+    end
+
+    date = begin
+      Date.parse(month_str)
+    rescue ArgumentError
+      nil
+    end
+
+    unless date
+      puts "Error: Invalid date format: #{month_str}"
+      exit 1
+    end
+
+    count = Record.where(month: date).delete_all
+    puts "Removed #{count} record(s) for #{date}."
+  end
+
   desc 'Import data from a specific CSV file (usage: rake data:import[filename.csv])'
   task :import, [:file_name] => :environment do |_t, args|
     file_name = args[:file_name]
