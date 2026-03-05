@@ -1,6 +1,29 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 namespace :data do
+  desc 'Export players and records tables to lib/data/*.csv'
+  task export_to_csv: :environment do
+    output_dir = Rails.root.join('lib', 'data')
+    FileUtils.mkdir_p(output_dir)
+
+    [Player, Record].each do |model|
+      file_path = output_dir.join("#{model.table_name}.csv")
+      columns = model.column_names
+      count = 0
+
+      CSV.open(file_path, 'w', headers: columns, write_headers: true) do |csv|
+        model.find_each do |record|
+          csv << record.attributes.values_at(*columns)
+          count += 1
+        end
+      end
+
+      puts "Exported #{count} #{model.table_name} to #{file_path}"
+    end
+  end
+
   desc 'Remove records for a specific month (usage: rake "data:remove[2026-02-01]")'
   task :remove, [:month] => :environment do |_t, args|
     month_str = args[:month]
