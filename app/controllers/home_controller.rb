@@ -26,7 +26,13 @@ class HomeController < ApplicationController
     scope = scope.where('standard_rating IS NOT NULL AND standard_rating != ?', 0)
     scope = scope.where('previous_standard_rating IS NOT NULL AND previous_standard_rating != ?', 0) unless @delta_parameter.include_initial
     scope = scope.where('standard_rating_delta IS NULL OR standard_rating_delta != ?', 0)
-    scope = scope.where('standard_rating_delta > ?', 0) unless @delta_parameter.include_declining
+    unless @delta_parameter.include_declining
+      scope = if @delta_parameter.include_initial
+        scope.where('standard_rating_delta IS NULL OR standard_rating_delta > ?', 0)
+      else
+        scope.where('standard_rating_delta > ?', 0)
+      end
+    end
     @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(100)
   end
 
