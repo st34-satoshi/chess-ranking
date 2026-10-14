@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_02_01_150000) do
+ActiveRecord::Schema[7.0].define(version: 2026_10_14_050000) do
   create_table "matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "won_id", null: false
     t.bigint "lost_id", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_01_150000) do
     t.integer "rapid_rating_delta"
     t.integer "previous_standard_rating"
     t.integer "previous_rapid_rating"
+    t.integer "rapid_rank"
     t.index ["player_id"], name: "index_records_on_player_id"
   end
 
