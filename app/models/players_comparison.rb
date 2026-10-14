@@ -90,25 +90,18 @@ class PlayersComparison < ApplicationRecord
   end
 
   def result_url_valid?
-    if contain_result_url == 'true' && result_url.blank?
-      errors.add(:result_url, :blank)
-      return false
-    end
-    return true if result_url.blank?
+    return true if result_url.blank? && contain_result_url != 'true'
+    return true if result_url&.start_with?('https://chess-results.com/tnr', 'https://chess-results.com/Tnr')
 
-    if result_url.present? && (result_url.start_with?('https://chess-results.com/tnr') || result_url.start_with?('https://chess-results.com/Tnr'))
-      true
-    else
-      errors.add(:result_url, :invalid)
-      false
-    end
+    errors.add(:result_url, result_url.blank? ? :blank : :invalid)
+    false
   end
 
   def result_url_to_players_list
     return if contain_result_url != 'true'
 
     require 'open-uri'
-    response = URI.open(result_url)
+    response = URI.parse(result_url).open
     html = Nokogiri::HTML(response)
     table = html.css('table.CRs1').first
 
