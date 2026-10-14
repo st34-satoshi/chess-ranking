@@ -5,9 +5,9 @@
 # below each fixture, per the syntax in the comments below
 #
 one: {
-  month: <%= Date.new() %>
+  month: <%= Date.new(2026, 1, 1) %>
 }
 
 two: {
-  month: <%= Date.new() %>
+  month: <%= Date.new(2026, 1, 1) %>
 }

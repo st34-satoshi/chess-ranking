@@ -3,8 +3,7 @@
 class PlayersComparison < ApplicationRecord
   generate_public_uid
   serialize :players_list, Array
-  attr_accessor :contain_result_url
-  attr_accessor :not_found_players
+  attr_accessor :contain_result_url, :not_found_players
 
   serialize :not_found_players, Array
   validate :result_url_valid?
@@ -62,8 +61,7 @@ class PlayersComparison < ApplicationRecord
   private
 
   def clean_result_url
-    self.result_url = result_url&.strip
-    self.result_url = result_url&.split('?')&.first
+    self.result_url = result_url&.strip&.split('?')&.first
   end
 
   def input_to_list
@@ -96,20 +94,17 @@ class PlayersComparison < ApplicationRecord
     end
     return true if result_url.blank?
 
-    if result_url.present? && (result_url.start_with?('https://chess-results.com/tnr') || result_url.start_with?('https://chess-results.com/Tnr'))
-      true
-    else
-      errors.add(:result_url, :invalid)
-      false
-    end
+    return true if result_url.start_with?('https://chess-results.com/tnr', 'https://chess-results.com/Tnr')
+
+    errors.add(:result_url, :invalid)
+    false
   end
 
   def result_url_to_players_list
     return if contain_result_url != 'true'
 
     require 'open-uri'
-    response = URI.open(result_url)
-    html = Nokogiri::HTML(response)
+    html = Nokogiri::HTML(URI.parse(result_url).open)
     table = html.css('table.CRs1').first
 
     if table.nil?
