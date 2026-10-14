@@ -52,6 +52,24 @@ class Player < ApplicationRecord
     r.to_json
   end
 
+  def rating_record_objects
+    this_records.to_h do |record|
+      [month_to_int(record.month), {
+        standard_rating: record.standard_rating.positive? ? record.standard_rating : nil,
+        rapid_rating: record.rapid_rating.positive? ? record.rapid_rating : nil
+      }]
+    end.to_json
+  end
+
+  def current_rapid_rating
+    rating = this_records.max_by(&:month)&.rapid_rating
+    rating if rating&.positive?
+  end
+
+  def best_rapid_rating
+    this_records.map(&:rapid_rating).select(&:positive?).max
+  end
+
   def best_rating
     best_rating = 0
     this_records.each do |record|
