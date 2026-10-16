@@ -26,6 +26,15 @@ en:
         month: "Month"
         update: "Update"
       show:
+        federation_id: "Federation ID"
+        standard: "Standard"
+        rapid: "Rapid"
+        current: "Current"
+        best: "Best"
+        unrated: "Unrated"
+        standard_rank: "Standard rank"
+        rating_history: "Rating history"
+        no_rating_data: "No rating data available."
         description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."
     home:
       distribution:

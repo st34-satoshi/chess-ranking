@@ -5,11 +5,9 @@
 # below each fixture, per the syntax in the comments below
 #
 one: {
-  player: one,
-  month: <%= Date.new(2024, 1, 1) %>
+  month: <%= Date.new(2026, 1, 1) %>
 }
 
 two: {
-  player: two,
-  month: <%= Date.new(2024, 1, 1) %>
+  month: <%= Date.new(2026, 1, 1) %>
 }

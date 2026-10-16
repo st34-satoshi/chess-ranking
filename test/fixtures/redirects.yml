@@ -5,9 +5,9 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  public_uid: fixture-one
+  public_uid: "test-one"
 # column: value
 #
 two:
-  public_uid: fixture-two
+  public_uid: "test-two"
 # column: value

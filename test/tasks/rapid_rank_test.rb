@@ -4,8 +4,6 @@ require 'test_helper'
 require 'rake'
 
 class RapidRankTaskTest < ActiveSupport::TestCase
-  self.fixture_table_names = ['players']
-
   setup do
     @previous_rake = Rake.application
     Rake.application = Rake::Application.new

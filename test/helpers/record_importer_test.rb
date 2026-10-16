@@ -5,8 +5,6 @@ require 'minitest/mock'
 require 'csv'
 
 class RecordImporterTest < ActiveSupport::TestCase
-  self.fixture_table_names = ['players']
-
   test 'new imports calculate rapid ranks alongside unchanged standard ranks and skip existing months' do
     import_fixture
     records = Record.where(month: Date.new(2026, 3, 15)).order(:id)

@@ -3,7 +3,9 @@
 require 'test_helper'
 
 class RecordTest < ActiveSupport::TestCase
-  self.fixture_table_names = ['players']
+  setup do
+    Record.delete_all
+  end
 
   test 'rapid ranks use competition ranking without changing standard ranks' do
     records = [1900, 0, 2000, 1900, 1800].map { |rating| create_record(rating) }
