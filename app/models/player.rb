@@ -94,6 +94,16 @@ class Player < ApplicationRecord
     record.standard_rank if record&.standard_rating&.positive? && record.standard_rank&.positive?
   end
 
+  def best_rapid_rank
+    this_records.select { |record| record.rapid_rating.positive? }
+                .map(&:rapid_rank).compact.select(&:positive?).min
+  end
+
+  def current_rapid_rank
+    record = this_records.max_by(&:month)
+    record.rapid_rank if record&.rapid_rating&.positive? && record.rapid_rank&.positive?
+  end
+
   def name_of(locale)
     return name_jp if locale == :ja
 

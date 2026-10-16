@@ -41,8 +41,16 @@
         <p class="mb-0"><%= t('views.players.show.current') %>: <%= @player.current_rapid_rating || t('views.players.show.unrated') %> / <%= t('views.players.show.best') %>: <%= @player.best_rapid_rating || t('views.players.show.unrated') %></p>
       </div>
     </div>
-    <h2 class="h5"><%= t('views.players.show.standard_rank') %></h2>
-    <p><%= t('views.players.show.current') %>: <%= @player.current_rank || '—' %> / <%= t('views.players.show.best') %>: <%= @player.best_rank || '—' %></p>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <h2 class="h5"><%= t('views.players.show.standard_rank') %></h2>
+        <p class="mb-0"><%= t('views.players.show.current') %>: <%= @player.current_rank || '—' %> / <%= t('views.players.show.best') %>: <%= @player.best_rank || '—' %></p>
+      </div>
+      <div class="col-md-6 mb-3">
+        <h2 class="h5"><%= t('views.players.show.rapid_rank') %></h2>
+        <p class="mb-0"><%= t('views.players.show.current') %>: <%= @player.current_rapid_rank || '—' %> / <%= t('views.players.show.best') %>: <%= @player.best_rapid_rank || '—' %></p>
+      </div>
+    </div>
 
     <div class="pt-3">
       <h2 class="h5"><%= t('views.players.show.rating_history') %></h2>

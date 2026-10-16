@@ -52,6 +52,30 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal 20, @player.best_rank
   end
 
+  test 'rapid rank summaries use the latest month and ignore missing invalid and unrated ranks' do
+    assert_nil @player.current_rapid_rank
+    assert_nil @player.best_rapid_rank
+    @player.records.find_by!(month: '2026-01-01').update!(rapid_rank: 30)
+    @player.records.find_by!(month: '2026-03-01').update!(rapid_rank: 25)
+    @player.records.find_by!(month: '2026-04-01').update!(rapid_rank: 1)
+    @player.records.reload
+    assert_nil @player.current_rapid_rank
+    assert_equal 25, @player.best_rapid_rank
+
+    @player.records.create!(month: '2026-05-01', rapid_rating: 1800, rapid_rank: 28)
+    @player.records.create!(month: '2025-12-01', rapid_rating: 1700, rapid_rank: 35)
+    @player.records.reload
+    assert_equal 28, @player.current_rapid_rank
+    assert_equal 25, @player.best_rapid_rank
+
+    [nil, 0, -1].each do |rank|
+      @player.records.find_by!(month: '2026-05-01').update!(rapid_rank: rank)
+      @player.records.reload
+      assert_nil @player.current_rapid_rank
+      assert_equal 25, @player.best_rapid_rank
+    end
+  end
+
   test 'current rapid rating does not carry forward a historical rating' do
     assert_nil @player.current_rapid_rating
     assert_equal 1750, @player.best_rapid_rating
