@@ -52,6 +52,21 @@ class Record < ApplicationRecord
     write_attribute(:rapid_rating, value)
   end
 
+  def self.add_rapid_rank(date)
+    transaction do
+      records = where(month: date.beginning_of_month..date.end_of_month).order(rapid_rating: :desc, id: :asc).lock
+      rank = 0
+      previous_rating = nil
+      records.each_with_index do |record, index|
+        rating = record.rapid_rating
+        rank = index + 1 if rating != previous_rating
+        record.update!(rapid_rank: rating.positive? ? rank : nil)
+        previous_rating = rating
+      end
+      records.size
+    end
+  end
+
   def self.add_rank(date)
     records = Record.all.year_is(date.year).month_is(date.month).ordered
     rank = 1

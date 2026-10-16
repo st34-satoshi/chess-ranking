@@ -161,6 +161,7 @@ module RecordImporter
       create_records(file_name, date)
       records = Record.all.year_is(date.year).month_is(date.month).ordered
       add_rank(records)
+      Record.add_rapid_rank(date)
     end
   end
 end
