@@ -5,9 +5,22 @@ class PlayersController < ApplicationController
     redirect_to players_path
   end
 
+  def rapid
+    index
+    render :index unless performed?
+  end
+
   def index
     @search_parameter = search_params
-    @records = Record.filtered_records(@search_parameter).ordered.page(params[:page]).per(50)
+    rapid_route = action_name == 'rapid'
+    if @search_parameter.rapid? != rapid_route
+      query = request.query_parameters.symbolize_keys
+      target = @search_parameter.rapid? ? rapid_path(query) : players_path(query)
+      return redirect_to(target)
+    end
+
+    @records = Record.filtered_records(@search_parameter)
+                     .order(@search_parameter.rating_column => :desc, :id => :asc).page(params[:page]).per(50)
     last_month = @search_parameter.month.last_month
     player_ids = @records.map(&:player_id)
     @last_month_records = Record.in_order_of(:player_id, player_ids).year_is(last_month.year).month_is(last_month.month)
@@ -28,7 +41,8 @@ class PlayersController < ApplicationController
   private
 
   def search_params
-    PlayerSearchParameter.new(params.fetch(:player_search_parameter, {}))
+    search = params.fetch(:player_search_parameter, ActionController::Parameters.new)
+    PlayerSearchParameter.new(search.reverse_merge(rating_type: action_name == 'rapid' ? 'rapid' : 'standard'))
   end
 
   def set_player

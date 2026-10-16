@@ -6,6 +6,7 @@ class PlayerSearchParameter
   include ActiveRecord::AttributeAssignment
   include ActiveRecord::AttributeMethods::Write
 
+  attribute :rating_type, :string, default: 'standard'
   attribute :name, :string, default: nil
   attribute :rating_upper, :integer, default: 3000
   attribute :rating_lower, :integer, default: 0
@@ -13,7 +14,7 @@ class PlayerSearchParameter
   attribute :month, :date, default: -> { Record.latest_month }
 
   def initialize(params)
-    super(params.permit(:name, :rating_upper, :rating_lower, :active, :month))
+    super(params.permit(:rating_type, :name, :rating_upper, :rating_lower, :active, :month))
   end
 
   def month=(value)
@@ -22,6 +23,18 @@ class PlayerSearchParameter
     y = value.to_s.split('-')[0].to_i
     m = value.to_s.split('-')[1].to_i
     write_attribute(:month, Date.new(y, m, 5)) if y.positive? && m.positive?
+  end
+
+  def rapid?
+    rating_type == 'rapid'
+  end
+
+  def rating_column
+    rapid? ? :rapid_rating : :standard_rating
+  end
+
+  def rank_column
+    rapid? ? :rapid_rank : :standard_rank
   end
 
   def selected_month

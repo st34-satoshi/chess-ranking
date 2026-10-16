@@ -14,8 +14,8 @@ class Record < ApplicationRecord
   end
 
   def self.filtered_records(search_param)
-    Record.joins(:player).merge(Player.players_name_has(search_param.name)).standard_rating_between(
-      search_param.rating_lower, search_param.rating_upper
+    Record.joins(:player).merge(Player.players_name_has(search_param.name)).where(
+      search_param.rating_column => search_param.rating_lower..search_param.rating_upper
     ).year_is(search_param.month.year).month_is(search_param.month.month)
   end
 

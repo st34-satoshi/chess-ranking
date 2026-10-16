@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module PlayersHelper
+  def ranking_path
+    @search_parameter.rapid? ? rapid_path : players_path
+  end
+
+  def ranking_title
+    @search_parameter.rapid? ? t('views.players.rapid_title') : t('views.players.title')
+  end
+
   def records_with_previous_month(records, previous_records)
     res = []
     records.each do |r|

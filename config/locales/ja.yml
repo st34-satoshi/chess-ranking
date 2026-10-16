@@ -13,8 +13,12 @@ ja:
       last: "&raquo"
       truncate: "..."
     players:
+      rapid_title: "チェスラピッドレーティングランキング"
       title: "チェスレーティングランキング"
       index:
+        rating_type: "種別"
+        standard: "スタンダード"
+        rapid: "ラピッド"
         filter: "検索"
         description: "日本人のチェスレーティングランキング。日本チェス連盟のレーティングでランキングを表示します。2019年から現在まで毎月のデータを見ることができます。"
         rank: "順位"

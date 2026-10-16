@@ -1,13 +1,13 @@
 <% content_for :title do %>
-  <title><%= t('views.players.title') %></title>
+  <title><%= ranking_title %></title>
 <% end %>
 <% content_for :description do %>
   <meta name="description" content="<%= t('views.players.index.description') %>">
 <% end %>
 <% content_for :ogp do %>
-  <meta property="og:title" content="<%= t('views.players.title') %>">
+  <meta property="og:title" content="<%= ranking_title %>">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= players_url %>">
+  <meta property="og:url" content="<%= "#{request.base_url}#{ranking_path}" %>">
   <meta property="og:description" content="<%= t('views.players.index.description') %>">
   <meta property="og:image" content="https://chess-ranking.stu345.com/ogp.jpg">
 <% end %>
@@ -18,9 +18,9 @@
     <div>
     <%= render "layouts/header" %>
     <h1>
-      <%= link_to players_path, {class: "nav-link text-body ps-0"} do %>
+      <%= link_to ranking_path, {class: "nav-link text-body ps-0"} do %>
         <i class="fa-solid fa-ranking-star d-none d-md-inline"></i>
-        <%= t('views.players.title') %>
+        <%= ranking_title %>
       <% end %>
     </h1>
     <div>
@@ -32,12 +32,14 @@
     <div class="table-responsive mt-3">
       <%# filter %>
       <%# form is too long. I want to make the form shorter, but month should be in the form %>
-      <%= form_with model: @search_parameter, url: "/players", method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse2", id: "collapseExample2"} do |form| %>
+      <%= form_with model: @search_parameter, url: ranking_path, method: :get, local: true, skip_enforcing_utf8: true, html: {class: "collapse2", id: "collapseExample2"} do |form| %>
       <%= hidden_field_tag "locale", I18n.locale %>
 
       <div class="mb-3 align-middle">
         <%= form.label :month, t('views.players.index.month'), class: "align-middle" %>
         <%= form.select :month, Record.month_array, {selected: @search_parameter.selected_month}, {class: "align-middle"} %>
+        <%= form.label :rating_type, t('views.players.index.rating_type'), class: "align-middle ms-2" %>
+        <%= form.select :rating_type, [[t('views.players.index.standard'), 'standard'], [t('views.players.index.rapid'), 'rapid']], {}, {class: "align-middle"} %>
         <%= form.submit t('views.players.index.update'), name: nil, class: "btn btn-outline-primary ms-1 btn-sm" %>
       </div>
 
@@ -66,7 +68,7 @@
             <%= form.number_field :rating_upper, step: 1, min: 0, class: "number-field-width" %>
           </li>
           <li class="list-group-item">
-            <%= link_to t('views.players.index.reset'), players_path, class: "btn btn-outline-warning" %>
+            <%= link_to t('views.players.index.reset'), ranking_path, class: "btn btn-outline-warning" %>
             <%= form.submit t('views.players.index.search'), name: nil, class: "btn btn-outline-primary" %>
           </li>
         </ul>
@@ -90,9 +92,9 @@
             <% records_with_previous_month(@records, @last_month_records).each do |record, last_month_record| %>
             <tr>
               <td>
-                <%= record.standard_rank %>
-                <% if last_month_record.present? %>
-                  <% diff = record.standard_rank - last_month_record.standard_rank %>
+                <%= record[@search_parameter.rank_column] %>
+                <% if last_month_record.present? && record[@search_parameter.rank_column].present? && last_month_record[@search_parameter.rank_column].present? %>
+                  <% diff = record[@search_parameter.rank_column] - last_month_record[@search_parameter.rank_column] %>
                   <% if diff == 0 %>
                     <span class="small text-secondary">→<%= diff %></span>
                   <% elsif diff > 0 %>
@@ -106,9 +108,9 @@
                 <%= link_to record.player.name_en, record.player %>
               </td>
               <td>
-                <%= record.standard_rating %>
+                <%= record[@search_parameter.rating_column] %>
                 <% if last_month_record.present? %>
-                  <% diff = record.standard_rating - last_month_record.standard_rating %>
+                  <% diff = record[@search_parameter.rating_column] - last_month_record[@search_parameter.rating_column] %>
                   <% if diff == 0 %>
                     <span class="small text-secondary">→<%= diff %></span>
                   <% elsif diff > 0 %>
@@ -140,7 +142,7 @@
 
     <div class="pt-3 text-center pb-3">
       Share:
-      <%= link_to "https://twitter.com/intent/tweet?text=#{t('views.players.title')}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
+      <%= link_to "https://twitter.com/intent/tweet?text=#{ranking_title}&url=#{request.url}", {target: "_blank", class: "btn btn-outline-primary"} do %>
         <i class="fa-brands fa-x-twitter fa-sm"></i>
       <% end %>
     </div>
