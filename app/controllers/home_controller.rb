@@ -28,10 +28,10 @@ class HomeController < ApplicationController
     scope = scope.where('standard_rating_delta IS NULL OR standard_rating_delta != ?', 0)
     unless @delta_parameter.include_declining
       scope = if @delta_parameter.include_initial
-        scope.where('standard_rating_delta IS NULL OR standard_rating_delta > ?', 0)
-      else
-        scope.where('standard_rating_delta > ?', 0)
-      end
+                scope.where('standard_rating_delta IS NULL OR standard_rating_delta > ?', 0)
+              else
+                scope.where('standard_rating_delta > ?', 0)
+              end
     end
     @delta_entries = scope.order(standard_rating_delta: :desc).page(params[:page]).per(100)
   end

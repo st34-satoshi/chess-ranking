@@ -4,31 +4,28 @@ import "chart.js"
 function createRatingGraph(){
     let records = $('#ratingChart').data('record');
     let dates = $('#ratingChart').data('date');
-    let ratings = [];
-    dates.forEach(function(date){
-      let rating = NaN;
-      if (date in records){
-        rating = records[date]['rating'];
-      }
-      ratings.push(rating);
-    });
-
-    const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
-    const data = {
-      labels: dates,
-      datasets: [{
-        label: 'Rating',
-        backgroundColor: 'rgb(75, 192, 192)',
-        borderColor: 'rgb(75, 192, 192)',
-        data: ratings,
-        segment: {
-          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-          borderDash: ctx => skipped(ctx, [6, 6]),
-        },
-        spanGaps: true,
-        fill: false
-      }]
-    };
+    const series = [
+      { key: 'standard_rating', label: $('#ratingChart').data('standard-label'), color: 'rgb(36, 140, 140)' },
+      { key: 'rapid_rating', label: $('#ratingChart').data('rapid-label'), color: 'rgb(205, 112, 28)' }
+    ];
+    const datasets = series.map(({ key, label, color }) => ({
+      label,
+      backgroundColor: color,
+      borderColor: color,
+      data: dates.map(date => records[date]?.[key] ?? null),
+      segment: {
+        borderDash: ctx => ctx.p0.skip || ctx.p1.skip ? [6, 6] : undefined,
+      },
+      spanGaps: true,
+      fill: false
+    }));
+    const hasRatings = datasets.some(dataset => dataset.data.some(value => value !== null));
+    if (!hasRatings) {
+      $('#ratingChart').hide();
+      $('#ratingNoData').removeClass('d-none');
+      return;
+    }
+    const data = { labels: dates, datasets };
 
     const config = {
       type: 'line',
@@ -58,7 +55,7 @@ function createRankGraph(){
     const data = {
       labels: dates,
       datasets: [{
-        label: 'Ranking',
+        label: $('#rankChart').data('label'),
         backgroundColor: 'rgb(192,75,75)',
         borderColor: 'rgb(192,75,75)',
         data: rankings,
