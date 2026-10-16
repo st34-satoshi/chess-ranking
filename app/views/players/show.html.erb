@@ -42,7 +42,7 @@
       </div>
     </div>
     <h2 class="h5"><%= t('views.players.show.standard_rank') %></h2>
-    <p><%= t('views.players.show.current') %>: <%= @player.current_rank %> / <%= t('views.players.show.best') %>: <%= @player.best_rank %></p>
+    <p><%= t('views.players.show.current') %>: <%= @player.current_rank || '—' %> / <%= t('views.players.show.best') %>: <%= @player.best_rank || '—' %></p>
 
     <div class="pt-3">
       <h2 class="h5"><%= t('views.players.show.rating_history') %></h2>
@@ -52,8 +52,10 @@
     </div>
 
     <div class="pt-3">
-      <h2 class="h5"><%= t('views.players.show.standard_rank') %></h2>
-      <canvas id="rankChart" data-record='<%= @player.record_objects %>' data-date='<%= @player.dates %>' data-label="<%= t('views.players.show.standard_rank') %>"></canvas>
+      <h2 class="h5"><%= t('views.players.show.rank_history') %></h2>
+      <p id="rankNoData" class="d-none" role="status"><%= t('views.players.show.no_rank_data') %></p>
+      <canvas id="rankChart" data-record='<%= @player.rank_record_objects %>' data-date='<%= @player.dates %>'
+              data-standard-label="<%= t('views.players.show.standard') %>" data-rapid-label="<%= t('views.players.show.rapid') %>"></canvas>
     </div>
 
     <div class="pt-3 text-center pb-3">

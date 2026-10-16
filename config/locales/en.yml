@@ -33,6 +33,8 @@ en:
         best: "Best"
         unrated: "Unrated"
         standard_rank: "Standard rank"
+        rank_history: "Rank history"
+        no_rank_data: "No rank data available."
         rating_history: "Rating history"
         no_rating_data: "No rating data available."
         description: "%{name} chess rating ranking. The rating transitions and rating ranking transitions from 2019 to the present are displayed."

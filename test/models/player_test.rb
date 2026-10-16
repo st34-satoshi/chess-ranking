@@ -17,11 +17,39 @@ class PlayerTest < ActiveSupport::TestCase
                    '202603' => { 'standard_rating' => nil, 'rapid_rating' => 1750 },
                    '202604' => { 'standard_rating' => 1850, 'rapid_rating' => nil }
                  }, JSON.parse(@player.rating_record_objects))
-    assert_equal %w[202601 202604], JSON.parse(@player.record_objects).keys
     assert_equal 1850, @player.current_rating
     assert_equal 1850, @player.best_rating
     assert_equal 15, @player.current_rank
     assert_equal 15, @player.best_rank
+  end
+
+  test 'rank histories retain independent gaps and exclude unrated or invalid ranks' do
+    @player.records.find_by!(month: '2026-01-01').update!(rapid_rank: 30)
+    @player.records.find_by!(month: '2026-03-01').update!(rapid_rank: 25)
+    @player.records.find_by!(month: '2026-04-01').update!(rapid_rank: 10)
+    @player.records.create!(month: '2026-05-01', standard_rating: 1800, rapid_rating: 1700)
+    @player.records.create!(month: '2026-06-01', standard_rating: 1800, rapid_rating: 1700,
+                            standard_rank: 0, rapid_rank: -1)
+    assert_equal({
+                   '202601' => { 'standard_rank' => 20, 'rapid_rank' => 30 },
+                   '202603' => { 'standard_rank' => nil, 'rapid_rank' => 25 },
+                   '202604' => { 'standard_rank' => 15, 'rapid_rank' => nil },
+                   '202605' => { 'standard_rank' => nil, 'rapid_rank' => nil },
+                   '202606' => { 'standard_rank' => nil, 'rapid_rank' => nil }
+                 }, JSON.parse(@player.rank_record_objects))
+  end
+
+  test 'rank summaries ignore missing and unrated ranks' do
+    @player.records.update_all(standard_rank: nil)
+    assert_nil @player.current_rank
+    assert_nil @player.best_rank
+
+    @player.records.find_by!(month: '2026-01-01').update!(standard_rank: 20)
+    @player.records.find_by!(month: '2026-03-01').update!(standard_rank: 1)
+    @player.records.find_by!(month: '2026-04-01').update!(standard_rank: 0)
+    @player.records.reload
+    assert_nil @player.current_rank
+    assert_equal 20, @player.best_rank
   end
 
   test 'current rapid rating does not carry forward a historical rating' do

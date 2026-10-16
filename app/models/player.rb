@@ -41,15 +41,13 @@ class Player < ApplicationRecord
     date_array
   end
 
-  def record_objects
-    # return {date: {rating: x, rank: y}}
-    r = {}
-    this_records.each do |record|
-      next if record.standard_rating.zero?
-
-      r[month_to_int(record.month)] = { rating: record.standard_rating, rank: record.standard_rank }
-    end
-    r.to_json
+  def rank_record_objects
+    this_records.to_h do |record|
+      [month_to_int(record.month), {
+        standard_rank: record.standard_rating.positive? && record.standard_rank&.positive? ? record.standard_rank : nil,
+        rapid_rank: record.rapid_rating.positive? && record.rapid_rank&.positive? ? record.rapid_rank : nil
+      }]
+    end.to_json
   end
 
   def rating_record_objects
@@ -87,19 +85,13 @@ class Player < ApplicationRecord
   end
 
   def best_rank
-    best_rank = 9_999_999
-    this_records.each do |record|
-      best_rank = [best_rank, record.standard_rank].min
-    end
-    best_rank
+    this_records.select { |record| record.standard_rating.positive? }
+                .map(&:standard_rank).compact.select(&:positive?).min
   end
 
   def current_rank
-    r = this_records
-    r = r.sort do |a, b|
-      a.month <=> b.month
-    end
-    r.last.standard_rank
+    record = this_records.max_by(&:month)
+    record.standard_rank if record&.standard_rating&.positive? && record.standard_rank&.positive?
   end
 
   def name_of(locale)

@@ -32,6 +32,8 @@ ja:
         best: "最高値"
         unrated: "未レート"
         standard_rank: "スタンダード順位"
+        rank_history: "順位推移"
+        no_rank_data: "順位データはありません。"
         rating_history: "レーティング推移"
         no_rating_data: "レーティングデータはありません。"
         description: "%{name}さんのチェスレーティングランキング。2019年から現在までのレーティングの推移とレーティングランキングの推移を表示しています。"
