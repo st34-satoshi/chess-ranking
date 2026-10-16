@@ -42,31 +42,28 @@ function createRatingGraph(){
 function createRankGraph(){
     let records = $('#rankChart').data('record');
     let dates = $('#rankChart').data('date');
-    let rankings = [];
-    dates.forEach(function(date){
-      let rank = NaN;
-      if (date in records){
-        rank = records[date]['rank'];
-      }
-      rankings.push(rank);
-    });
-
-    const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
-    const data = {
-      labels: dates,
-      datasets: [{
-        label: $('#rankChart').data('label'),
-        backgroundColor: 'rgb(192,75,75)',
-        borderColor: 'rgb(192,75,75)',
-        data: rankings,
-        segment: {
-          borderColor: ctx => skipped(ctx, 'rgb(0,0,0,0.2)'),
-          borderDash: ctx => skipped(ctx, [6, 6]),
-        },
-        spanGaps: true,
-        fill: false
-      }]
-    };
+    const series = [
+      { key: 'standard_rank', label: $('#rankChart').data('standard-label'), color: 'rgb(36, 140, 140)' },
+      { key: 'rapid_rank', label: $('#rankChart').data('rapid-label'), color: 'rgb(205, 112, 28)' }
+    ];
+    const datasets = series.map(({ key, label, color }) => ({
+      label,
+      backgroundColor: color,
+      borderColor: color,
+      data: dates.map(date => records[date]?.[key] ?? null),
+      segment: {
+        borderDash: ctx => ctx.p0.skip || ctx.p1.skip ? [6, 6] : undefined,
+      },
+      spanGaps: true,
+      fill: false
+    }));
+    const hasRanks = datasets.some(dataset => dataset.data.some(value => value !== null));
+    if (!hasRanks) {
+      $('#rankChart').hide();
+      $('#rankNoData').removeClass('d-none');
+      return;
+    }
+    const data = { labels: dates, datasets };
 
     const config = {
       type: 'line',
@@ -75,7 +72,8 @@ function createRankGraph(){
           scales: {
             y: {
               reverse: true,
-              axis: 'r'
+              min: 1,
+              ticks: { precision: 0 }
             }
           }
         }
