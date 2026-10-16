@@ -14,8 +14,12 @@ en:
       last: "&raquo"
       truncate: "..."
     players:
+      rapid_title: "Chess Rapid Rating Ranking in Japan"
       title: "Chess Rating Ranking in Japan"
       index:
+        rating_type: "Type"
+        standard: "Standard"
+        rapid: "Rapid"
         filter: "filter"
         description: "Japanese chess rating ranking. Display ranking by NCS rating for chess. You can see monthly data from 2019 to present."
         rank: "Rank"
